@@ -9,6 +9,9 @@ namespace WinFormsApplication.Controllers
 {
     static internal class DatabaseController
     {
-        
+        static internal void methodName()
+        {
+            DatabaseMethods.getUser(); //Example
+        }
     }
 }

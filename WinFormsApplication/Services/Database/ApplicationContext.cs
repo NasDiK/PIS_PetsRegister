@@ -10,7 +10,7 @@ namespace WinFormsApplication.Services.Database
 {
     internal class ApplicationContext : DbContext
     {
-        public DbSet<Roles> roles { get;set; } //TODO написать изменяемые таблицы
+        public DbSet<Role> roles { get;set; } //TODO написать изменяемые таблицы
         public ApplicationContext()
         {
             Database.EnsureCreated(); //Comment to work with Migrations

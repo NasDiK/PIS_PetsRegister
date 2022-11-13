@@ -1,5 +1,9 @@
+using WinFormsApplication.Forms.MainForm.AllAdvertisments;
+using WinFormsApplication.Controllers;
+using WinFormsApplication.Utils;
 using WinFormsApplication.Models.Entities;
-using ApplicationContext = WinFormsApplication.Services.Database.ApplicationContext;
+//ОБРАЩЕНИЕ С ДБ ТОЛЬКО ЧЕРЕЗ КОНТРОЛЛЕРЫ.
+//Если нужно дописать метод в БД то выносите это в контроллер, предварительно создав метод в сервисе БД
 
 namespace WinFormsApplication
 {
@@ -8,11 +12,55 @@ namespace WinFormsApplication
         public AuthForm()
         {
             InitializeComponent();
-            using (ApplicationContext db = new ApplicationContext())
+            this.Text += " - "+Properties.Resources.applicationCaption;
+            this.passwordMaskCheckbox.Checked = true;
+        }
+
+        private void guestButton_Click(object sender, EventArgs e)
+        {
+            AllAdsForm allAdsForm = new AllAdsForm( new User() { Id = -1, Role = null }); //TODO constructor (new User(-1,"guest"))
+            allAdsForm.Show();
+            this.Hide();
+        }
+
+        private void authButton_Click(object sender, EventArgs e)
+        {
+            //TODO test // regex101.com потренится
+
+            //MessageBox.Show(Utils.Validator.isSolidTextField("").ToString());
+            //MessageBox.Show(Utils.Validator.isSolidTextField(" ").ToString());
+            //MessageBox.Show(Utils.Validator.isSolidTextField("12312321 12312312").ToString());
+            //MessageBox.Show(Utils.Validator.isSolidTextField("123123 gfg").ToString());
+            //MessageBox.Show(Utils.Validator.isSolidTextField("123123fsf").ToString());
+            //MessageBox.Show(Utils.Validator.isSolidTextField("fdhjghsjdfghjksd1231123").ToString());
+
+            if(!Validator.isSolidTextField(loginTextBox.Text))
             {
-                db.roles.Add(new Roles() { Name="Администратор"});
-                db.SaveChanges();
+                MessageBox.Show("Невалидный логин", "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            if (!Validator.isTextWithoutSpaces(passwordTextBox.Text) || passwordTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("Невалидный пароль", "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var user = AuthController.AuthUser(loginTextBox.Text, passwordTextBox.Text);
+            if (user != null)
+            {
+                AllAdsForm allAdsForm = new AllAdsForm(user);
+                allAdsForm.Show();
+                this.Hide();
+                return;
+            }
+            MessageBox.Show("Неправильные данные");
+        }
+
+        private void passwordMaskCheckbox_CheckStateChanged(object sender, EventArgs e)
+        {
+            passwordTextBox.PasswordChar = passwordMaskCheckbox.Checked ? '*' : new TextBox().PasswordChar; 
+            //TODO придумать как убрать этот костыль ахахах
         }
     }
 }

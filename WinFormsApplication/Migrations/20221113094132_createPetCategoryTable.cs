@@ -1,18 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using WinFormsApplication.Models.Entities;
 
 #nullable disable
 
 namespace WinFormsApplication.Migrations
 {
     /// <inheritdoc />
-    public partial class createSettlementTable : Migration
+    public partial class createPetCategoryTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-               name: "Settlements",
+               name: "PetCategories",
                columns: table => new
                {
                    Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -21,7 +20,7 @@ namespace WinFormsApplication.Migrations
                },
                constraints: table =>
                {
-                   table.PrimaryKey("PK_Settlement", x => x.Id);
+                   table.PrimaryKey("PK_petCategory", x => x.Id);
                });
         }
 
@@ -29,7 +28,7 @@ namespace WinFormsApplication.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Settlements");
+                name: "PetCategories");
         }
     }
 }

@@ -14,6 +14,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
     public partial class AllAdsForm : Form
     {
+        private Filter filter = new Filter();
         private User? user;
 
         internal AllAdsForm(User? user = null)
@@ -49,6 +50,19 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
             AddChangeAdForm addChangeAdForm = new AddChangeAdForm(new Advertisment()); //TODO getAd(); и в конструктор
             addChangeAdForm.ShowDialog();
+        }
+
+        private void filterButton_Click(object sender, EventArgs e)
+        {
+            filter.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+            filter.StartPosition = FormStartPosition.Manual;
+
+            if (filter.Location.X + filter.Width >= SystemInformation.PrimaryMonitorSize.Width)
+                filter.Location = new Point(SystemInformation.PrimaryMonitorSize.Width - filter.Width, filter.Location.Y);
+            if (filter.Location.Y + filter.Height >= SystemInformation.PrimaryMonitorSize.Height)
+                filter.Location = new Point(filter.Location.X, SystemInformation.PrimaryMonitorSize.Height - filter.Height - 50);
+
+            filter.ShowDialog();
         }
     }
 }

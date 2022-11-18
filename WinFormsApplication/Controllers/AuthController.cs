@@ -8,7 +8,7 @@ namespace WinFormsApplication.Controllers
 {
     internal class AuthController
     {
-        internal static User AuthUser(string username, string password)
+        internal static User? AuthUser(string username, string password)
         {
             //TODO return Users from DB Controller
             return null;

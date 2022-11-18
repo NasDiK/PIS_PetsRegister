@@ -89,6 +89,7 @@
             this.filterButton.TabIndex = 1;
             this.filterButton.Text = "Фильтр";
             this.filterButton.UseVisualStyleBackColor = true;
+            this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
             // 
             // panelСontent2
             // 

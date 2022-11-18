@@ -1,7 +1,6 @@
 using WinFormsApplication.Forms.MainForm.AllAdvertisments;
 using WinFormsApplication.Controllers;
 using WinFormsApplication.Utils;
-using WinFormsApplication.Models.Entities;
 //ОБРАЩЕНИЕ С ДБ ТОЛЬКО ЧЕРЕЗ КОНТРОЛЛЕРЫ.
 //Если нужно дописать метод в БД то выносите это в контроллер, предварительно создав метод в сервисе БД
 
@@ -18,7 +17,7 @@ namespace WinFormsApplication
 
         private void guestButton_Click(object sender, EventArgs e)
         {
-            AllAdsForm allAdsForm = new AllAdsForm( new User() { Id = -1, Role = null }); //TODO constructor (new User(-1,"guest"))
+            AllAdsForm allAdsForm = new AllAdsForm();
             allAdsForm.Show();
             this.Hide();
         }
@@ -34,7 +33,7 @@ namespace WinFormsApplication
             //MessageBox.Show(Utils.Validator.isSolidTextField("123123fsf").ToString());
             //MessageBox.Show(Utils.Validator.isSolidTextField("fdhjghsjdfghjksd1231123").ToString());
 
-            if(!Validator.isSolidTextField(loginTextBox.Text))
+            if (!Validator.isSolidTextField(loginTextBox.Text))
             {
                 MessageBox.Show("Невалидный логин", "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

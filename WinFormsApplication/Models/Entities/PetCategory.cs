@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WinFormsApplication.Models.Entities
+namespace WinFormsApplication;
+
+public partial class PetCategory
 {
-    internal class PetCategory
-    {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-    }
+    public long Id { get; set; }
+
+    public string? Name { get; set; }
+
+    public virtual ICollection<Advertisment> Advertisments { get; } = new List<Advertisment>();
 }

@@ -1,23 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WinFormsApplication.Models.Entities
+namespace WinFormsApplication;
+
+public partial class Advertisment
 {
-    internal class Advertisment
-    {
-        public int Id { get; set; }
-        public string? PetName { get; set; }
-        public DateTime? BirthDate { get; set; } //TODO настроить getset на короткую дату
-        public Settlement? Settlement { get; set; } // id ?
-        public PetCategory? PetCategory { get; set; } // id ?
-        public User? PetOwner { get; set; } // id ?
-        public DateTime? RegisterDate { get; set; } //TODO настроить getset на короткую дату
-        public string? PetPassportNumber { get; set; } //TODO валидатор
-        public string? BreedName { get; set; }
-        public string? AdditionalInformation { get; set; }
-        public DateTime? CreationDateTime { get; set; }
-    }
+    public long Id { get; set; }
+
+    public string PetName { get; set; } = null!;
+
+    public string? BirthDate { get; set; }
+
+    public long SettlementId { get; set; }
+
+    public long PetCategoryId { get; set; }
+
+    public long PetOwnerId { get; set; }
+
+    public string? RegisterDate { get; set; }
+
+    public string? PetPassportNumber { get; set; }
+
+    public string? BreedName { get; set; }
+
+    public string? AdditionalInformation { get; set; }
+
+    public string CreationDateTime { get; set; } = null!;
+
+    public virtual PetCategory PetCategory { get; set; } = null!;
+
+    public virtual User PetOwner { get; set; } = null!;
+
+    public virtual ICollection<Photography> Photographies { get; } = new List<Photography>();
+
+    public virtual ICollection<Response> Responses { get; } = new List<Response>();
+
+    public virtual Settlement Settlement { get; set; } = null!;
 }

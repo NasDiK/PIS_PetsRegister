@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using WinFormsApplication.Models.Entities;
 
 #nullable disable
 

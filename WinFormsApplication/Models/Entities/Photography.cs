@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WinFormsApplication.Models.Entities
+namespace WinFormsApplication;
+
+public partial class Photography
 {
-    internal class Photography
-    {
-        public int Id { get; set; }
-        public Advertisment? Advertisment { get; set; }
-        public string? FilePath { get; set; }
-        public bool isGeneral { get; set; }
-    }
+    public long Id { get; set; }
+
+    public long AdvertismentId { get; set; }
+
+    public string Filepath { get; set; } = null!;
+
+    public byte[]? IsGeneral { get; set; }
+
+    public virtual Advertisment Advertisment { get; set; } = null!;
 }

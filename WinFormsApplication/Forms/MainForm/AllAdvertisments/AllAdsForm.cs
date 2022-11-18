@@ -9,16 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
-using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
     public partial class AllAdsForm : Form
     {
         private User? user;
-#pragma warning disable CS8625 // Литерал, равный NULL, не может быть преобразован в ссылочный тип, не допускающий значение NULL.
-        internal AllAdsForm(User user = null)
-#pragma warning restore CS8625 // Литерал, равный NULL, не может быть преобразован в ссылочный тип, не допускающий значение NULL.
+
+        internal AllAdsForm(User? user = null)
+
         {
             InitializeComponent();
             this.Text += " - " + Properties.Resources.applicationCaption;

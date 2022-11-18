@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WinFormsApplication.Services.Database;
-using ApplicationContext = WinFormsApplication.Services.Database.ApplicationContext;
 
 #nullable disable
 

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 {
@@ -21,9 +20,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
 
         Advertisment? advertisment;
-#pragma warning disable CS8625 // Литерал, равный NULL, не может быть преобразован в ссылочный тип, не допускающий значение NULL.
-        internal AddChangeAdForm(Advertisment advertisment = null)
-#pragma warning restore CS8625 // Литерал, равный NULL, не может быть преобразован в ссылочный тип, не допускающий значение NULL.
+        internal AddChangeAdForm(Advertisment? advertisment = null)
         {
             InitializeComponent();
             this.advertisment = advertisment;
@@ -63,7 +60,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             {
                 MessageBox.Show($"Произошла ошибка при {(this.advertisment == null ? "создании" : "редактировании")} объявления");
             }
-           
+
         }
     }
 }

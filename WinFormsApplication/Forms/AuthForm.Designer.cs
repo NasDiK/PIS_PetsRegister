@@ -41,42 +41,45 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 13);
+            this.label2.Location = new System.Drawing.Point(7, 17);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 15);
+            this.label2.Size = new System.Drawing.Size(59, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Логин: ";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 40);
+            this.label3.Location = new System.Drawing.Point(7, 53);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
+            this.label3.Size = new System.Drawing.Size(65, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "Пароль:";
             // 
             // loginTextBox
             // 
-            this.loginTextBox.Location = new System.Drawing.Point(59, 10);
+            this.loginTextBox.Location = new System.Drawing.Point(77, 13);
+            this.loginTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.loginTextBox.Name = "loginTextBox";
             this.loginTextBox.PlaceholderText = "Введите имя пользователя...";
-            this.loginTextBox.Size = new System.Drawing.Size(131, 23);
+            this.loginTextBox.Size = new System.Drawing.Size(172, 27);
             this.loginTextBox.TabIndex = 3;
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(59, 37);
+            this.passwordTextBox.Location = new System.Drawing.Point(77, 49);
+            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PlaceholderText = "Введите пароль...";
-            this.passwordTextBox.Size = new System.Drawing.Size(131, 23);
+            this.passwordTextBox.Size = new System.Drawing.Size(172, 27);
             this.passwordTextBox.TabIndex = 4;
             // 
             // authButton
             // 
-            this.authButton.Location = new System.Drawing.Point(6, 81);
+            this.authButton.Location = new System.Drawing.Point(7, 108);
+            this.authButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.authButton.Name = "authButton";
-            this.authButton.Size = new System.Drawing.Size(75, 23);
+            this.authButton.Size = new System.Drawing.Size(86, 31);
             this.authButton.TabIndex = 5;
             this.authButton.Text = "Войти";
             this.authButton.UseVisualStyleBackColor = true;
@@ -84,9 +87,10 @@
             // 
             // guestButton
             // 
-            this.guestButton.Location = new System.Drawing.Point(89, 81);
+            this.guestButton.Location = new System.Drawing.Point(112, 108);
+            this.guestButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guestButton.Name = "guestButton";
-            this.guestButton.Size = new System.Drawing.Size(101, 23);
+            this.guestButton.Size = new System.Drawing.Size(137, 31);
             this.guestButton.TabIndex = 6;
             this.guestButton.Text = "Войти как гость";
             this.guestButton.UseVisualStyleBackColor = true;
@@ -95,9 +99,10 @@
             // passwordMaskCheckbox
             // 
             this.passwordMaskCheckbox.AutoSize = true;
-            this.passwordMaskCheckbox.Location = new System.Drawing.Point(10, 62);
+            this.passwordMaskCheckbox.Location = new System.Drawing.Point(11, 83);
+            this.passwordMaskCheckbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.passwordMaskCheckbox.Name = "passwordMaskCheckbox";
-            this.passwordMaskCheckbox.Size = new System.Drawing.Size(122, 19);
+            this.passwordMaskCheckbox.Size = new System.Drawing.Size(152, 24);
             this.passwordMaskCheckbox.TabIndex = 7;
             this.passwordMaskCheckbox.Text = "Скрывать пароль";
             this.passwordMaskCheckbox.UseVisualStyleBackColor = true;
@@ -105,9 +110,9 @@
             // 
             // AuthForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(202, 116);
+            this.ClientSize = new System.Drawing.Size(264, 155);
             this.Controls.Add(this.passwordMaskCheckbox);
             this.Controls.Add(this.guestButton);
             this.Controls.Add(this.authButton);
@@ -117,6 +122,7 @@
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AuthForm";

@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WinFormsApplication.Models.Entities
+namespace WinFormsApplication;
+
+public partial class User
 {
-    internal class User
-    {
-        public int Id { get; set; }
-        public string Username { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public string? FullName { get; set; }
-        public Role? Role { get; set; } = new Role() { Id = -1, Name = "Guest" }; //Тут разве не ID?
-        public string? PhoneNumber { get; set; }
-    }
+    public long Id { get; set; }
+
+    public string Username { get; set; } = null!;
+
+    public string Password { get; set; } = null!;
+
+    public string? FullName { get; set; }
+
+    public long RoleId { get; set; }
+
+    public string? PhoneNumber { get; set; }
+
+    public virtual ICollection<Advertisment> Advertisments { get; } = new List<Advertisment>();
+
+    public virtual ICollection<Response> Responses { get; } = new List<Response>();
+
+    public virtual Role Role { get; set; } = null!;
 }

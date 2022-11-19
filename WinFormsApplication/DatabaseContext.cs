@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication;
 
@@ -17,11 +18,11 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<Advertisment> Advertisments { get; set; }
 
+    public virtual DbSet<Pet> Pets { get; set; }
+
     public virtual DbSet<PetCategory> PetCategories { get; set; }
 
     public virtual DbSet<Photography> Photographies { get; set; }
-
-    public virtual DbSet<Response> Responses { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
@@ -30,8 +31,7 @@ public partial class DatabaseContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlite("Data source=./services/database/database.db");
+        => optionsBuilder.UseSqlite("Data source=../../../services/database/database.db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -54,6 +54,13 @@ public partial class DatabaseContext : DbContext
                 .OnDelete(DeleteBehavior.SetNull);
         });
 
+        modelBuilder.Entity<Pet>(entity =>
+        {
+            entity.HasOne(d => d.Owner).WithMany(p => p.Pets)
+                .HasForeignKey(d => d.OwnerId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        });
+
         modelBuilder.Entity<Photography>(entity =>
         {
             entity.Property(e => e.AdvertismentId).HasColumnName("Advertisment_Id");
@@ -63,23 +70,6 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Advertisment).WithMany(p => p.Photographies)
                 .HasForeignKey(d => d.AdvertismentId)
-                .OnDelete(DeleteBehavior.SetNull);
-        });
-
-        modelBuilder.Entity<Response>(entity =>
-        {
-            entity.Property(e => e.AdvertismentId).HasColumnName("Advertisment_Id");
-            entity.Property(e => e.IsGeneral)
-                .HasColumnType("BOOLEAN")
-                .HasColumnName("isGeneral");
-            entity.Property(e => e.UserId).HasColumnName("User_Id");
-
-            entity.HasOne(d => d.Advertisment).WithMany(p => p.Responses)
-                .HasForeignKey(d => d.AdvertismentId)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            entity.HasOne(d => d.User).WithMany(p => p.Responses)
-                .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
         });
 

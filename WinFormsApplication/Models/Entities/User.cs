@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WinFormsApplication;
+namespace WinFormsApplication.Models.Entities;
 
 public partial class User
 {
     public long Id { get; set; }
 
-    public string Username { get; set; } = null!;
+    public string? Username { get; set; }
 
     public string Password { get; set; } = null!;
 
-    public string? FullName { get; set; }
+    public string FullName { get; set; } = null!;
 
     public long RoleId { get; set; }
 
@@ -19,7 +19,7 @@ public partial class User
 
     public virtual ICollection<Advertisment> Advertisments { get; } = new List<Advertisment>();
 
-    public virtual ICollection<Response> Responses { get; } = new List<Response>();
+    public virtual ICollection<Pet> Pets { get; } = new List<Pet>();
 
     public virtual Role Role { get; set; } = null!;
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WinFormsApplication;
+namespace WinFormsApplication.Models.Entities;
 
 public partial class Role
 {

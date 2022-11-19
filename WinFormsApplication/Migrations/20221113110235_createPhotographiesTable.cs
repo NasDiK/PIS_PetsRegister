@@ -18,7 +18,7 @@ namespace WinFormsApplication.Migrations
                       .Annotation("Sqlite:Autoincrement", true),
                   Advertisment_Id = table.Column<int>(type: "INTEGER", nullable: false),
                   Filepath = table.Column<string>(type: "TEXT", nullable: false),
-                  isGeneral = table.Column<bool>(type: "BOOLEAN", nullable: true)
+                  isGeneral = table.Column<bool>(type: "TEXT", nullable: true)
               },
               constraints: table =>
               {

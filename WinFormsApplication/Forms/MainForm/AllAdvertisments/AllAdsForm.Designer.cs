@@ -52,9 +52,8 @@
             this.toolbarPanel1.Controls.Add(this.footerAddonsPanel);
             this.toolbarPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.toolbarPanel1.Location = new System.Drawing.Point(0, 0);
-            this.toolbarPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.toolbarPanel1.Name = "toolbarPanel1";
-            this.toolbarPanel1.Size = new System.Drawing.Size(811, 79);
+            this.toolbarPanel1.Size = new System.Drawing.Size(710, 59);
             this.toolbarPanel1.TabIndex = 0;
             // 
             // footerAddonsPanel
@@ -62,30 +61,27 @@
             this.footerAddonsPanel.Controls.Add(this.displayMyCheckbox);
             this.footerAddonsPanel.Controls.Add(this.filterButton);
             this.footerAddonsPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.footerAddonsPanel.Location = new System.Drawing.Point(543, 0);
-            this.footerAddonsPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.footerAddonsPanel.Location = new System.Drawing.Point(476, 0);
             this.footerAddonsPanel.Name = "footerAddonsPanel";
-            this.footerAddonsPanel.Size = new System.Drawing.Size(268, 79);
+            this.footerAddonsPanel.Size = new System.Drawing.Size(234, 59);
             this.footerAddonsPanel.TabIndex = 2;
             // 
             // displayMyCheckbox
             // 
             this.displayMyCheckbox.AutoSize = true;
             this.displayMyCheckbox.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.displayMyCheckbox.Location = new System.Drawing.Point(29, 48);
-            this.displayMyCheckbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.displayMyCheckbox.Location = new System.Drawing.Point(50, 35);
             this.displayMyCheckbox.Name = "displayMyCheckbox";
-            this.displayMyCheckbox.Size = new System.Drawing.Size(227, 27);
+            this.displayMyCheckbox.Size = new System.Drawing.Size(181, 21);
             this.displayMyCheckbox.TabIndex = 0;
             this.displayMyCheckbox.Text = "Отображать только мои";
             this.displayMyCheckbox.UseVisualStyleBackColor = true;
             // 
             // filterButton
             // 
-            this.filterButton.Location = new System.Drawing.Point(170, 13);
-            this.filterButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.filterButton.Location = new System.Drawing.Point(149, 10);
             this.filterButton.Name = "filterButton";
-            this.filterButton.Size = new System.Drawing.Size(86, 31);
+            this.filterButton.Size = new System.Drawing.Size(75, 23);
             this.filterButton.TabIndex = 1;
             this.filterButton.Text = "Фильтр";
             this.filterButton.UseVisualStyleBackColor = true;
@@ -96,23 +92,21 @@
             this.panelСontent2.Controls.Add(this.dataGridView1);
             this.panelСontent2.Controls.Add(this.panelFooter3);
             this.panelСontent2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelСontent2.Location = new System.Drawing.Point(0, 79);
-            this.panelСontent2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelСontent2.Location = new System.Drawing.Point(0, 59);
             this.panelСontent2.Name = "panelСontent2";
-            this.panelСontent2.Padding = new System.Windows.Forms.Padding(11, 13, 11, 0);
-            this.panelСontent2.Size = new System.Drawing.Size(811, 438);
+            this.panelСontent2.Padding = new System.Windows.Forms.Padding(10, 10, 10, 0);
+            this.panelСontent2.Size = new System.Drawing.Size(710, 329);
             this.panelСontent2.TabIndex = 1;
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(11, 13);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dataGridView1.Location = new System.Drawing.Point(10, 10);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(789, 353);
+            this.dataGridView1.Size = new System.Drawing.Size(690, 265);
             this.dataGridView1.TabIndex = 1;
             // 
             // panelFooter3
@@ -122,19 +116,17 @@
             this.panelFooter3.Controls.Add(this.chngAdButton);
             this.panelFooter3.Controls.Add(this.openAdButton);
             this.panelFooter3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelFooter3.Location = new System.Drawing.Point(11, 366);
-            this.panelFooter3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelFooter3.Location = new System.Drawing.Point(10, 275);
             this.panelFooter3.Name = "panelFooter3";
-            this.panelFooter3.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
-            this.panelFooter3.Size = new System.Drawing.Size(789, 72);
+            this.panelFooter3.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.panelFooter3.Size = new System.Drawing.Size(690, 54);
             this.panelFooter3.TabIndex = 0;
             // 
             // addAdButton
             // 
-            this.addAdButton.Location = new System.Drawing.Point(278, 8);
-            this.addAdButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.addAdButton.Location = new System.Drawing.Point(243, 6);
             this.addAdButton.Name = "addAdButton";
-            this.addAdButton.Size = new System.Drawing.Size(141, 55);
+            this.addAdButton.Size = new System.Drawing.Size(123, 41);
             this.addAdButton.TabIndex = 3;
             this.addAdButton.Text = "Подать объявление";
             this.addAdButton.UseVisualStyleBackColor = true;
@@ -142,20 +134,18 @@
             // 
             // delAddButton
             // 
-            this.delAddButton.Location = new System.Drawing.Point(185, 8);
-            this.delAddButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.delAddButton.Location = new System.Drawing.Point(162, 6);
             this.delAddButton.Name = "delAddButton";
-            this.delAddButton.Size = new System.Drawing.Size(86, 55);
+            this.delAddButton.Size = new System.Drawing.Size(75, 41);
             this.delAddButton.TabIndex = 2;
             this.delAddButton.Text = "Удалить";
             this.delAddButton.UseVisualStyleBackColor = true;
             // 
             // chngAdButton
             // 
-            this.chngAdButton.Location = new System.Drawing.Point(93, 8);
-            this.chngAdButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chngAdButton.Location = new System.Drawing.Point(81, 6);
             this.chngAdButton.Name = "chngAdButton";
-            this.chngAdButton.Size = new System.Drawing.Size(86, 55);
+            this.chngAdButton.Size = new System.Drawing.Size(75, 41);
             this.chngAdButton.TabIndex = 1;
             this.chngAdButton.Text = "Изменить";
             this.chngAdButton.UseVisualStyleBackColor = true;
@@ -163,10 +153,9 @@
             // 
             // openAdButton
             // 
-            this.openAdButton.Location = new System.Drawing.Point(0, 8);
-            this.openAdButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.openAdButton.Location = new System.Drawing.Point(0, 6);
             this.openAdButton.Name = "openAdButton";
-            this.openAdButton.Size = new System.Drawing.Size(86, 55);
+            this.openAdButton.Size = new System.Drawing.Size(75, 41);
             this.openAdButton.TabIndex = 0;
             this.openAdButton.Text = "Открыть";
             this.openAdButton.UseVisualStyleBackColor = true;
@@ -174,13 +163,12 @@
             // 
             // AllAdsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 517);
+            this.ClientSize = new System.Drawing.Size(710, 388);
             this.Controls.Add(this.panelСontent2);
             this.Controls.Add(this.toolbarPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "AllAdsForm";
             this.Text = "Все объявления";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AllAdsForm_FormClosed);

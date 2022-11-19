@@ -1,4 +1,3 @@
-
 namespace WinFormsApplication
 {
     internal static class Program

@@ -16,9 +16,9 @@ namespace WinFormsApplication.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false),
+                    Username = table.Column<string>(type: "TEXT", nullable: true),
                     Password = table.Column<string>(type: "TEXT", nullable: false),
-                    FullName = table.Column<string>(type: "TEXT", nullable: true),
+                    FullName = table.Column<string>(type: "TEXT", nullable: false),
                     RoleId = table.Column<int>(type: "INTEGER", nullable: false),
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: true)
                 },

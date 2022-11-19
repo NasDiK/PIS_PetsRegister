@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
+using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {

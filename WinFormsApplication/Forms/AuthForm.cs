@@ -17,7 +17,7 @@ namespace WinFormsApplication
 
         private void guestButton_Click(object sender, EventArgs e)
         {
-            AllAdsForm allAdsForm = new AllAdsForm();
+            AllAdsForm allAdsForm = new AllAdsForm(this);
             allAdsForm.Show();
             this.Hide();
         }
@@ -33,7 +33,7 @@ namespace WinFormsApplication
             //MessageBox.Show(Utils.Validator.isSolidTextField("123123fsf").ToString());
             //MessageBox.Show(Utils.Validator.isSolidTextField("fdhjghsjdfghjksd1231123").ToString());
 
-            if (!Validator.isSolidTextField(loginTextBox.Text))
+            if (!Validator.isUserName(loginTextBox.Text) && !Validator.isTextPhoneNumber(loginTextBox.Text))
             {
                 MessageBox.Show("Невалидный логин", "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -48,7 +48,7 @@ namespace WinFormsApplication
             var user = AuthController.AuthUser(loginTextBox.Text, passwordTextBox.Text);
             if (user != null)
             {
-                AllAdsForm allAdsForm = new AllAdsForm(user);
+                AllAdsForm allAdsForm = new AllAdsForm(this, user);
                 allAdsForm.Show();
                 this.Hide();
                 return;

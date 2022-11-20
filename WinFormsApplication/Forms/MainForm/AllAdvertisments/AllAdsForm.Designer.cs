@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AllAdsForm));
             this.toolbarPanel1 = new System.Windows.Forms.Panel();
+            this.myPetsButton = new System.Windows.Forms.Button();
             this.footerAddonsPanel = new System.Windows.Forms.Panel();
             this.displayMyCheckbox = new System.Windows.Forms.CheckBox();
             this.filterButton = new System.Windows.Forms.Button();
@@ -49,12 +50,24 @@
             // 
             // toolbarPanel1
             // 
+            this.toolbarPanel1.Controls.Add(this.myPetsButton);
             this.toolbarPanel1.Controls.Add(this.footerAddonsPanel);
             this.toolbarPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.toolbarPanel1.Location = new System.Drawing.Point(0, 0);
             this.toolbarPanel1.Name = "toolbarPanel1";
             this.toolbarPanel1.Size = new System.Drawing.Size(710, 59);
             this.toolbarPanel1.TabIndex = 0;
+            // 
+            // myPetsButton
+            // 
+            this.myPetsButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.myPetsButton.Location = new System.Drawing.Point(10, 10);
+            this.myPetsButton.Name = "myPetsButton";
+            this.myPetsButton.Size = new System.Drawing.Size(92, 43);
+            this.myPetsButton.TabIndex = 3;
+            this.myPetsButton.Text = "Мои ДЖ";
+            this.myPetsButton.UseVisualStyleBackColor = true;
+            this.myPetsButton.Click += new System.EventHandler(this.myPetsButton_Click);
             // 
             // footerAddonsPanel
             // 
@@ -118,7 +131,7 @@
             this.panelFooter3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelFooter3.Location = new System.Drawing.Point(10, 275);
             this.panelFooter3.Name = "panelFooter3";
-            this.panelFooter3.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.panelFooter3.Padding = new System.Windows.Forms.Padding(10);
             this.panelFooter3.Size = new System.Drawing.Size(690, 54);
             this.panelFooter3.TabIndex = 0;
             // 
@@ -195,5 +208,6 @@
         private Button chngAdButton;
         private Button openAdButton;
         private Panel footerAddonsPanel;
+        private Button myPetsButton;
     }
 }

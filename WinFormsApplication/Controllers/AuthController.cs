@@ -11,10 +11,14 @@ namespace WinFormsApplication.Controllers
     {
         internal static User? AuthUser(string username, string password)
         {
-            using (DatabaseContext db = new DatabaseContext())
+            var user = DatabaseController.getUserByLogin(username);
+            if (user.Password == password)
             {
-                var user = db.Users.FirstOrDefault(x => x.Username == username && x.Password == password);
                 return user;
+            }
+            else
+            {
+                return null;
             }
         }
     }

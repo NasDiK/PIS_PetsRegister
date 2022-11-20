@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinFormsApplication.Services.Database.Methods;
+﻿using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Controllers
 {
     static internal class DatabaseController
     {
-        static internal void methodName()
+        static DatabaseContext db = new DatabaseContext();
+        /// <summary>
+        /// Возвращает пользователя по логину или номер телефона
+        /// </summary>
+        /// <param name="login">Логин или номер телефона</param>
+        static internal User? getUserByLogin(string login)
         {
-            DatabaseMethods.getUser(); //Example
+
+            var user = db.Users.FirstOrDefault(x => x.Username == login || x.PhoneNumber == login);
+            return user;
         }
+
+        static internal List<PetCategory> getAllPetCategories() => db.PetCategories.ToList();
+        static internal List<Settlement> getAllSettlements() => db.Settlements.ToList();
     }
 }

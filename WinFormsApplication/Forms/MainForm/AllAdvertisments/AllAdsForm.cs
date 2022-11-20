@@ -1,45 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
+﻿using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
+using WinFormsApplication.Forms.MainForm.Drawers.NewUserForm;
 using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
     public partial class AllAdsForm : Form
     {
+        private AuthForm authForm;
         private Filter filter = new Filter();
         private User? user;
 
-        internal AllAdsForm(User? user = null)
+        internal AllAdsForm(AuthForm authForm, User? user = null)
 
         {
             InitializeComponent();
             this.Text += " - " + Properties.Resources.applicationCaption;
             this.user = user;
+            this.authForm = authForm;
         }
 
+        bool HandleUnauthorisedUsers()
+        {
+            var dialogResult = MessageBox.Show("Вы не авторизованы. Хотите зарегистрироваться?", "Ошибка", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+            {
+                NewUserForm newUser = new NewUserForm();
+                var result = newUser.ShowDialog();
+                if (result != DialogResult.Continue) return false;
+                //todo this.user = AuthController.RegisterUser(result.getData());
+                //todo this.rerenderPermittedButtons(); //доступность кнопок по правам. вызывать по клике в DGV в т.ч.
+                return true;
+            }
+            else return false;
+        }
 
         private void openAdButton_Click(object sender, EventArgs e)
         {
-            
+            //todo может любой
         }
 
-        private void AllAdsForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
+        private void AllAdsForm_FormClosed(object sender, FormClosedEventArgs e) {
+            this.Hide();
+            this.authForm.Show();
         }
 
         private void addAdButton_Click(object sender, EventArgs e)
         {
-            //TODO проверять права if(this.user==null) - он гость
+            if (this.user == null && !this.HandleUnauthorisedUsers())
+                return;
 
             AddChangeAdForm addChangeAdForm = new AddChangeAdForm();
             addChangeAdForm.ShowDialog();
@@ -47,8 +55,6 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void chngAdButton_Click(object sender, EventArgs e)
         {
-            //TODO проверять права if(this.user==null) - он гость
-
             AddChangeAdForm addChangeAdForm = new AddChangeAdForm(new Advertisment()); //TODO getAd(); и в конструктор
             addChangeAdForm.ShowDialog();
         }
@@ -65,5 +71,16 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
             filter.ShowDialog();
         }
+
+        private void myPetsButton_Click(object sender, EventArgs e)
+        {
+            if (this.user == null && !this.HandleUnauthorisedUsers())
+                return;
+
+            MyPets myPets = new MyPets();
+            myPets.ShowDialog();
+        }
+
+
     }
 }

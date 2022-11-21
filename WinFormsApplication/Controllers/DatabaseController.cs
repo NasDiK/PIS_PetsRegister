@@ -2,21 +2,47 @@
 
 namespace WinFormsApplication.Controllers
 {
-    static internal class DatabaseController
+    internal class DatabaseController
     {
         static DatabaseContext db = new DatabaseContext();
+
+        internal DatabaseController()
+        {
+
+        }
+
         /// <summary>
         /// Возвращает пользователя по логину или номер телефона
         /// </summary>
         /// <param name="login">Логин или номер телефона</param>
-        static internal User? getUserByLogin(string login)
-        {
+        internal User? getUserByLogin(string login) => 
+            db.Users.FirstOrDefault(x => x.Username == login || x.PhoneNumber == login);
 
-            var user = db.Users.FirstOrDefault(x => x.Username == login || x.PhoneNumber == login);
+        internal List<PetCategory> getAllPetCategories() => 
+            db.PetCategories.ToList();
+        internal List<Settlement> getAllSettlements() => 
+            db.Settlements.ToList();
+
+        internal User? RegisterUser(User user)
+        {
+            db.Users.Add(user); db.SaveChanges();
             return user;
         }
 
-        static internal List<PetCategory> getAllPetCategories() => db.PetCategories.ToList();
-        static internal List<Settlement> getAllSettlements() => db.Settlements.ToList();
+        internal long getRoleIdByName(string roleName) => 
+            db.Roles.First((role) => role.Name == roleName).Id;
+
+        internal Advertisment? createAdvertisment(Advertisment newAdvertisment)
+        {
+            try
+            {
+                db.Advertisments.Add(newAdvertisment); db.SaveChanges();
+                return newAdvertisment;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

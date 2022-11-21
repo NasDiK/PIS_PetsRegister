@@ -1,4 +1,5 @@
-﻿using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
+﻿using WinFormsApplication.Controllers;
+using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
 using WinFormsApplication.Forms.MainForm.Drawers.NewUserForm;
 using WinFormsApplication.Models.Entities;
 
@@ -9,14 +10,17 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         private AuthForm authForm;
         private Filter filter = new Filter();
         private User? user;
+        private List<Advertisment>? advertisments;
+        private DatabaseController dbController;
 
-        internal AllAdsForm(AuthForm authForm, User? user = null)
-
+        internal AllAdsForm(DatabaseController databaseController, AuthForm authForm, User? user = null)
         {
             InitializeComponent();
             this.Text += " - " + Properties.Resources.applicationCaption;
             this.user = user;
             this.authForm = authForm;
+            this.dbController = databaseController;
+            this.rerenderPermittedButtons(this.user?.Role);
         }
 
         bool HandleUnauthorisedUsers()
@@ -24,14 +28,39 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             var dialogResult = MessageBox.Show("Вы не авторизованы. Хотите зарегистрироваться?", "Ошибка", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                NewUserForm newUser = new NewUserForm();
+                NewUserForm newUser = new NewUserForm(dbController);
                 var result = newUser.ShowDialog();
                 if (result != DialogResult.Continue) return false;
-                //todo this.user = AuthController.RegisterUser(result.getData());
-                //todo this.rerenderPermittedButtons(); //доступность кнопок по правам. вызывать по клике в DGV в т.ч.
+                this.user = newUser.user;
+                this.rerenderPermittedButtons(user?.Role);
                 return true;
             }
             else return false;
+        }
+
+        private void rerenderPermittedButtons(Role? role)
+        {
+            switch (role?.Name)
+            {
+                case null:
+                    //todo гость
+                    this.myPetsButton.Enabled = false;
+                    break;
+                case "owner":
+                    //todo владелец
+                    this.myPetsButton.Enabled = true;
+                    break;
+                case "admin":
+                    this.myPetsButton.Enabled = false;
+                    //todo админ
+                    break;
+                //todo ещё роли
+            }
+        }
+
+        private void rerenderDGVButtons()
+        {
+            //todo кнопки открыть изменить. предлагаю сделать кэш объявлений чтобы каждый раз с БД не запрашивать
         }
 
         private void openAdButton_Click(object sender, EventArgs e)
@@ -49,13 +78,13 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             if (this.user == null && !this.HandleUnauthorisedUsers())
                 return;
 
-            AddChangeAdForm addChangeAdForm = new AddChangeAdForm();
+            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(dbController, user);
             addChangeAdForm.ShowDialog();
         }
 
         private void chngAdButton_Click(object sender, EventArgs e)
         {
-            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(new Advertisment()); //TODO getAd(); и в конструктор
+            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(dbController, user, new Advertisment()); //TODO getAd(); и в конструктор
             addChangeAdForm.ShowDialog();
         }
 
@@ -77,10 +106,15 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             if (this.user == null && !this.HandleUnauthorisedUsers())
                 return;
 
-            MyPets myPets = new MyPets();
+            MyPets myPets = new MyPets(); //TODO по юзеру цеплять
             myPets.ShowDialog();
         }
 
+        private void dataViewTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.rerenderDGVButtons();
+        }
 
+        
     }
 }

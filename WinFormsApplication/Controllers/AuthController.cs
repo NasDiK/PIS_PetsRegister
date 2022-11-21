@@ -9,17 +9,37 @@ namespace WinFormsApplication.Controllers
 {
     internal class AuthController
     {
-        internal static User? AuthUser(string username, string password)
+        DatabaseController dbController;
+
+        internal AuthController(DatabaseController dbController)
         {
-            var user = DatabaseController.getUserByLogin(username);
-            if (user.Password == password)
-            {
+            this.dbController = dbController;
+        }
+
+        internal User? AuthUser(string username, string password)
+        {
+            var user = dbController.getUserByLogin(username);
+            if (user != null && user.Password == password)
                 return user;
-            }
             else
-            {
                 return null;
-            }
+        }
+
+        internal User? RegisterUser(string username, string password, string phone, string fullname)
+        {
+            var userByLogin = dbController.getUserByLogin(username);
+            var userByPhone = dbController.getUserByLogin(phone);
+
+            if (userByLogin != null || userByPhone != null)
+                return null;
+            else
+                return dbController.RegisterUser(new User() { 
+                    FullName = fullname,
+                    Password = password,
+                    Username = username,
+                    PhoneNumber = phone,
+                    RoleId = dbController.getRoleIdByName("owner") }
+                );
         }
     }
 }

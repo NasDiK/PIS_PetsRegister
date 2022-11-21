@@ -32,10 +32,11 @@
             this.toolbarPanel1 = new System.Windows.Forms.Panel();
             this.myPetsButton = new System.Windows.Forms.Button();
             this.footerAddonsPanel = new System.Windows.Forms.Panel();
+            this.refreshTableButton = new System.Windows.Forms.Button();
             this.displayMyCheckbox = new System.Windows.Forms.CheckBox();
             this.filterButton = new System.Windows.Forms.Button();
             this.panelСontent2 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataViewTable = new System.Windows.Forms.DataGridView();
             this.panelFooter3 = new System.Windows.Forms.Panel();
             this.addAdButton = new System.Windows.Forms.Button();
             this.delAddButton = new System.Windows.Forms.Button();
@@ -44,7 +45,7 @@
             this.toolbarPanel1.SuspendLayout();
             this.footerAddonsPanel.SuspendLayout();
             this.panelСontent2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataViewTable)).BeginInit();
             this.panelFooter3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,6 +72,7 @@
             // 
             // footerAddonsPanel
             // 
+            this.footerAddonsPanel.Controls.Add(this.refreshTableButton);
             this.footerAddonsPanel.Controls.Add(this.displayMyCheckbox);
             this.footerAddonsPanel.Controls.Add(this.filterButton);
             this.footerAddonsPanel.Dock = System.Windows.Forms.DockStyle.Right;
@@ -78,6 +80,16 @@
             this.footerAddonsPanel.Name = "footerAddonsPanel";
             this.footerAddonsPanel.Size = new System.Drawing.Size(234, 59);
             this.footerAddonsPanel.TabIndex = 2;
+            // 
+            // refreshTableButton
+            // 
+            this.refreshTableButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.refreshTableButton.Location = new System.Drawing.Point(119, 10);
+            this.refreshTableButton.Name = "refreshTableButton";
+            this.refreshTableButton.Size = new System.Drawing.Size(24, 24);
+            this.refreshTableButton.TabIndex = 2;
+            this.refreshTableButton.Text = "О";
+            this.refreshTableButton.UseVisualStyleBackColor = true;
             // 
             // displayMyCheckbox
             // 
@@ -102,7 +114,7 @@
             // 
             // panelСontent2
             // 
-            this.panelСontent2.Controls.Add(this.dataGridView1);
+            this.panelСontent2.Controls.Add(this.dataViewTable);
             this.panelСontent2.Controls.Add(this.panelFooter3);
             this.panelСontent2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelСontent2.Location = new System.Drawing.Point(0, 59);
@@ -111,16 +123,17 @@
             this.panelСontent2.Size = new System.Drawing.Size(710, 329);
             this.panelСontent2.TabIndex = 1;
             // 
-            // dataGridView1
+            // dataViewTable
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(10, 10);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(690, 265);
-            this.dataGridView1.TabIndex = 1;
+            this.dataViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataViewTable.Location = new System.Drawing.Point(10, 10);
+            this.dataViewTable.Name = "dataViewTable";
+            this.dataViewTable.RowHeadersWidth = 51;
+            this.dataViewTable.RowTemplate.Height = 25;
+            this.dataViewTable.Size = new System.Drawing.Size(690, 265);
+            this.dataViewTable.TabIndex = 1;
+            this.dataViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataViewTable_CellClick);
             // 
             // panelFooter3
             // 
@@ -189,7 +202,7 @@
             this.footerAddonsPanel.ResumeLayout(false);
             this.footerAddonsPanel.PerformLayout();
             this.panelСontent2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataViewTable)).EndInit();
             this.panelFooter3.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -201,7 +214,7 @@
         private Button filterButton;
         private CheckBox displayMyCheckbox;
         private Panel panelСontent2;
-        private DataGridView dataGridView1;
+        private DataGridView dataViewTable;
         private Panel panelFooter3;
         private Button addAdButton;
         private Button delAddButton;
@@ -209,5 +222,6 @@
         private Button openAdButton;
         private Panel footerAddonsPanel;
         private Button myPetsButton;
+        private Button refreshTableButton;
     }
 }

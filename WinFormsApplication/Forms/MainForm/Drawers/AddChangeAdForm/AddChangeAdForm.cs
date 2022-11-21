@@ -6,6 +6,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 {
     public partial class AddChangeAdForm : Form
     {
+        DatabaseController dbController;
+        User? user;
 
         /*
             На обсуждение: точно ли мы ФИО вписываем? Как мы будем цеплять к конкретному владельцу.
@@ -14,10 +16,13 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
 
         Advertisment? advertisment;
-        internal AddChangeAdForm(Advertisment? advertisment = null)
+        internal AddChangeAdForm(DatabaseController databaseController, User? user, Advertisment? advertisment = null)
         {
             InitializeComponent();
             this.advertisment = advertisment;
+            this.dbController = databaseController;
+            this.user = user;
+
             this.init();
             if (this.advertisment == null)
             {
@@ -36,12 +41,12 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         private void init()
         {
-            var petCategories = DatabaseController.getAllPetCategories();
+            var petCategories = dbController.getAllPetCategories();
             this.petCategoryComboBox.DisplayMember = "Name";
             this.petCategoryComboBox.ValueMember = "Id";
             this.petCategoryComboBox.DataSource = petCategories;
 
-            var settlements = DatabaseController.getAllSettlements();
+            var settlements = dbController.getAllSettlements();
             this.settlementCombobox.DisplayMember = "Name";
             this.settlementCombobox.ValueMember = "Id";
             this.settlementCombobox.DataSource = settlements;
@@ -101,7 +106,24 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                 if (this.advertisment == null)
                 {
                     //TODO add
-                    throw new Exception();
+                    var createdAdvertisment = this.dbController.createAdvertisment(new Advertisment()
+                    {
+                        PetCategoryId = (long)this.petCategoryComboBox.SelectedValue,
+                        PetName = this.petNameTextBox.Text,
+                        PetBirthDate = this.petBirthDateMaskedTextbox.Text,
+                        SettlementId = (long)this.settlementCombobox.SelectedValue,
+                        PetOwnerId = this.user?.Id == null ? 0 : this.user.Id,
+                        RegisterDate = this.registrationPetDateMaskedTextBox.Text,
+                        PetPassportNumber = this.passportNumberTextBox.Text,
+                        BreedName = this.breedTextBox.Text,
+                        PetSex = (string)this.petSexCombobox.SelectedItem,
+                        AdditionalInformation = this.additionalInformationTextBox.Text,
+                        CreationDateTime = DateTime.Now.ToShortDateString()
+                    });
+                    if (createdAdvertisment == null)
+                        MessageBox.Show("Произошла ошибка при создании объявления");
+
+                    this.DialogResult = DialogResult.OK;
                 }
                 else
                 {

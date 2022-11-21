@@ -1,6 +1,6 @@
-﻿namespace WinFormsApplication.Forms.MainForm
+﻿namespace WinFormsApplication.Forms.MainForm.Drawers.PetCardForm
 {
-    partial class MainForm
+    partial class PetCardForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.SuspendLayout();
             // 
-            // MainForm
+            // PetCardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(355, 177);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MainForm";
-            this.Text = "Главная";
+            this.ClientSize = new System.Drawing.Size(328, 222);
+            this.Name = "PetCardForm";
+            this.Text = "ShowAdForm";
             this.ResumeLayout(false);
 
         }

@@ -8,16 +8,20 @@ namespace WinFormsApplication
 {
     public partial class AuthForm : Form
     {
+        DatabaseController dbController;
+        AuthController authController;
         public AuthForm()
         {
             InitializeComponent();
             this.Text += " - "+Properties.Resources.applicationCaption;
             this.passwordMaskCheckbox.Checked = true;
+            dbController = new DatabaseController();
+            this.authController = new AuthController(dbController);
         }
 
         private void guestButton_Click(object sender, EventArgs e)
         {
-            AllAdsForm allAdsForm = new AllAdsForm(this);
+            AllAdsForm allAdsForm = new AllAdsForm(dbController, this);
             allAdsForm.Show();
             this.Hide();
         }
@@ -45,10 +49,10 @@ namespace WinFormsApplication
                 return;
             }
 
-            var user = AuthController.AuthUser(loginTextBox.Text, passwordTextBox.Text);
+            var user = authController.AuthUser(loginTextBox.Text, passwordTextBox.Text);
             if (user != null)
             {
-                AllAdsForm allAdsForm = new AllAdsForm(this, user);
+                AllAdsForm allAdsForm = new AllAdsForm(dbController, this, user);
                 allAdsForm.Show();
                 this.Hide();
                 return;
@@ -58,8 +62,7 @@ namespace WinFormsApplication
 
         private void passwordMaskCheckbox_CheckStateChanged(object sender, EventArgs e)
         {
-            passwordTextBox.PasswordChar = passwordMaskCheckbox.Checked ? '*' : new TextBox().PasswordChar; 
-            //TODO придумать как убрать этот костыль ахахах
+            passwordTextBox.PasswordChar = passwordMaskCheckbox.Checked ? '*' : new TextBox().PasswordChar;
         }
     }
 }

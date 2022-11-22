@@ -1,4 +1,5 @@
-﻿using WinFormsApplication.Controllers;
+﻿using System.Runtime.CompilerServices;
+using WinFormsApplication.Controllers;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
 using WinFormsApplication.Forms.MainForm.Drawers.NewUserForm;
 using WinFormsApplication.Models.Entities;
@@ -21,6 +22,24 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             this.authForm = authForm;
             this.dbController = databaseController;
             this.rerenderPermittedButtons(this.user?.Role);
+
+            this.advertisments = dbController.getAllAdvertisments();
+            rerenderDataGridViewTable();
+        }
+
+        private void rerenderDataGridViewTable()
+        {
+            //todo прикрутить фильтр
+            this.advertisments?.ForEach((advertisment) =>
+            {
+                this.dataViewTable.Rows.Add(
+                    advertisment.Id,
+                    advertisment.CreationDateTime,
+                    null, advertisment.BreedName,
+                    advertisment.PetSex,
+                    dbController.getSettlementById(advertisment.SettlementId)?.Name
+                );
+            }); 
         }
 
         bool HandleUnauthorisedUsers()

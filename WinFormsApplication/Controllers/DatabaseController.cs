@@ -23,6 +23,7 @@ namespace WinFormsApplication.Controllers
         internal List<Settlement> getAllSettlements() => 
             db.Settlements.ToList();
 
+        internal Settlement? getSettlementById(long id) => db.Settlements.FirstOrDefault(x => x.Id == id);
         internal User? RegisterUser(User user)
         {
             db.Users.Add(user); db.SaveChanges();
@@ -44,5 +45,7 @@ namespace WinFormsApplication.Controllers
                 return null;
             }
         }
+
+        internal List<Advertisment>? getAllAdvertisments() => db.Advertisments.ToList();
     }
 }

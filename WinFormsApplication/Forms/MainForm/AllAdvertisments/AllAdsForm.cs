@@ -2,6 +2,7 @@
 using WinFormsApplication.Controllers;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
 using WinFormsApplication.Forms.MainForm.Drawers.NewUserForm;
+using WinFormsApplication.Forms.MainForm.Drawers.PetCardForm;
 using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
@@ -79,11 +80,13 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void rerenderDGVButtons()
         {
-            //todo кнопки открыть изменить. предлагаю сделать кэш объявлений чтобы каждый раз с БД не запрашивать
+            //todo кнопки открыть изменить.
         }
 
         private void openAdButton_Click(object sender, EventArgs e)
         {
+            PetCardForm petCardForm = new PetCardForm(this.dbController, this.advertisments?.FirstOrDefault(), this.user); //TODO переделать на currentRow. 
+            petCardForm.ShowDialog();
             //todo может любой
         }
 
@@ -103,7 +106,8 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void chngAdButton_Click(object sender, EventArgs e)
         {
-            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(dbController, user, new Advertisment()); //TODO getAd(); и в конструктор
+            var curAdd = this.advertisments?.FirstOrDefault();//TODO currentrow
+            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(dbController, user, curAdd);
             addChangeAdForm.ShowDialog();
         }
 

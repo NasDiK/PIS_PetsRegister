@@ -24,6 +24,8 @@ namespace WinFormsApplication.Controllers
             db.Settlements.ToList();
 
         internal Settlement? getSettlementById(long id) => db.Settlements.FirstOrDefault(x => x.Id == id);
+
+        internal PetCategory? getPetCategoryById(long id) => db.PetCategories.FirstOrDefault(x => x.Id == id);
         internal User? RegisterUser(User user)
         {
             db.Users.Add(user); db.SaveChanges();

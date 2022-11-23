@@ -1,6 +1,7 @@
 ﻿using WinFormsApplication.Controllers;
 using WinFormsApplication.Models.Entities;
 using WinFormsApplication.Utils;
+using System.Linq;
 
 namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 {
@@ -24,19 +25,6 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             this.user = user;
 
             this.init();
-            if (this.advertisment == null)
-            {
-                //TODO Add
-                this.Text = "Подать объявление - " + Properties.Resources.applicationCaption;
-                this.petSexCombobox.SelectedIndex = 0;
-            }
-            else
-            {
-                //TODO Change
-                //Забиваем поля данными
-                this.Text = "Изменить объявление - " + Properties.Resources.applicationCaption;
-            }
-
         }
 
         private void init()
@@ -50,6 +38,25 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             this.settlementCombobox.DisplayMember = "Name";
             this.settlementCombobox.ValueMember = "Id";
             this.settlementCombobox.DataSource = settlements;
+
+            if(this.advertisment != null)
+            {
+                this.petCategoryComboBox.SelectedValue = this.advertisment?.PetCategoryId;
+                this.petNameTextBox.Text = this.advertisment?.PetName;
+                this.petBirthDateMaskedTextbox.Text = this.advertisment?.PetBirthDate;
+                this.breedTextBox.Text = this.advertisment?.BreedName;
+                this.registrationPetDateMaskedTextBox.Text = this.advertisment?.RegisterDate;
+                this.passportNumberTextBox.Text = this.advertisment?.PetPassportNumber;
+                this.petSexCombobox.SelectedItem = this.advertisment?.PetSex;
+                this.settlementCombobox.SelectedValue = this.advertisment?.SettlementId;
+                this.additionalInformationTextBox.Text = this.advertisment?.AdditionalInformation;
+                this.Text = "Изменить объявление - " + Properties.Resources.applicationCaption;
+            }
+            else
+            {
+                this.Text = "Подать объявление - " + Properties.Resources.applicationCaption;
+                this.petSexCombobox.SelectedIndex = 0;
+            }
         }
 
         private void clearFields()

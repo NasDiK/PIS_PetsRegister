@@ -12,9 +12,41 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
     public partial class Filter : Form
     {
-        public Filter()
+        AllAdsForm adsForm;
+        public Filter(AllAdsForm allAds)
         {
             InitializeComponent();
+            this.adsForm = allAds;
+            this.init();
+        }
+
+        private void init()
+        {
+            this.settlementFilterCheckbox.CheckedChanged += (s, e) =>
+            {
+                if (this.settlementFilterCheckbox.Checked)
+                {
+                    this.settlementFilterTextbox.Focus();
+                    //this.applyFilter();
+                }
+            };
+            this.petCategoryFilterCheckbox.CheckedChanged += (s, e) =>
+            {
+                if (this.petCategoryFilterCheckbox.Checked)
+                {
+                    //this.applyFilter();
+
+                }
+            };
+            this.datePropazhaFilterCheckbox.CheckedChanged += (s, e) =>
+            {
+                if (this.datePropazhaFilterCheckbox.Checked)
+                {
+                    this.propazhaDateTextBox.Focus();
+                    //this.applyFilter();
+                }
+            };
+
         }
     }
 }

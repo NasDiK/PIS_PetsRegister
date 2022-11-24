@@ -25,6 +25,12 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.PetCardForm
             this.user = user;
             this.Text = "Карточка животного - " + Properties.Resources.applicationCaption;
             this.init();
+
+            this.delButton.Click += (s, e) =>
+            {
+                MessageBox.Show("Test");
+                //TODO делете
+            };
         }
 
         private void init()
@@ -35,6 +41,20 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.PetCardForm
             this.settlementLabel.Text += " " + db.getSettlementById(Convert.ToInt64(this.advertisment?.SettlementId))?.Name;
             this.categoryLabel.Text += " " + db.getPetCategoryById(Convert.ToInt64(this.advertisment?.PetCategoryId))?.Name;
             this.additionalInformationLabel.Text += " " + this.advertisment?.AdditionalInformation;
+
+            this.checkPermissions();
+        }
+
+        private void checkPermissions()
+        {
+            if (this.advertisment?.PetOwnerId == this.user?.Id || this.user?.Role?.Name == "admin")
+            {
+                this.delButton.Enabled = true;
+            }
+            else
+            {
+                this.delButton.Enabled = false;
+            }
         }
     }
 }

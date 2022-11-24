@@ -10,7 +10,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
     public partial class AllAdsForm : Form
     {
         private AuthForm authForm;
-        private Filter filter = new Filter();
+        private Filter filter; //todo как передавать управление??? allAds:this не робит
         private User? user;
         private List<Advertisment>? advertisments;
         private DatabaseController dbController;
@@ -23,6 +23,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             this.authForm = authForm;
             this.dbController = databaseController;
             this.rerenderPermittedButtons(this.user?.Role);
+            this.filter = new Filter(this);
 
             this.advertisments = dbController.getAllAdvertisments();
             rerenderDataGridViewTable();

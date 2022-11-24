@@ -28,62 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.petCategoryFilterCheckbox = new System.Windows.Forms.CheckBox();
+            this.datePropazhaFilterCheckbox = new System.Windows.Forms.CheckBox();
+            this.settlementFilterTextbox = new System.Windows.Forms.TextBox();
+            this.petCategoryFilterComboBox = new System.Windows.Forms.ComboBox();
+            this.propazhaDateTextBox = new System.Windows.Forms.TextBox();
+            this.settlementFilterCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // checkBox1
+            // petCategoryFilterCheckbox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 21);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(101, 24);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.petCategoryFilterCheckbox.AutoSize = true;
+            this.petCategoryFilterCheckbox.Location = new System.Drawing.Point(10, 43);
+            this.petCategoryFilterCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.petCategoryFilterCheckbox.Name = "petCategoryFilterCheckbox";
+            this.petCategoryFilterCheckbox.Size = new System.Drawing.Size(15, 14);
+            this.petCategoryFilterCheckbox.TabIndex = 1;
+            this.petCategoryFilterCheckbox.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // datePropazhaFilterCheckbox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(12, 51);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(101, 24);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "checkBox2";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.datePropazhaFilterCheckbox.AutoSize = true;
+            this.datePropazhaFilterCheckbox.Location = new System.Drawing.Point(10, 77);
+            this.datePropazhaFilterCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.datePropazhaFilterCheckbox.Name = "datePropazhaFilterCheckbox";
+            this.datePropazhaFilterCheckbox.Size = new System.Drawing.Size(15, 14);
+            this.datePropazhaFilterCheckbox.TabIndex = 2;
+            this.datePropazhaFilterCheckbox.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // settlementFilterTextbox
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(12, 81);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(101, 24);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "checkBox3";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.settlementFilterTextbox.Location = new System.Drawing.Point(31, 10);
+            this.settlementFilterTextbox.Name = "settlementFilterTextbox";
+            this.settlementFilterTextbox.PlaceholderText = "Тобольск|Воиновка";
+            this.settlementFilterTextbox.Size = new System.Drawing.Size(170, 23);
+            this.settlementFilterTextbox.TabIndex = 4;
             // 
-            // checkBox4
+            // petCategoryFilterComboBox
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(12, 111);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(101, 24);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "checkBox4";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.petCategoryFilterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.petCategoryFilterComboBox.FormattingEnabled = true;
+            this.petCategoryFilterComboBox.Location = new System.Drawing.Point(31, 39);
+            this.petCategoryFilterComboBox.Name = "petCategoryFilterComboBox";
+            this.petCategoryFilterComboBox.Size = new System.Drawing.Size(170, 23);
+            this.petCategoryFilterComboBox.TabIndex = 5;
+            // 
+            // propazhaDateTextBox
+            // 
+            this.propazhaDateTextBox.Location = new System.Drawing.Point(31, 73);
+            this.propazhaDateTextBox.Name = "propazhaDateTextBox";
+            this.propazhaDateTextBox.PlaceholderText = "> 25.06.2022 and < 27.12.2022";
+            this.propazhaDateTextBox.Size = new System.Drawing.Size(170, 23);
+            this.propazhaDateTextBox.TabIndex = 6;
+            // 
+            // settlementFilterCheckbox
+            // 
+            this.settlementFilterCheckbox.AutoSize = true;
+            this.settlementFilterCheckbox.Location = new System.Drawing.Point(10, 14);
+            this.settlementFilterCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.settlementFilterCheckbox.Name = "settlementFilterCheckbox";
+            this.settlementFilterCheckbox.Size = new System.Drawing.Size(15, 14);
+            this.settlementFilterCheckbox.TabIndex = 7;
+            this.settlementFilterCheckbox.UseVisualStyleBackColor = true;
             // 
             // Filter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(175, 144);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.ClientSize = new System.Drawing.Size(213, 106);
+            this.Controls.Add(this.settlementFilterCheckbox);
+            this.Controls.Add(this.propazhaDateTextBox);
+            this.Controls.Add(this.petCategoryFilterComboBox);
+            this.Controls.Add(this.settlementFilterTextbox);
+            this.Controls.Add(this.datePropazhaFilterCheckbox);
+            this.Controls.Add(this.petCategoryFilterCheckbox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Filter";
             this.Text = "Filter";
             this.ResumeLayout(false);
@@ -92,10 +112,11 @@
         }
 
         #endregion
-
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
-        private CheckBox checkBox3;
-        private CheckBox checkBox4;
+        private CheckBox petCategoryFilterCheckbox;
+        private CheckBox datePropazhaFilterCheckbox;
+        private TextBox settlementFilterTextbox;
+        private ComboBox petCategoryFilterComboBox;
+        private TextBox propazhaDateTextBox;
+        private CheckBox settlementFilterCheckbox;
     }
 }

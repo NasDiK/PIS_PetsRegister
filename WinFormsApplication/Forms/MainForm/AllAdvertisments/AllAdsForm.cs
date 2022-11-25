@@ -10,10 +10,11 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
     public partial class AllAdsForm : Form
     {
         private AuthForm authForm;
-        private Filter filter; //todo как передавать управление??? allAds:this не робит
+        private Filter filterForm;
+        internal Models.Classes.Filter filter;
         private User? user;
         private List<Advertisment>? advertisments;
-        private DatabaseController dbController;
+        internal DatabaseController dbController;
 
         internal AllAdsForm(DatabaseController databaseController, AuthForm authForm, User? user = null)
         {
@@ -23,7 +24,8 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             this.authForm = authForm;
             this.dbController = databaseController;
             this.rerenderPermittedButtons(this.user?.Role);
-            this.filter = new Filter(this);
+            this.filterForm = new Filter(this);
+            this.filter = new Models.Classes.Filter();
 
             this.advertisments = dbController.getAllAdvertisments();
             rerenderDataGridViewTable();
@@ -42,6 +44,11 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                     dbController.getSettlementById(advertisment.SettlementId)?.Name
                 );
             }); 
+        }
+
+        internal void ApplyFilter()
+        {
+            //todo 
         }
 
         bool HandleUnauthorisedUsers()
@@ -114,15 +121,15 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void filterButton_Click(object sender, EventArgs e)
         {
-            filter.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
-            filter.StartPosition = FormStartPosition.Manual;
+            filterForm.Location = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+            filterForm.StartPosition = FormStartPosition.Manual;
 
-            if (filter.Location.X + filter.Width >= SystemInformation.PrimaryMonitorSize.Width)
-                filter.Location = new Point(SystemInformation.PrimaryMonitorSize.Width - filter.Width, filter.Location.Y);
-            if (filter.Location.Y + filter.Height >= SystemInformation.PrimaryMonitorSize.Height)
-                filter.Location = new Point(filter.Location.X, SystemInformation.PrimaryMonitorSize.Height - filter.Height - 50);
+            if (filterForm.Location.X + filterForm.Width >= SystemInformation.PrimaryMonitorSize.Width)
+                filterForm.Location = new Point(SystemInformation.PrimaryMonitorSize.Width - filterForm.Width, filterForm.Location.Y);
+            if (filterForm.Location.Y + filterForm.Height >= SystemInformation.PrimaryMonitorSize.Height)
+                filterForm.Location = new Point(filterForm.Location.X, SystemInformation.PrimaryMonitorSize.Height - filterForm.Height - 50);
 
-            filter.ShowDialog();
+            filterForm.ShowDialog();
         }
 
         private void myPetsButton_Click(object sender, EventArgs e)

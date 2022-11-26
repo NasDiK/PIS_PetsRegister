@@ -2,6 +2,7 @@
 using WinFormsApplication.Models.Entities;
 using WinFormsApplication.Utils;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 {
@@ -17,7 +18,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
 
         Advertisment? advertisment;
-        internal AddChangeAdForm(DatabaseController databaseController, User? user, Advertisment? advertisment = null)
+        internal AddChangeAdForm(DatabaseController databaseController, User? user, Advertisment? advertisment = null, Pet? animal = null)
         {
             InitializeComponent();
             this.advertisment = advertisment;
@@ -25,6 +26,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             this.user = user;
 
             this.init();
+            //todo подставить анимал
         }
 
         private void init()
@@ -113,6 +115,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                 if (this.advertisment == null)
                 {
                     //TODO add
+
                     var createdAdvertisment = this.dbController.createAdvertisment(new Advertisment()
                     {
                         PetCategoryId = (long)this.petCategoryComboBox.SelectedValue,

@@ -138,7 +138,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                 else
                 {
                     throw new Exception();
-                    //TODO updateAdd(this.advertisment); method
+                    //TODO updateAdvertisment(this.advertisment); method
                 }
             }
             catch

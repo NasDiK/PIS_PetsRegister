@@ -35,7 +35,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             this.settlementFilterTextbox.Leave += (s, e) =>
             {
                 this.adsForm.filter.resetSettlementsList();
-                var list = Regex.Matches(this.settlementFilterTextbox.Text, @"[А-Яа-я]+\s?[А-Яа-я]+").ToImmutableList();
+                var list = Regex.Matches(this.settlementFilterTextbox.Text, @"[А-Яа-я]+\s?[А-Яа-я]+").ToImmutableList(); //Получается работает только на слова с одним пробелом. ToFix
                 list.ForEach(match => this.adsForm.filter.SettlementsName.Add(match.Value));
                 //adsForm.applyfilter()
             };

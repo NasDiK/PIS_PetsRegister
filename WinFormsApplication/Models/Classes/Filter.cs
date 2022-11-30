@@ -15,6 +15,7 @@ namespace WinFormsApplication.Models.Classes
         internal bool isSettlementsFilterActive;
         internal bool isLostDatesFilterActive;
         internal bool isPetCategoryFilterActive;
+        internal bool displayOnlyMy;
 
         internal Filter()
         {
@@ -25,6 +26,7 @@ namespace WinFormsApplication.Models.Classes
             isSettlementsFilterActive = false;
             isLostDatesFilterActive = false;
             isPetCategoryFilterActive = false;
+            displayOnlyMy = false;
         }
 
         void ResetFilter()
@@ -36,6 +38,7 @@ namespace WinFormsApplication.Models.Classes
             isSettlementsFilterActive = false;
             isLostDatesFilterActive = false;
             isPetCategoryFilterActive = false;
+            displayOnlyMy = false;
         }
 
         internal void resetDates() => this.LostDates = new List<(string, string)>();

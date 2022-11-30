@@ -19,12 +19,14 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.NewUserForm
     {
         public User? user;
         AuthController authController;
-        internal NewUserForm(DatabaseController databaseController)
+        long roleId;
+        internal NewUserForm(DatabaseController databaseController, long roleId)
         {
             InitializeComponent();
             this.Text = "Новый пользователь - " + Properties.Resources.applicationCaption;
             this.checkBox1.Checked = true;
             this.authController = new AuthController(databaseController);
+            this.roleId = roleId;
         }
 
         private bool validateFields()
@@ -60,7 +62,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.NewUserForm
                 this.usernameTextbox.Text,
                 this.passwordTextbox.Text,
                 formatedPhone,
-                this.fullnameTextbox.Text
+                this.fullnameTextbox.Text,
+                this.roleId
             );
 
             if (newUser == null)

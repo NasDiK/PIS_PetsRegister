@@ -96,6 +96,7 @@
             this.refreshTableButton.TabIndex = 2;
             this.refreshTableButton.Text = "О";
             this.refreshTableButton.UseVisualStyleBackColor = true;
+            this.refreshTableButton.Click += new System.EventHandler(this.refreshTableButton_Click);
             // 
             // displayMyCheckbox
             // 
@@ -107,6 +108,7 @@
             this.displayMyCheckbox.TabIndex = 0;
             this.displayMyCheckbox.Text = "Отображать только мои";
             this.displayMyCheckbox.UseVisualStyleBackColor = true;
+            this.displayMyCheckbox.CheckedChanged += new System.EventHandler(this.displayMyCheckbox_CheckedChanged);
             // 
             // filterButton
             // 

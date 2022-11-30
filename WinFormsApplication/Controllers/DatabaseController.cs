@@ -4,11 +4,11 @@ namespace WinFormsApplication.Controllers
 {
     internal class DatabaseController
     {
-        static DatabaseContext db = new DatabaseContext();
+        DatabaseContext db;
 
         internal DatabaseController()
         {
-
+            db = new DatabaseContext();
         }
 
         /// <summary>
@@ -31,6 +31,8 @@ namespace WinFormsApplication.Controllers
             db.Users.Add(user); db.SaveChanges();
             return user;
         }
+
+        internal List<Role> getAllRoles() => db.Roles.ToList();
 
         internal long getRoleIdByName(string roleName) => 
             db.Roles.First((role) => role.Name == roleName).Id;

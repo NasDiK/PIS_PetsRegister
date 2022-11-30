@@ -11,12 +11,6 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
         DatabaseController dbController;
         User? user;
 
-        /*
-            На обсуждение: точно ли мы ФИО вписываем? Как мы будем цеплять к конкретному владельцу.
-            Или у нас авторизовываются нашедшие
-         */
-
-
         Advertisment? advertisment;
         internal AddChangeAdForm(DatabaseController databaseController, User? user, Advertisment? advertisment = null, Pet? animal = null)
         {
@@ -26,7 +20,6 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             this.user = user;
 
             this.init();
-            //todo подставить анимал
         }
 
         private void init()
@@ -114,8 +107,6 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             {
                 if (this.advertisment == null)
                 {
-                    //TODO add
-
                     var createdAdvertisment = this.dbController.createAdvertisment(new Advertisment()
                     {
                         PetCategoryId = (long)this.petCategoryComboBox.SelectedValue,
@@ -186,7 +177,6 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         private void uploadPhotoButton_Click(object sender, EventArgs e)
         {
-            //TODO if (isPermitted)
             openFileDialog1.ShowDialog();
             //TODO настроить openfileDialog
         }

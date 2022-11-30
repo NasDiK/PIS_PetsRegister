@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using WinFormsApplication.Controllers;
+﻿using WinFormsApplication.Controllers;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
 using WinFormsApplication.Forms.MainForm.Drawers.NewUserForm;
 using WinFormsApplication.Forms.MainForm.Drawers.PetCardForm;
@@ -9,46 +8,68 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
     public partial class AllAdsForm : Form
     {
+        List<Role> rolesList; //Кэш ролей чтобы каждый раз к БД не обращаться будем хранить тута +- константа
+        List<Advertisment>? advertisments; //Кэш объявлений, чтобы полную загрузку делать только при небходимости, а не например при фильтрации
+        List<Settlement> settlementsList; //Кэш населенных пунктов. +- константа
+
         private AuthForm authForm;
         private Filter filterForm;
         internal Models.Classes.Filter filter;
         private User? user;
-        private List<Advertisment>? advertisments;
         internal DatabaseController dbController;
 
         internal AllAdsForm(DatabaseController databaseController, AuthForm authForm, User? user = null)
         {
             InitializeComponent();
             this.Text += " - " + Properties.Resources.applicationCaption;
+
             this.user = user;
             this.authForm = authForm;
             this.dbController = databaseController;
-            this.rerenderPermittedButtons(this.user?.Role);
+
             this.filterForm = new Filter(this);
             this.filter = new Models.Classes.Filter();
+            this.rolesList = dbController.getAllRoles();
+            this.settlementsList = dbController.getAllSettlements();
+
+            this.rerenderPermittedButtons(this.user?.RoleId);
 
             this.advertisments = dbController.getAllAdvertisments();
             rerenderDataGridViewTable();
         }
 
-        private void rerenderDataGridViewTable()
+        internal void rerenderDataGridViewTable()
         {
+            this.dataViewTable.Rows.Clear();
             //todo прикрутить фильтр
-            this.advertisments?.ForEach((advertisment) =>
+            if (this.filter.displayOnlyMy)
             {
-                this.dataViewTable.Rows.Add(
-                    advertisment.Id,
-                    advertisment.CreationDateTime,
-                    null, advertisment.BreedName,
-                    advertisment.PetSex,
-                    dbController.getSettlementById(advertisment.SettlementId)?.Name
-                );
-            }); 
-        }
+                this.advertisments?.Where((ad) => ad.PetOwnerId == this.user?.Id).ToList().ForEach((advertisment) =>
+                {
+                    this.dataViewTable.Rows.Add(
+                        advertisment.Id,
+                        advertisment.CreationDateTime,
+                        null, advertisment.BreedName,
+                        advertisment.PetSex,
+                        this.settlementsList.Find((settl) => settl.Id == advertisment?.SettlementId)?.Name
+                    );
+                });
+            }
+            else
+            {
+                this.advertisments?.ForEach((advertisment) =>
+                {
+                    this.dataViewTable.Rows.Add(
+                        advertisment.Id,
+                        advertisment.CreationDateTime,
+                        null, advertisment.BreedName,
+                        advertisment.PetSex,
+                        this.settlementsList.Find((settl) => settl.Id == advertisment?.SettlementId)?.Name
+                    );
+                });
+            }
 
-        internal void ApplyFilter()
-        {
-            //todo 
+
         }
 
         bool HandleUnauthorisedUsers()
@@ -56,22 +77,24 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             var dialogResult = MessageBox.Show("Вы не авторизованы. Хотите зарегистрироваться?", "Ошибка", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                NewUserForm newUser = new NewUserForm(dbController);
+                NewUserForm newUser = new NewUserForm(dbController, rolesList.First((role) => role.Name == "owner").Id);
                 var result = newUser.ShowDialog();
                 if (result != DialogResult.Continue) return false;
                 this.user = newUser.user;
-                this.rerenderPermittedButtons(user?.Role);
+                this.rerenderPermittedButtons(user?.RoleId);
                 return true;
             }
             else return false;
         }
 
-        private void rerenderPermittedButtons(Role? role)
+        private void rerenderPermittedButtons(long? roleId)
         {
+            var role = this.rolesList?.Find((role) => role.Id == roleId);
             switch (role?.Name)
             {
                 case null:
                     //todo гость
+                    this.displayMyCheckbox.Enabled = false;
                     this.myPetsButton.Enabled = false;
                     break;
                 case "owner":
@@ -82,7 +105,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                     this.myPetsButton.Enabled = false;
                     //todo админ
                     break;
-                //todo ещё роли
+                    //todo ещё роли
             }
         }
 
@@ -98,7 +121,8 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             //todo может любой
         }
 
-        private void AllAdsForm_FormClosed(object sender, FormClosedEventArgs e) {
+        private void AllAdsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
             this.Hide();
             this.authForm.Show();
         }
@@ -146,6 +170,16 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             this.rerenderDGVButtons();
         }
 
-        
+        private void refreshTableButton_Click(object sender, EventArgs e)
+        {
+            this.advertisments = this.dbController.getAllAdvertisments();
+            this.rerenderDataGridViewTable();
+        }
+
+        private void displayMyCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            this.filter.displayOnlyMy = this.displayMyCheckbox.Checked;
+            this.rerenderDataGridViewTable();
+        }
     }
 }

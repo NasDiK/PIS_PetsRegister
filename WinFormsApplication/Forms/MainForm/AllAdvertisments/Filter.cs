@@ -26,18 +26,19 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                 {
                     this.settlementFilterTextbox.Focus();
                     this.adsForm.filter.isSettlementsFilterActive = true;
+
                 }
                 else
                 {
                     this.adsForm.filter.isLostDatesFilterActive = false;
                 }
+                this.adsForm.rerenderDataGridViewTable();
             };
             this.settlementFilterTextbox.Leave += (s, e) =>
             {
                 this.adsForm.filter.resetSettlementsList();
                 var list = Regex.Matches(this.settlementFilterTextbox.Text, @"[А-Яа-я]+\s?[А-Яа-я]+").ToImmutableList(); //Получается работает только на слова с одним пробелом. ToFix
                 list.ForEach(match => this.adsForm.filter.SettlementsName.Add(match.Value));
-                //adsForm.applyfilter()
             };
 
             this.petCategoryFilterCheckbox.CheckedChanged += (s, e) =>
@@ -45,12 +46,12 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                 if (this.petCategoryFilterCheckbox.Checked)
                 {
                     this.adsForm.filter.isPetCategoryFilterActive = true;
-                    //this.adsForm.applyFilter();
                 }
                 else
                 {
                     this.adsForm.filter.isPetCategoryFilterActive = false;
                 }
+                this.adsForm.rerenderDataGridViewTable();
             };
             this.petCategoryFilterComboBox.SelectedValueChanged += (s, e) =>
             {
@@ -63,12 +64,12 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                 {
                     this.propazhaDateTextBox.Focus();
                     this.adsForm.filter.isLostDatesFilterActive = true;
-                    //this.adsForm.applyFilter();
                 }
                 else
                 {
                     this.adsForm.filter.isLostDatesFilterActive = false;
                 }
+                this.adsForm.rerenderDataGridViewTable();
             };
             this.propazhaDateTextBox.Leave += (s, e) =>
             {

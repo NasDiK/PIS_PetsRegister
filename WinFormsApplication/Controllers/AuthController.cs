@@ -25,7 +25,7 @@ namespace WinFormsApplication.Controllers
                 return null;
         }
 
-        internal User? RegisterUser(string username, string password, string phone, string fullname)
+        internal User? RegisterUser(string username, string password, string phone, string fullname, long roleId)
         {
             var userByLogin = dbController.getUserByLogin(username);
             var userByPhone = dbController.getUserByLogin(phone);
@@ -38,7 +38,7 @@ namespace WinFormsApplication.Controllers
                     Password = password,
                     Username = username,
                     PhoneNumber = phone,
-                    RoleId = dbController.getRoleIdByName("owner") }
+                    RoleId = roleId }
                 );
         }
     }

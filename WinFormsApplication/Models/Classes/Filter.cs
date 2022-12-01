@@ -9,6 +9,9 @@ namespace WinFormsApplication.Models.Classes
     internal class Filter
     {
         internal List<string> SettlementsName;
+        /// <summary>
+        /// Item1 - операнда. Item2 - короткая дата
+        /// </summary>
         internal List<(string, string)> LostDates;
         internal long PetCategoryId;
 

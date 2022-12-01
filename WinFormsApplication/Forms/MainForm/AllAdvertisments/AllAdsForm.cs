@@ -27,8 +27,8 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             this.authForm = authForm;
             this.dbController = databaseController;
 
-            this.filterForm = new Filter(this);
             this.filter = new Models.Classes.Filter();
+            this.filterForm = new Filter(this);
             this.rolesList = dbController.getAllRoles();
             this.settlementsList = dbController.getAllSettlements();
 
@@ -41,35 +41,39 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         internal void rerenderDataGridViewTable()
         {
             this.dataViewTable.Rows.Clear();
-            //todo прикрутить фильтр
+
+            var toView = this.advertisments?.ToList();
+
             if (this.filter.displayOnlyMy)
+                toView = toView?.Where((ad) => ad.PetOwnerId == this.user?.Id)?.ToList();
+
+            if (this.filter.isSettlementsFilterActive)
             {
-                this.advertisments?.Where((ad) => ad.PetOwnerId == this.user?.Id).ToList().ForEach((advertisment) =>
-                {
-                    this.dataViewTable.Rows.Add(
-                        advertisment.Id,
-                        advertisment.CreationDateTime,
-                        null, advertisment.BreedName,
-                        advertisment.PetSex,
-                        this.settlementsList.Find((settl) => settl.Id == advertisment?.SettlementId)?.Name
-                    );
-                });
-            }
-            else
-            {
-                this.advertisments?.ForEach((advertisment) =>
-                {
-                    this.dataViewTable.Rows.Add(
-                        advertisment.Id,
-                        advertisment.CreationDateTime,
-                        null, advertisment.BreedName,
-                        advertisment.PetSex,
-                        this.settlementsList.Find((settl) => settl.Id == advertisment?.SettlementId)?.Name
-                    );
-                });
+                var settlementsIds = settlementsList.Where((settlement) => this.filter.SettlementsName.Contains(settlement?.Name ?? ""))
+                    .Select((setl) => setl.Id).ToList();
+
+                toView = toView?.Where((ad) => settlementsIds.Contains(ad.SettlementId))?.ToList();
             }
 
+            if (this.filter.isPetCategoryFilterActive)
+                toView = toView?.Where((ad) => ad.PetCategoryId == this.filter.PetCategoryId)?.ToList();
 
+            if (this.filter.isLostDatesFilterActive)
+                this.filter.LostDates.ForEach((date) =>
+                {
+                    toView = ReturnFilteredByDateAdsList(toView, date.Item2, date.Item1);
+                });
+
+            toView?.ForEach((advertisment) =>
+            {
+                this.dataViewTable.Rows.Add(
+                    advertisment.Id,
+                    advertisment.CreationDateTime,
+                    null, advertisment.BreedName,
+                    advertisment.PetSex,
+                    this.settlementsList.Find((settl) => settl.Id == advertisment?.SettlementId)?.Name
+                );
+            });
         }
 
         bool HandleUnauthorisedUsers()
@@ -180,6 +184,26 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         {
             this.filter.displayOnlyMy = this.displayMyCheckbox.Checked;
             this.rerenderDataGridViewTable();
+        }
+
+        private List <Advertisment>? ReturnFilteredByDateAdsList(List <Advertisment>? advertisments, string date, string operand)
+        {
+            var comparedDateTime = Convert.ToDateTime(date);
+            switch (operand)
+            {
+                case ">=":
+                    return advertisments?.Where((ad) => Convert.ToDateTime(ad.CreationDateTime) >= comparedDateTime)?.ToList();
+                case "<=":
+                    return advertisments?.Where((ad) => Convert.ToDateTime(ad.CreationDateTime) <= comparedDateTime)?.ToList();
+                case ">":
+                    return advertisments?.Where((ad) => Convert.ToDateTime(ad.CreationDateTime) > comparedDateTime)?.ToList();
+                case "<":
+                    return advertisments?.Where((ad) => Convert.ToDateTime(ad.CreationDateTime) < comparedDateTime)?.ToList();
+                case "=":
+                    return advertisments?.Where((ad) => Convert.ToDateTime(ad.CreationDateTime) == comparedDateTime)?.ToList();
+                default:
+                    throw new Exception("Undefined operand");
+            }
         }
     }
 }

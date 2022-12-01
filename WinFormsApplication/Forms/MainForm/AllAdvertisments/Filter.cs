@@ -1,12 +1,14 @@
 ﻿using System.Collections.Immutable;
 using System.Data;
 using System.Text.RegularExpressions;
+using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
     public partial class Filter : Form
     {
         AllAdsForm adsForm;
+        List<PetCategory> petCategories = new List<PetCategory>();
         public Filter(AllAdsForm allAds)
         {
             InitializeComponent();
@@ -16,22 +18,20 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void init()
         {
-            this.petCategoryFilterComboBox.DataSource = this.adsForm.dbController.getAllPetCategories();
+            petCategories = this.adsForm.dbController.getAllPetCategories();
+            this.petCategoryFilterComboBox.DataSource = petCategories;
             this.petCategoryFilterComboBox.ValueMember = "Id";
             this.petCategoryFilterComboBox.DisplayMember = "Name";
+
+            this.adsForm.filter.PetCategoryId = petCategories[0].Id;
 
             this.settlementFilterCheckbox.CheckedChanged += (s, e) =>
             {
                 if (this.settlementFilterCheckbox.Checked)
                 {
                     this.settlementFilterTextbox.Focus();
-                    this.adsForm.filter.isSettlementsFilterActive = true;
-
                 }
-                else
-                {
-                    this.adsForm.filter.isLostDatesFilterActive = false;
-                }
+                this.adsForm.filter.isSettlementsFilterActive = this.settlementFilterCheckbox.Checked;
                 this.adsForm.rerenderDataGridViewTable();
             };
             this.settlementFilterTextbox.Leave += (s, e) =>
@@ -39,23 +39,22 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                 this.adsForm.filter.resetSettlementsList();
                 var list = Regex.Matches(this.settlementFilterTextbox.Text, @"[А-Яа-я]+\s?[А-Яа-я]+").ToImmutableList(); //Получается работает только на слова с одним пробелом. ToFix
                 list.ForEach(match => this.adsForm.filter.SettlementsName.Add(match.Value));
+
+                if (this.adsForm.filter.isSettlementsFilterActive) 
+                    this.adsForm.rerenderDataGridViewTable();
             };
 
             this.petCategoryFilterCheckbox.CheckedChanged += (s, e) =>
             {
-                if (this.petCategoryFilterCheckbox.Checked)
-                {
-                    this.adsForm.filter.isPetCategoryFilterActive = true;
-                }
-                else
-                {
-                    this.adsForm.filter.isPetCategoryFilterActive = false;
-                }
+                this.adsForm.filter.isPetCategoryFilterActive = this.petCategoryFilterCheckbox.Checked;
                 this.adsForm.rerenderDataGridViewTable();
             };
             this.petCategoryFilterComboBox.SelectedValueChanged += (s, e) =>
             {
                 this.adsForm.filter.PetCategoryId = (long)this.petCategoryFilterComboBox.SelectedValue;
+
+                if (this.adsForm.filter.isPetCategoryFilterActive)
+                    this.adsForm.rerenderDataGridViewTable();
             };
 
             this.datePropazhaFilterCheckbox.CheckedChanged += (s, e) =>
@@ -63,12 +62,9 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                 if (this.datePropazhaFilterCheckbox.Checked)
                 {
                     this.propazhaDateTextBox.Focus();
-                    this.adsForm.filter.isLostDatesFilterActive = true;
                 }
-                else
-                {
-                    this.adsForm.filter.isLostDatesFilterActive = false;
-                }
+                this.adsForm.filter.isLostDatesFilterActive = this.datePropazhaFilterCheckbox.Checked;
+
                 this.adsForm.rerenderDataGridViewTable();
             };
             this.propazhaDateTextBox.Leave += (s, e) =>
@@ -89,6 +85,9 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                     this.propazhaDateTextBox.Text = "";
                 }
                 else newOperands.ForEach(x => { this.adsForm.filter.LostDates.Add((x[0].ToString(), x.Substring(1))); }); //Item1 - операнда, Item2-валидная дата
+
+                if (this.adsForm.filter.isLostDatesFilterActive)
+                    this.adsForm.rerenderDataGridViewTable();
             };
 
         }

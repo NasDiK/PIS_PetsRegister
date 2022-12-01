@@ -10,13 +10,10 @@ namespace WinFormsApplication.Utils
     {
         internal static void Notify(string text, string caption)
         {
-            MessageBox.Show("Test");
-            throw new NotImplementedException();
+            MessageBox.Show(text, caption, MessageBoxButtons.OK);
         }
 
-        internal static bool Confirm(string text, string caption)
-        {
-            throw new NotImplementedException();
-        }
+        internal static bool Confirm (string text, string caption) =>
+            MessageBox.Show(text, caption, MessageBoxButtons.YesNo) == DialogResult.OK;
     }
 }

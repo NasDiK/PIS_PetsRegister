@@ -97,19 +97,15 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             switch (role?.Name)
             {
                 case null:
-                    //todo гость
                     this.displayMyCheckbox.Enabled = false;
                     this.myPetsButton.Enabled = false;
                     break;
                 case "owner":
-                    //todo владелец
                     this.myPetsButton.Enabled = true;
                     break;
                 case "admin":
                     this.myPetsButton.Enabled = false;
-                    //todo админ
                     break;
-                    //todo ещё роли
             }
         }
 
@@ -120,9 +116,11 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void openAdButton_Click(object sender, EventArgs e)
         {
-            PetCardForm petCardForm = new PetCardForm(this.dbController, this.advertisments?.FirstOrDefault(), this.user); //TODO переделать на currentRow. 
+            var curRowId = this.dataViewTable.CurrentRow?.Cells["id"]?.Value;
+            if (curRowId == null) return;
+
+            PetCardForm petCardForm = new PetCardForm(this.dbController, this.advertisments?.First((ad)=>ad.Id == (long)curRowId), this.user); 
             petCardForm.ShowDialog();
-            //todo может любой
         }
 
         private void AllAdsForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -137,14 +135,24 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                 return;
 
             AddChangeAdForm addChangeAdForm = new AddChangeAdForm(dbController, user);
-            addChangeAdForm.ShowDialog();
+            if (addChangeAdForm.ShowDialog() == DialogResult.OK)
+            {
+                this.advertisments = this.dbController.getAllAdvertisments();
+                this.rerenderDataGridViewTable();
+            }
         }
 
         private void chngAdButton_Click(object sender, EventArgs e)
         {
-            var curAdd = this.advertisments?.FirstOrDefault();//TODO currentrow
-            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(dbController, user, curAdd);
-            addChangeAdForm.ShowDialog();
+            var curRowId = this.dataViewTable.CurrentRow?.Cells["id"]?.Value;
+            if (curRowId == null) return;
+
+            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(dbController, user, this.advertisments?.Find((ad)=>ad.Id == (long)curRowId));
+            if(addChangeAdForm.ShowDialog() == DialogResult.OK)
+            {
+                this.advertisments = this.dbController.getAllAdvertisments();
+                this.rerenderDataGridViewTable();
+            }
         }
 
         private void filterButton_Click(object sender, EventArgs e)

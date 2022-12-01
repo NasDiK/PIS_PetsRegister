@@ -128,8 +128,22 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                 }
                 else
                 {
-                    throw new Exception();
-                    //TODO updateAdvertisment(this.advertisment); method
+                    var updateAdvertisment = this.dbController.UpdateAdvertisment(new Advertisment()
+                    {
+                        Id=this.advertisment.Id,
+                        PetCategoryId = (long)this.petCategoryComboBox.SelectedValue,
+                        PetName = this.petNameTextBox.Text,
+                        PetBirthDate = this.petBirthDateMaskedTextbox.Text,
+                        SettlementId = (long)this.settlementCombobox.SelectedValue,
+                        RegisterDate = this.registrationPetDateMaskedTextBox.Text,
+                        PetPassportNumber = this.passportNumberTextBox.Text,
+                        BreedName = this.breedTextBox.Text,
+                        PetSex = (string)this.petSexCombobox.SelectedItem,
+                        AdditionalInformation = this.additionalInformationTextBox.Text
+                    });
+
+                    if (!updateAdvertisment) throw new Exception();
+                    this.DialogResult = DialogResult.OK;
                 }
             }
             catch

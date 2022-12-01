@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
 using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Controllers
@@ -72,12 +73,46 @@ namespace WinFormsApplication.Controllers
 
         internal bool UpdateAdvertisment(Advertisment advertisment)
         {
-            try { db.Advertisments.Update(advertisment); db.SaveChanges(); return true; } catch { return false; }
+            try { 
+                var advert = db.Advertisments.FirstOrDefault(ad => ad.Id == advertisment.Id);
+
+                if (advert == null)
+                    throw new Exception("advert is null");
+
+                advert.PetCategoryId = advertisment.PetCategoryId;
+                advert.PetName = advertisment.PetName;
+                advert.PetBirthDate = advertisment.PetBirthDate;
+                advert.SettlementId = advertisment.SettlementId;
+                advert.RegisterDate = advertisment.RegisterDate;
+                advert.PetPassportNumber = advertisment.PetPassportNumber;
+                advert.BreedName = advertisment.BreedName;
+                advert.PetSex = advertisment.PetSex;
+                advert.AdditionalInformation = advertisment.AdditionalInformation;
+
+                db.SaveChanges(); 
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
-        internal bool DeleteAdvertisment(Advertisment advertisment)
+        internal bool DeleteAdvertisment(long advertismentId)
         {
-            try { var result = db.Advertisments.Where(adv => adv.Id == advertisment.Id).ExecuteDelete(); db.SaveChanges(); return result > 0; } catch { return false; }
+            try { 
+                var advert = db.Advertisments.FirstOrDefault(adv => adv.Id == advertismentId);
+                if (advert == null)
+                    throw new Exception("advert is null");
+
+                db.Advertisments.Remove(advert);
+                db.SaveChanges();
+                return true;
+            } catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+                return false; 
+            }
         }
 
         #endregion

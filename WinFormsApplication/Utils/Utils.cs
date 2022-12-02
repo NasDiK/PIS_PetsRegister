@@ -8,6 +8,7 @@ namespace WinFormsApplication.Utils
 {
     static internal class Utils
     {
+        public static string currentDirectory = Application.ExecutablePath; 
         internal static void Notify(string text, string caption)
         {
             MessageBox.Show(text, caption, MessageBoxButtons.OK);

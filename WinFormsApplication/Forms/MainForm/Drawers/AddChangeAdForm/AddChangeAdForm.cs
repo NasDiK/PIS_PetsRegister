@@ -11,6 +11,10 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
         DatabaseController dbController;
         User? user;
 
+        Image? curImage;
+        Image[]? images;
+        string[]? filenamesToUpload;
+
         Advertisment? advertisment;
         internal AddChangeAdForm(DatabaseController databaseController, User? user, Advertisment? advertisment = null, Pet? animal = null)
         {
@@ -52,6 +56,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                 this.Text = "Подать объявление - " + Properties.Resources.applicationCaption;
                 this.petSexCombobox.SelectedIndex = 0;
             }
+
+            //TODO настроить openfileDialog
         }
 
         private void clearFields()
@@ -143,11 +149,21 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                     });
 
                     if (!updateAdvertisment) throw new Exception();
+                    var guidFileNames = this.filenamesToUpload?.Select((filename) => {
+                        var guidfileName = $"./adPhotos/{System.Guid.NewGuid()}";
+                        var data = File.ReadAllBytes(filename);
+                        File.WriteAllBytes(guidfileName, data);
+                        return guidfileName;
+                    });
+
+                    dbController.UploadPhotographies(this.advertisment.Id, guidFileNames);
+
                     this.DialogResult = DialogResult.OK;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 MessageBox.Show($"Произошла ошибка при {(this.advertisment == null ? "создании" : "редактировании")} объявления");
             }
         }
@@ -159,40 +175,48 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         private void AddChangeAdForm_Load(object sender, EventArgs e)
         {
-            loadPhotographies();
+            if (this.advertisment != null) 
+                loadPhotographies();
         }
 
         private void loadPhotographies()
         {
-            object[] photos = new object[0];
-            //TODO Load photo
-            if (photos.Length == 0)
+            try
             {
-                Label label = new Label()
-                {
-                    Text = "Фотографий не найдено",
-                    AutoSize = true,
-                    Location = new Point(panel1.Location.X, panel1.Location.Y + panel1.Size.Height / 2),
-                    Dock = DockStyle.Fill
-                };
-                panel1.Controls.Add(label);
-                return;
+
+            
+            var photographies = dbController.getPhotographiesFilenames(this.advertisment?.Id);
+            this.images = photographies.Select((photo) =>
+            {
+                if (photo?.IsGeneral == true) curImage = Image.FromFile(photo.Filepath);
+                return Image.FromFile(photo.Filepath);
+            }).ToArray();
+
+            if(this.images?.Length != 0)
+            {
+                PictureBox picBox = new PictureBox();
+                picBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                picBox.Dock = DockStyle.Fill;
+                picBox.Image = curImage ?? images?.FirstOrDefault();
+                this.panel1.Controls.Add(picBox);
+                picBox.BringToFront();
             }
-            Label label2 = new Label() //TODO убрать нахой реальный pictureBox ставить
+
+            }
+            catch(Exception ex)
             {
-                Text = "*Фотографии*",
-                AutoSize = true,
-                Location = new Point(panel1.Location.X, panel1.Location.Y + panel1.Size.Height / 2),
-                Dock = DockStyle.Fill
-            };
-            panel1.Controls.Add(label2);
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("Ошибка при загрузке фотографии. " + ex.ToString());
+            }
 
         }
 
         private void uploadPhotoButton_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
-            //TODO настроить openfileDialog
+            if(openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.filenamesToUpload = openFileDialog.FileNames;
+            };
         }
 
         private void clearFieldsButton_Click(object sender, EventArgs e) => this.clearFields();

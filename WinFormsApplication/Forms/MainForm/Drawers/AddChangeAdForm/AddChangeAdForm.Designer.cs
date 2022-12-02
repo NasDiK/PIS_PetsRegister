@@ -45,7 +45,7 @@
             this.previousPhotoButton = new System.Windows.Forms.Button();
             this.clearFieldsButton = new System.Windows.Forms.Button();
             this.uploadPhotoButton = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.petBirthDateMaskedTextbox = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.petSexCombobox = new System.Windows.Forms.ComboBox();
@@ -200,10 +200,9 @@
             this.uploadPhotoButton.UseVisualStyleBackColor = true;
             this.uploadPhotoButton.Click += new System.EventHandler(this.uploadPhotoButton_Click);
             // 
-            // openFileDialog1
+            // openFileDialog
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Multiselect = true;
+            this.openFileDialog.Multiselect = true;
             // 
             // petBirthDateMaskedTextbox
             // 
@@ -338,7 +337,7 @@
         private Button previousPhotoButton;
         private Button clearFieldsButton;
         private Button uploadPhotoButton;
-        private OpenFileDialog openFileDialog1;
+        private OpenFileDialog openFileDialog;
         private MaskedTextBox petBirthDateMaskedTextbox;
         private Label label7;
         private ComboBox petSexCombobox;

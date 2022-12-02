@@ -116,5 +116,29 @@ namespace WinFormsApplication.Controllers
         }
 
         #endregion
+
+        #region Photographies
+        internal void UploadPhotographies(long advertId, IEnumerable<string>? guidFileNames)
+        {
+            var photographies = guidFileNames?.Select((filename) =>
+            {
+                return new Photography()
+                {
+                    AdvertismentId = advertId,
+                    Filepath = filename
+                };
+            });
+
+            db.Photographies.AddRange(photographies);
+            db.SaveChanges();
+        }
+
+        internal Photography?[] getPhotographiesFilenames(long? advertID)
+        {
+            return db.Photographies.Where((photo) => photo.AdvertismentId == advertID).ToArray();
+
+        }
+
+        #endregion
     }
 }

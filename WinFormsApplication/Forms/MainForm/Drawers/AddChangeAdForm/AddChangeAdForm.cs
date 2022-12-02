@@ -12,7 +12,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
         User? user;
 
         Image? curImage;
-        Image[]? images;
+
+        List <Image>? images;
         string[]? filenamesToUpload;
 
         Advertisment? advertisment;
@@ -57,7 +58,9 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                 this.petSexCombobox.SelectedIndex = 0;
             }
 
-            //TODO настроить openfileDialog
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            openFileDialog.Filter = "Bitmap files (*.bmp)|*.bmp|Image files (*.jpg)|*.jpg|Png files (.png)|*.png|JPEG (*.jpeg)|*.jpeg|All files|*.*";
         }
 
         private void clearFields()
@@ -127,8 +130,19 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                         AdditionalInformation = this.additionalInformationTextBox.Text,
                         CreationDateTime = DateTime.Now.ToShortDateString()
                     });
-                    if (createdAdvertisment == null)
-                        MessageBox.Show("Произошла ошибка при создании объявления");
+                    if (createdAdvertisment == null) throw new Exception();
+
+                    var guidFileNames = this.filenamesToUpload?.Select((filename) => {
+                        var guidfileName = $"./adPhotos/{System.Guid.NewGuid()}";
+                        var data = File.ReadAllBytes(filename);
+                        File.WriteAllBytes(guidfileName, data);
+                        return guidfileName;
+                    });
+
+                    if (guidFileNames != null && guidFileNames?.Count() > 0)
+#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
+                        dbController.UploadPhotographies(createdAdvertisment.Id, guidFileNames);
+#pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
 
                     this.DialogResult = DialogResult.OK;
                 }
@@ -149,6 +163,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                     });
 
                     if (!updateAdvertisment) throw new Exception();
+
                     var guidFileNames = this.filenamesToUpload?.Select((filename) => {
                         var guidfileName = $"./adPhotos/{System.Guid.NewGuid()}";
                         var data = File.ReadAllBytes(filename);
@@ -156,7 +171,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                         return guidfileName;
                     });
 
-                    dbController.UploadPhotographies(this.advertisment.Id, guidFileNames);
+                    if(guidFileNames != null && guidFileNames?.Count()>0) 
+                        dbController.UploadPhotographies(this.advertisment.Id, guidFileNames);
 
                     this.DialogResult = DialogResult.OK;
                 }
@@ -170,7 +186,12 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         private void previousPhotoButton_Click(object sender, EventArgs e)
         {
+            var index = this.images?.FindIndex((img) => Image.Equals(img, curImage));
+            if (index == null || curImage == null || index==-1) return;
 
+            if (index == 0) curImage = this.images?.Last();
+            else curImage = this.images?[(int)index - 1];
+            this.pictureBox1.Image = curImage;
         }
 
         private void AddChangeAdForm_Load(object sender, EventArgs e)
@@ -183,30 +204,27 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
         {
             try
             {
+                var photographies = dbController.getPhotographiesFilenames(this.advertisment?.Id);
+                this.images = photographies.Select((photo) =>
+                {
+#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
+                    var img = Image.FromFile(photo.Filepath);
+#pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
+                    if (photo?.IsGeneral == true) curImage = img;
+                    return img;
+                }).ToList();
 
-            
-            var photographies = dbController.getPhotographiesFilenames(this.advertisment?.Id);
-            this.images = photographies.Select((photo) =>
-            {
-                if (photo?.IsGeneral == true) curImage = Image.FromFile(photo.Filepath);
-                return Image.FromFile(photo.Filepath);
-            }).ToArray();
-
-            if(this.images?.Length != 0)
-            {
-                PictureBox picBox = new PictureBox();
-                picBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                picBox.Dock = DockStyle.Fill;
-                picBox.Image = curImage ?? images?.FirstOrDefault();
-                this.panel1.Controls.Add(picBox);
-                picBox.BringToFront();
-            }
+                if(this.images?.Count != 0)
+                {
+                    curImage ??= images?.FirstOrDefault();
+                    pictureBox1.Image = curImage;
+                }
 
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                MessageBox.Show("Ошибка при загрузке фотографии. " + ex.ToString());
+                MessageBox.Show("Ошибка при загрузке фотографии. " + ex.ToString()); //TODO убрать экспепшн
             }
 
         }
@@ -216,6 +234,11 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             if(openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 this.filenamesToUpload = openFileDialog.FileNames;
+                var newList = this.images?.ToList() ?? new List<Image>();
+                newList?.AddRange(this.filenamesToUpload.Select((fn) => Image.FromFile(fn)));
+                this.images = newList?.ToList();
+                curImage = images?.LastOrDefault();
+                this.pictureBox1.Image = curImage;
             };
         }
 
@@ -239,6 +262,16 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                 MessageBox.Show("Невалидная дата", "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.registrationPetDateMaskedTextBox.Text = "";
             }
+        }
+
+        private void nextPhotoButton_Click(object sender, EventArgs e)
+        {
+            var index = this.images?.FindIndex((img) => Image.Equals(img, curImage));
+            if (index == null || curImage == null || index == -1) return;
+
+            if (index == this.images?.Count-1) curImage = this.images?.First();
+            else curImage = this.images?[(int)index + 1];
+            this.pictureBox1.Image = curImage;
         }
     }
 }

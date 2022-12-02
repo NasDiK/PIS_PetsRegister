@@ -41,7 +41,6 @@
             this.passportNumberTextBox = new System.Windows.Forms.TextBox();
             this.petCategoryComboBox = new System.Windows.Forms.ComboBox();
             this.nextPhotoButton = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.previousPhotoButton = new System.Windows.Forms.Button();
             this.clearFieldsButton = new System.Windows.Forms.Button();
             this.uploadPhotoButton = new System.Windows.Forms.Button();
@@ -54,6 +53,8 @@
             this.registrationPetDateMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.additionalInformationTextBox = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -143,6 +144,7 @@
             // 
             // petCategoryComboBox
             // 
+            this.petCategoryComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.petCategoryComboBox.FormattingEnabled = true;
             this.petCategoryComboBox.Location = new System.Drawing.Point(278, 10);
             this.petCategoryComboBox.Name = "petCategoryComboBox";
@@ -158,15 +160,7 @@
             this.nextPhotoButton.TabIndex = 17;
             this.nextPhotoButton.Text = "Следующая фотография";
             this.nextPhotoButton.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(557, 10);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(317, 257);
-            this.panel1.TabIndex = 18;
+            this.nextPhotoButton.Click += new System.EventHandler(this.nextPhotoButton_Click);
             // 
             // previousPhotoButton
             // 
@@ -225,6 +219,7 @@
             // 
             // petSexCombobox
             // 
+            this.petSexCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.petSexCombobox.FormattingEnabled = true;
             this.petSexCombobox.Items.AddRange(new object[] {
             "Мальчик",
@@ -245,6 +240,7 @@
             // 
             // settlementCombobox
             // 
+            this.settlementCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.settlementCombobox.FormattingEnabled = true;
             this.settlementCombobox.Location = new System.Drawing.Point(278, 192);
             this.settlementCombobox.Name = "settlementCombobox";
@@ -278,11 +274,21 @@
             this.additionalInformationTextBox.Size = new System.Drawing.Size(239, 23);
             this.additionalInformationTextBox.TabIndex = 9;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(557, 10);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(315, 232);
+            this.pictureBox1.TabIndex = 28;
+            this.pictureBox1.TabStop = false;
+            // 
             // AddChangeAdForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 325);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.additionalInformationTextBox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.registrationPetDateMaskedTextBox);
@@ -293,7 +299,6 @@
             this.Controls.Add(this.uploadPhotoButton);
             this.Controls.Add(this.clearFieldsButton);
             this.Controls.Add(this.previousPhotoButton);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.nextPhotoButton);
             this.Controls.Add(this.petCategoryComboBox);
             this.Controls.Add(this.passportNumberTextBox);
@@ -314,6 +319,7 @@
             this.Name = "AddChangeAdForm";
             this.Text = "AddChangeAdForm";
             this.Load += new System.EventHandler(this.AddChangeAdForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,7 +339,6 @@
         private TextBox passportNumberTextBox;
         private ComboBox petCategoryComboBox;
         private Button nextPhotoButton;
-        private Panel panel1;
         private Button previousPhotoButton;
         private Button clearFieldsButton;
         private Button uploadPhotoButton;
@@ -346,5 +351,6 @@
         private MaskedTextBox registrationPetDateMaskedTextBox;
         private Label label9;
         private TextBox additionalInformationTextBox;
+        private PictureBox pictureBox1;
     }
 }

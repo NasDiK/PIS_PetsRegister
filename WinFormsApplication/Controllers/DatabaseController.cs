@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
-using WinFormsApplication.Models.Entities;
+﻿using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Controllers
 {
@@ -73,7 +71,8 @@ namespace WinFormsApplication.Controllers
 
         internal bool UpdateAdvertisment(Advertisment advertisment)
         {
-            try { 
+            try
+            {
                 var advert = db.Advertisments.FirstOrDefault(ad => ad.Id == advertisment.Id);
 
                 if (advert == null)
@@ -89,7 +88,7 @@ namespace WinFormsApplication.Controllers
                 advert.PetSex = advertisment.PetSex;
                 advert.AdditionalInformation = advertisment.AdditionalInformation;
 
-                db.SaveChanges(); 
+                db.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -101,17 +100,20 @@ namespace WinFormsApplication.Controllers
 
         internal bool DeleteAdvertisment(long advertismentId)
         {
-            try { 
+            try
+            {
                 var advert = db.Advertisments.FirstOrDefault(adv => adv.Id == advertismentId);
                 if (advert == null)
-                    throw new Exception("advert is null");
+                    throw new Exception("advert was null");
 
                 db.Advertisments.Remove(advert);
                 db.SaveChanges();
                 return true;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
-                return false; 
+                return false;
             }
         }
 
@@ -138,6 +140,72 @@ namespace WinFormsApplication.Controllers
             return db.Photographies.Where((photo) => photo.AdvertismentId == advertID).ToArray();
 
         }
+
+        #endregion
+
+        #region OwnPets
+
+        internal IEnumerable<Pet>? getUserAnimals(long userId) =>
+            db.Users.Where((user) => user.Id == userId).First().Pets;
+
+        internal bool registerPet(Pet animal)
+        {
+            try
+            {
+                db.Pets.Add(animal); db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+        internal bool updatePet(Pet animal)
+        {
+            try
+            {
+                var pet = db.Pets.Where(pet => pet.Id == animal.Id).First();
+
+                pet.PetName = animal.PetName;
+                pet.PetBirthDate = animal.PetBirthDate;
+                pet.RegisterDate = animal.RegisterDate;
+                pet.PetPassportNumber = animal.PetPassportNumber;
+                pet.BreedName = animal.BreedName;
+                pet.PetSex = animal.PetSex;
+
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+        internal bool deletePet(long animalId)
+        {
+            try
+            {
+                var pet = db.Pets.Where(pet => pet.Id == animalId).FirstOrDefault();
+
+                if (pet == null) 
+                    throw new Exception("delete pet was null");
+                db.Pets.Remove(pet);
+                db.SaveChanges();
+                
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
 
         #endregion
     }

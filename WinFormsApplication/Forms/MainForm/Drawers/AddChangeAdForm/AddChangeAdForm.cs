@@ -1,8 +1,6 @@
 ﻿using WinFormsApplication.Controllers;
 using WinFormsApplication.Models.Entities;
 using WinFormsApplication.Utils;
-using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 {
@@ -13,7 +11,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         Image? curImage;
 
-        List <Image>? images;
+        List<Image>? images;
         string[]? filenamesToUpload;
 
         Advertisment? advertisment;
@@ -39,7 +37,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             this.settlementCombobox.ValueMember = "Id";
             this.settlementCombobox.DataSource = settlements;
 
-            if(this.advertisment != null)
+            if (this.advertisment != null)
             {
                 this.petCategoryComboBox.SelectedValue = this.advertisment?.PetCategoryId;
                 this.petNameTextBox.Text = this.advertisment?.PetName;
@@ -132,7 +130,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                     });
                     if (createdAdvertisment == null) throw new Exception();
 
-                    var guidFileNames = this.filenamesToUpload?.Select((filename) => {
+                    var guidFileNames = this.filenamesToUpload?.Select((filename) =>
+                    {
                         var guidfileName = $"./adPhotos/{System.Guid.NewGuid()}";
                         var data = File.ReadAllBytes(filename);
                         File.WriteAllBytes(guidfileName, data);
@@ -150,7 +149,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                 {
                     var updateAdvertisment = this.dbController.UpdateAdvertisment(new Advertisment()
                     {
-                        Id=this.advertisment.Id,
+                        Id = this.advertisment.Id,
                         PetCategoryId = (long)this.petCategoryComboBox.SelectedValue,
                         PetName = this.petNameTextBox.Text,
                         PetBirthDate = this.petBirthDateMaskedTextbox.Text,
@@ -164,14 +163,15 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
                     if (!updateAdvertisment) throw new Exception();
 
-                    var guidFileNames = this.filenamesToUpload?.Select((filename) => {
+                    var guidFileNames = this.filenamesToUpload?.Select((filename) =>
+                    {
                         var guidfileName = $"./adPhotos/{System.Guid.NewGuid()}";
                         var data = File.ReadAllBytes(filename);
                         File.WriteAllBytes(guidfileName, data);
                         return guidfileName;
                     });
 
-                    if(guidFileNames != null && guidFileNames?.Count()>0) 
+                    if (guidFileNames != null && guidFileNames?.Count() > 0)
                         dbController.UploadPhotographies(this.advertisment.Id, guidFileNames);
 
                     this.DialogResult = DialogResult.OK;
@@ -187,7 +187,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
         private void previousPhotoButton_Click(object sender, EventArgs e)
         {
             var index = this.images?.FindIndex((img) => Image.Equals(img, curImage));
-            if (index == null || curImage == null || index==-1) return;
+            if (index == null || curImage == null || index == -1) return;
 
             if (index == 0) curImage = this.images?.Last();
             else curImage = this.images?[(int)index - 1];
@@ -196,8 +196,19 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         private void AddChangeAdForm_Load(object sender, EventArgs e)
         {
-            if (this.advertisment != null) 
+            if (this.advertisment != null)
                 loadPhotographies();
+
+            if (this.advertisment == null)
+            {
+                //todo var useranimals = db.getUserAnimals(this.user?.Id);
+                var userAnimals = new List<Pet>() { new Pet(), new Pet()}; //todo can be null
+                if (userAnimals != null && userAnimals.Count != 0 && Utils.Utils.Confirm("Найдены ваши домашние животные. Хотите подставить?", "Подстановка ДЖ"))
+                {
+                    //todo Подставить ДЖ
+                }
+            }
+
         }
 
         private void loadPhotographies()
@@ -214,14 +225,14 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                     return img;
                 }).ToList();
 
-                if(this.images?.Count != 0)
+                if (this.images?.Count != 0)
                 {
                     curImage ??= images?.FirstOrDefault();
                     pictureBox1.Image = curImage;
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 MessageBox.Show("Ошибка при загрузке фотографии. " + ex.ToString()); //TODO убрать экспепшн
@@ -231,7 +242,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         private void uploadPhotoButton_Click(object sender, EventArgs e)
         {
-            if(openFileDialog.ShowDialog() == DialogResult.OK)
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 this.filenamesToUpload = openFileDialog.FileNames;
                 var newList = this.images?.ToList() ?? new List<Image>();
@@ -269,7 +280,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             var index = this.images?.FindIndex((img) => Image.Equals(img, curImage));
             if (index == null || curImage == null || index == -1) return;
 
-            if (index == this.images?.Count-1) curImage = this.images?.First();
+            if (index == this.images?.Count - 1) curImage = this.images?.First();
             else curImage = this.images?[(int)index + 1];
             this.pictureBox1.Image = curImage;
         }

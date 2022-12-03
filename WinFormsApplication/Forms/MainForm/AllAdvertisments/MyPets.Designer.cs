@@ -120,6 +120,7 @@
             this.addButton.TabIndex = 0;
             this.addButton.Text = "Добавить";
             this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // panel2
             // 

@@ -29,18 +29,15 @@
         private void InitializeComponent()
         {
             this.petSexLabel = new System.Windows.Forms.Label();
-            this.delButton = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.petNameLabel = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.breedNameLabel = new System.Windows.Forms.Label();
+            this.petPassportNumberLabel = new System.Windows.Forms.Label();
+            this.registerDateLabel = new System.Windows.Forms.Label();
             this.petBirthDateLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelMyPetTitle = new System.Windows.Forms.Label();
-            this.registerDateLabel = new System.Windows.Forms.Label();
-            this.petPassportNumberLabel = new System.Windows.Forms.Label();
-            this.breedNameLabel = new System.Windows.Forms.Label();
-            this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -56,27 +53,6 @@
             this.petSexLabel.Size = new System.Drawing.Size(261, 45);
             this.petSexLabel.TabIndex = 2;
             this.petSexLabel.Text = "Пол животного:";
-            // 
-            // delButton
-            // 
-            this.delButton.Location = new System.Drawing.Point(20, 18);
-            this.delButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.delButton.Name = "delButton";
-            this.delButton.Size = new System.Drawing.Size(107, 53);
-            this.delButton.TabIndex = 0;
-            this.delButton.Text = "Удалить";
-            this.delButton.UseVisualStyleBackColor = true;
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.delButton);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 722);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1623, 90);
-            this.panel4.TabIndex = 1;
             // 
             // petNameLabel
             // 
@@ -103,8 +79,41 @@
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1623, 722);
+            this.panel5.Size = new System.Drawing.Size(1623, 812);
             this.panel5.TabIndex = 2;
+            // 
+            // breedNameLabel
+            // 
+            this.breedNameLabel.AutoSize = true;
+            this.breedNameLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.breedNameLabel.Location = new System.Drawing.Point(12, 221);
+            this.breedNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.breedNameLabel.Name = "breedNameLabel";
+            this.breedNameLabel.Size = new System.Drawing.Size(145, 45);
+            this.breedNameLabel.TabIndex = 5;
+            this.breedNameLabel.Text = "Порода:";
+            // 
+            // petPassportNumberLabel
+            // 
+            this.petPassportNumberLabel.AutoSize = true;
+            this.petPassportNumberLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.petPassportNumberLabel.Location = new System.Drawing.Point(12, 160);
+            this.petPassportNumberLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.petPassportNumberLabel.Name = "petPassportNumberLabel";
+            this.petPassportNumberLabel.Size = new System.Drawing.Size(450, 45);
+            this.petPassportNumberLabel.TabIndex = 4;
+            this.petPassportNumberLabel.Text = "Номер паспорта животного:";
+            // 
+            // registerDateLabel
+            // 
+            this.registerDateLabel.AutoSize = true;
+            this.registerDateLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.registerDateLabel.Location = new System.Drawing.Point(12, 104);
+            this.registerDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.registerDateLabel.Name = "registerDateLabel";
+            this.registerDateLabel.Size = new System.Drawing.Size(471, 45);
+            this.registerDateLabel.TabIndex = 3;
+            this.registerDateLabel.Text = "Дата регистрации животного:";
             // 
             // petBirthDateLabel
             // 
@@ -120,7 +129,6 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.panel5);
-            this.panel2.Controls.Add(this.panel4);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 90);
             this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -150,39 +158,6 @@
             this.labelMyPetTitle.Text = "Карточка моего животного";
             this.labelMyPetTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // registerDateLabel
-            // 
-            this.registerDateLabel.AutoSize = true;
-            this.registerDateLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.registerDateLabel.Location = new System.Drawing.Point(12, 104);
-            this.registerDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.registerDateLabel.Name = "registerDateLabel";
-            this.registerDateLabel.Size = new System.Drawing.Size(471, 45);
-            this.registerDateLabel.TabIndex = 3;
-            this.registerDateLabel.Text = "Дата регистрации животного:";
-            // 
-            // petPassportNumberLabel
-            // 
-            this.petPassportNumberLabel.AutoSize = true;
-            this.petPassportNumberLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.petPassportNumberLabel.Location = new System.Drawing.Point(12, 160);
-            this.petPassportNumberLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.petPassportNumberLabel.Name = "petPassportNumberLabel";
-            this.petPassportNumberLabel.Size = new System.Drawing.Size(450, 45);
-            this.petPassportNumberLabel.TabIndex = 4;
-            this.petPassportNumberLabel.Text = "Номер паспорта животного:";
-            // 
-            // breedNameLabel
-            // 
-            this.breedNameLabel.AutoSize = true;
-            this.breedNameLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.breedNameLabel.Location = new System.Drawing.Point(12, 221);
-            this.breedNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.breedNameLabel.Name = "breedNameLabel";
-            this.breedNameLabel.Size = new System.Drawing.Size(145, 45);
-            this.breedNameLabel.TabIndex = 5;
-            this.breedNameLabel.Text = "Порода:";
-            // 
             // MyPetCardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -192,7 +167,6 @@
             this.Controls.Add(this.panel1);
             this.Name = "MyPetCardForm";
             this.Text = "Мои животные";
-            this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -203,8 +177,6 @@
 
         #endregion
         private Label petSexLabel;
-        private Button delButton;
-        private Panel panel4;
         private Label petNameLabel;
         private Panel panel5;
         private Label petBirthDateLabel;

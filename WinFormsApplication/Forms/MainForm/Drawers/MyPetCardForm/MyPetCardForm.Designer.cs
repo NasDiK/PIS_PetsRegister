@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyPetCardForm));
             this.petSexLabel = new System.Windows.Forms.Label();
             this.petNameLabel = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -165,6 +166,7 @@
             this.ClientSize = new System.Drawing.Size(1623, 902);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MyPetCardForm";
             this.Text = "Мои животные";
             this.panel5.ResumeLayout(false);

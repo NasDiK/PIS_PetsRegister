@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
@@ -30,6 +31,12 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             //todo Notify() -> utils
 
             //todo OwnPetCardForm->registerPet(в дб контроллер);
+        }
+
+        private void buttonOpen_Click(object sender, EventArgs e)
+        {
+            MyPetCardForm myPetCardForm = new MyPetCardForm();
+            myPetCardForm.ShowDialog();
         }
     }
 }

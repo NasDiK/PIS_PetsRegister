@@ -99,6 +99,8 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                 case null:
                     this.displayMyCheckbox.Enabled = false;
                     this.myPetsButton.Enabled = false;
+                    this.chngAdButton.Enabled = false;
+                    this.delAddButton.Enabled = false;
                     break;
                 case "owner":
                     this.myPetsButton.Enabled = true;

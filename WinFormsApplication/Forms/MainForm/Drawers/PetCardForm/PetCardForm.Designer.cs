@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PetCardForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -58,8 +59,9 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(928, 54);
+            this.panel1.Size = new System.Drawing.Size(1326, 90);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -67,8 +69,9 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(928, 54);
+            this.label1.Size = new System.Drawing.Size(1326, 90);
             this.label1.TabIndex = 0;
             this.label1.Text = "Карточка животного";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -79,9 +82,10 @@
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 54);
+            this.panel2.Location = new System.Drawing.Point(0, 90);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(928, 433);
+            this.panel2.Size = new System.Drawing.Size(1326, 722);
             this.panel2.TabIndex = 1;
             // 
             // panel5
@@ -95,18 +99,20 @@
             this.panel5.Controls.Add(this.breedNameLabel);
             this.panel5.Controls.Add(this.createdAtLabel);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(252, 0);
+            this.panel5.Location = new System.Drawing.Point(359, 0);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(676, 378);
+            this.panel5.Size = new System.Drawing.Size(967, 632);
             this.panel5.TabIndex = 2;
             // 
             // additionalInformationLabel
             // 
             this.additionalInformationLabel.AutoEllipsis = true;
             this.additionalInformationLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.additionalInformationLabel.Location = new System.Drawing.Point(19, 248);
+            this.additionalInformationLabel.Location = new System.Drawing.Point(27, 413);
+            this.additionalInformationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.additionalInformationLabel.Name = "additionalInformationLabel";
-            this.additionalInformationLabel.Size = new System.Drawing.Size(645, 118);
+            this.additionalInformationLabel.Size = new System.Drawing.Size(921, 197);
             this.additionalInformationLabel.TabIndex = 5;
             this.additionalInformationLabel.Text = "Дополнительная информация: ";
             // 
@@ -114,9 +120,10 @@
             // 
             this.categoryLabel.AutoSize = true;
             this.categoryLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.categoryLabel.Location = new System.Drawing.Point(19, 202);
+            this.categoryLabel.Location = new System.Drawing.Point(27, 337);
+            this.categoryLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.categoryLabel.Name = "categoryLabel";
-            this.categoryLabel.Size = new System.Drawing.Size(129, 30);
+            this.categoryLabel.Size = new System.Drawing.Size(195, 45);
             this.categoryLabel.TabIndex = 4;
             this.categoryLabel.Text = "Категория?:";
             // 
@@ -124,9 +131,10 @@
             // 
             this.settlementLabel.AutoSize = true;
             this.settlementLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.settlementLabel.Location = new System.Drawing.Point(19, 159);
+            this.settlementLabel.Location = new System.Drawing.Point(27, 265);
+            this.settlementLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.settlementLabel.Name = "settlementLabel";
-            this.settlementLabel.Size = new System.Drawing.Size(202, 30);
+            this.settlementLabel.Size = new System.Drawing.Size(311, 45);
             this.settlementLabel.TabIndex = 3;
             this.settlementLabel.Text = "Населённый пункт:";
             // 
@@ -134,9 +142,10 @@
             // 
             this.petSexLabel.AutoSize = true;
             this.petSexLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.petSexLabel.Location = new System.Drawing.Point(19, 112);
+            this.petSexLabel.Location = new System.Drawing.Point(27, 187);
+            this.petSexLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.petSexLabel.Name = "petSexLabel";
-            this.petSexLabel.Size = new System.Drawing.Size(174, 30);
+            this.petSexLabel.Size = new System.Drawing.Size(261, 45);
             this.petSexLabel.TabIndex = 2;
             this.petSexLabel.Text = "Пол животного:";
             // 
@@ -144,9 +153,10 @@
             // 
             this.breedNameLabel.AutoSize = true;
             this.breedNameLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.breedNameLabel.Location = new System.Drawing.Point(19, 68);
+            this.breedNameLabel.Location = new System.Drawing.Point(27, 113);
+            this.breedNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.breedNameLabel.Name = "breedNameLabel";
-            this.breedNameLabel.Size = new System.Drawing.Size(91, 30);
+            this.breedNameLabel.Size = new System.Drawing.Size(139, 45);
             this.breedNameLabel.TabIndex = 1;
             this.breedNameLabel.Text = "Кличка:";
             // 
@@ -154,9 +164,10 @@
             // 
             this.createdAtLabel.AutoSize = true;
             this.createdAtLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.createdAtLabel.Location = new System.Drawing.Point(19, 21);
+            this.createdAtLabel.Location = new System.Drawing.Point(27, 35);
+            this.createdAtLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.createdAtLabel.Name = "createdAtLabel";
-            this.createdAtLabel.Size = new System.Drawing.Size(321, 30);
+            this.createdAtLabel.Size = new System.Drawing.Size(490, 45);
             this.createdAtLabel.TabIndex = 0;
             this.createdAtLabel.Text = "Дата размещения объявления:";
             // 
@@ -165,16 +176,18 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.delButton);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(252, 378);
+            this.panel4.Location = new System.Drawing.Point(359, 632);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(676, 55);
+            this.panel4.Size = new System.Drawing.Size(967, 90);
             this.panel4.TabIndex = 1;
             // 
             // delButton
             // 
-            this.delButton.Location = new System.Drawing.Point(14, 11);
+            this.delButton.Location = new System.Drawing.Point(20, 18);
+            this.delButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.delButton.Name = "delButton";
-            this.delButton.Size = new System.Drawing.Size(75, 32);
+            this.delButton.Size = new System.Drawing.Size(107, 53);
             this.delButton.TabIndex = 0;
             this.delButton.Text = "Удалить";
             this.delButton.UseVisualStyleBackColor = true;
@@ -188,33 +201,37 @@
             this.panel3.Controls.Add(this.pictureBox1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(252, 433);
+            this.panel3.Size = new System.Drawing.Size(359, 722);
             this.panel3.TabIndex = 0;
             // 
             // photoCountLabel
             // 
             this.photoCountLabel.AutoSize = true;
-            this.photoCountLabel.Location = new System.Drawing.Point(114, 287);
+            this.photoCountLabel.Location = new System.Drawing.Point(163, 478);
+            this.photoCountLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.photoCountLabel.Name = "photoCountLabel";
-            this.photoCountLabel.Size = new System.Drawing.Size(24, 15);
+            this.photoCountLabel.Size = new System.Drawing.Size(39, 25);
             this.photoCountLabel.TabIndex = 3;
             this.photoCountLabel.Text = "0/0";
             // 
             // nextPhotoButton
             // 
-            this.nextPhotoButton.Location = new System.Drawing.Point(177, 283);
+            this.nextPhotoButton.Location = new System.Drawing.Point(253, 472);
+            this.nextPhotoButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextPhotoButton.Name = "nextPhotoButton";
-            this.nextPhotoButton.Size = new System.Drawing.Size(60, 23);
+            this.nextPhotoButton.Size = new System.Drawing.Size(86, 38);
             this.nextPhotoButton.TabIndex = 2;
             this.nextPhotoButton.Text = ">";
             this.nextPhotoButton.UseVisualStyleBackColor = true;
             // 
             // previousPhotoButton
             // 
-            this.previousPhotoButton.Location = new System.Drawing.Point(12, 283);
+            this.previousPhotoButton.Location = new System.Drawing.Point(17, 472);
+            this.previousPhotoButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.previousPhotoButton.Name = "previousPhotoButton";
-            this.previousPhotoButton.Size = new System.Drawing.Size(60, 23);
+            this.previousPhotoButton.Size = new System.Drawing.Size(86, 38);
             this.previousPhotoButton.TabIndex = 1;
             this.previousPhotoButton.Text = "<";
             this.previousPhotoButton.UseVisualStyleBackColor = true;
@@ -222,19 +239,22 @@
             // pictureBox1
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 18);
+            this.pictureBox1.Location = new System.Drawing.Point(17, 30);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(225, 250);
+            this.pictureBox1.Size = new System.Drawing.Size(321, 415);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // PetCardForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(928, 487);
+            this.ClientSize = new System.Drawing.Size(1326, 812);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "PetCardForm";
             this.Text = "ShowAdForm";
             this.panel1.ResumeLayout(false);

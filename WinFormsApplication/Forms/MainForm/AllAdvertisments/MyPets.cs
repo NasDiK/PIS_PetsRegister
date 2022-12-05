@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm;
-using WinFormsApplication.Forms.MainForm.Drawers.AddNewMyPet;
+using WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
@@ -43,14 +43,16 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            AddNewMyPetForm addNewMyPetForm = new AddNewMyPetForm();
-            addNewMyPetForm.ShowDialog();
+            // TODO: Убрать null
+            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(null, null);
+            addChangeMyPetForm.ShowDialog();
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            AddNewMyPetForm addNewMyPetForm = new AddNewMyPetForm();
-            addNewMyPetForm.ShowDialog();
+            // TODO: Убрать null
+            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(null, null);
+            addChangeMyPetForm.ShowDialog();
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using WinFormsApplication.Controllers;
+using WinFormsApplication.Models.Entities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,20 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WinFormsApplication.Models.Entities;
 
-namespace WinFormsApplication.Forms.MainForm.Drawers.AddNewMyPet
+
+namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm
 {
-    public partial class AddNewMyPetForm : Form
+    public partial class AddChangeMyPetForm : Form
     {
-        public AddNewMyPetForm()
+        public AddChangeMyPetForm(DatabaseController db, Pet? pet = null)
         {
             InitializeComponent();
-        }
-
-        private void confirmButton_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -66,6 +66,16 @@
   <metadata name="petPhoto.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="dataGridViewCellStyle1.NullValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC1SURBVDhPpZKxDcIwFEQzm6fwEqQmNalCS3YASlKGBTwD
+        MAAEBGncHjpLtoLsGBuKJ32d77/fuADwF8EwBzdorZGDJ1BKQQiRBLuzgt12j9dzDMK3qKBclOj7I7pD
+        5y0z4xs7UQHLLDbN2i1zZsY5SUDOpwvaTWvgbPNkwX14oFpWBs5ZArvMy2Qq+SpgsV7VH1enWVQgpTTX
+        btfBLVuY8Y2dWcH0s8QICkLfNYYn+JVgmA6KN+iyEqD/x9KyAAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="breedName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -75,7 +85,12 @@
   <metadata name="settlementName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <metadata name="petName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="petBirthDate.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAAAAAAAEAIADVHwAAZgAAAICAAAABACAAKAgBADsgAABAQAAAAQAgAChCAABjKAEAMDAAAAEA

@@ -1,4 +1,5 @@
-﻿using WinFormsApplication.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Controllers
 {
@@ -67,7 +68,9 @@ namespace WinFormsApplication.Controllers
             catch { return null; }
         }
 
-        internal List<Advertisment>? getAllAdvertisments() => db.Advertisments.ToList();
+        internal List<Advertisment>? getAllAdvertisments() => db.Advertisments
+            .Include(u=>u.Photographies)
+            .ToList();
 
         internal bool UpdateAdvertisment(Advertisment advertisment)
         {
@@ -138,7 +141,25 @@ namespace WinFormsApplication.Controllers
         internal Photography?[] getPhotographiesFilenames(long? advertID)
         {
             return db.Photographies.Where((photo) => photo.AdvertismentId == advertID).ToArray();
+        }
 
+        internal bool DeletePhotography(long photographyId)
+        {
+            try
+            {
+                var photo = db.Photographies.FirstOrDefault(pht => pht.Id == photographyId);
+                if (photo == null)
+                    throw new Exception("advert was null");
+
+                db.Photographies.Remove(photo);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
         #endregion

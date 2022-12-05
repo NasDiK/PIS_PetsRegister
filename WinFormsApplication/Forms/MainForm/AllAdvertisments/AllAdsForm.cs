@@ -35,6 +35,8 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             this.rerenderPermittedButtons(this.user?.RoleId);
 
             this.advertisments = dbController.getAllAdvertisments();
+
+            (this.dataViewTable.Columns["petPhoto"] as DataGridViewImageColumn).Width = 120;
             rerenderDataGridViewTable();
         }
 
@@ -66,12 +68,18 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
             toView?.ForEach((advertisment) =>
             {
+                var getPhoto = advertisment.Photographies.FirstOrDefault();
+
+                Image img;  try { img = getPhoto == null ? Image.FromFile("../../../withoutPhoto.jpg") : Image.FromFile(getPhoto.Filepath); } catch { img = null; };
+
                 this.dataViewTable.Rows.Add(
                     advertisment.Id,
                     advertisment.CreationDateTime,
-                    null, advertisment.BreedName,
+                    img, advertisment.BreedName,
                     advertisment.PetSex,
-                    this.settlementsList.Find((settl) => settl.Id == advertisment?.SettlementId)?.Name
+                    this.settlementsList.Find((settl) => settl.Id == advertisment?.SettlementId)?.Name,
+                    advertisment.PetName,
+                    advertisment.PetBirthDate
                 );
             });
         }
@@ -214,6 +222,15 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                 default:
                     throw new Exception("Undefined operand");
             }
+        }
+
+        private void dataViewTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var curRowId = this.dataViewTable.CurrentRow?.Cells["id"]?.Value;
+            if (curRowId == null) return;
+
+            PetCardForm petCardForm = new PetCardForm(this.dbController, this.advertisments?.First((ad) => ad.Id == (long)curRowId), this.user);
+            petCardForm.ShowDialog();
         }
     }
 }

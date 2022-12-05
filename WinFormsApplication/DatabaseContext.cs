@@ -64,9 +64,9 @@ public partial class DatabaseContext : DbContext
         modelBuilder.Entity<Photography>(entity =>
         {
             entity.Property(e => e.AdvertismentId).HasColumnName("Advertisment_Id");
-            entity.Property(e => e.IsGeneral)
-                .HasColumnType("BOOLEAN")
-                .HasColumnName("isGeneral");
+            //entity.Property(e => e.IsGeneral)
+            //    .HasColumnType("BOOLEAN")
+            //    .HasColumnName("isGeneral");
 
             entity.HasOne(d => d.Advertisment).WithMany(p => p.Photographies)
                 .HasForeignKey(d => d.AdvertismentId)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AllAdsForm));
             this.toolbarPanel1 = new System.Windows.Forms.Panel();
             this.myPetsButton = new System.Windows.Forms.Button();
@@ -37,17 +38,19 @@
             this.filterButton = new System.Windows.Forms.Button();
             this.panelСontent2 = new System.Windows.Forms.Panel();
             this.dataViewTable = new System.Windows.Forms.DataGridView();
+            this.panelFooter3 = new System.Windows.Forms.Panel();
+            this.addAdButton = new System.Windows.Forms.Button();
+            this.delAddButton = new System.Windows.Forms.Button();
+            this.chngAdButton = new System.Windows.Forms.Button();
+            this.openAdButton = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.petPhoto = new System.Windows.Forms.DataGridViewImageColumn();
             this.breedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.petSex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.settlementName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelFooter3 = new System.Windows.Forms.Panel();
-            this.addAdButton = new System.Windows.Forms.Button();
-            this.delAddButton = new System.Windows.Forms.Button();
-            this.chngAdButton = new System.Windows.Forms.Button();
-            this.openAdButton = new System.Windows.Forms.Button();
+            this.petName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.petBirthDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolbarPanel1.SuspendLayout();
             this.footerAddonsPanel.SuspendLayout();
             this.panelСontent2.SuspendLayout();
@@ -143,60 +146,20 @@
             this.petPhoto,
             this.breedName,
             this.petSex,
-            this.settlementName});
+            this.settlementName,
+            this.petName,
+            this.petBirthDate});
             this.dataViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataViewTable.Location = new System.Drawing.Point(10, 10);
             this.dataViewTable.Name = "dataViewTable";
             this.dataViewTable.ReadOnly = true;
             this.dataViewTable.RowHeadersVisible = false;
             this.dataViewTable.RowHeadersWidth = 51;
-            this.dataViewTable.RowTemplate.Height = 25;
+            this.dataViewTable.RowTemplate.Height = 50;
             this.dataViewTable.Size = new System.Drawing.Size(690, 265);
             this.dataViewTable.TabIndex = 1;
             this.dataViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataViewTable_CellClick);
-            // 
-            // id
-            // 
-            this.id.Frozen = true;
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // createdAt
-            // 
-            this.createdAt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.createdAt.Frozen = true;
-            this.createdAt.HeaderText = "Дата размещения";
-            this.createdAt.Name = "createdAt";
-            this.createdAt.ReadOnly = true;
-            this.createdAt.Width = 137;
-            // 
-            // petPhoto
-            // 
-            this.petPhoto.HeaderText = "Фотография";
-            this.petPhoto.Name = "petPhoto";
-            this.petPhoto.ReadOnly = true;
-            // 
-            // breedName
-            // 
-            this.breedName.HeaderText = "Кличка";
-            this.breedName.Name = "breedName";
-            this.breedName.ReadOnly = true;
-            this.breedName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.breedName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // petSex
-            // 
-            this.petSex.HeaderText = "Пол";
-            this.petSex.Name = "petSex";
-            this.petSex.ReadOnly = true;
-            // 
-            // settlementName
-            // 
-            this.settlementName.HeaderText = "Населённый пункт";
-            this.settlementName.Name = "settlementName";
-            this.settlementName.ReadOnly = true;
+            this.dataViewTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataViewTable_CellDoubleClick);
             // 
             // panelFooter3
             // 
@@ -250,6 +213,66 @@
             this.openAdButton.UseVisualStyleBackColor = true;
             this.openAdButton.Click += new System.EventHandler(this.openAdButton_Click);
             // 
+            // id
+            // 
+            this.id.Frozen = true;
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // createdAt
+            // 
+            this.createdAt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.createdAt.Frozen = true;
+            this.createdAt.HeaderText = "Дата размещения";
+            this.createdAt.Name = "createdAt";
+            this.createdAt.ReadOnly = true;
+            this.createdAt.Width = 137;
+            // 
+            // petPhoto
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle1.NullValue")));
+            this.petPhoto.DefaultCellStyle = dataGridViewCellStyle1;
+            this.petPhoto.HeaderText = "Фотография";
+            this.petPhoto.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.petPhoto.Name = "petPhoto";
+            this.petPhoto.ReadOnly = true;
+            // 
+            // breedName
+            // 
+            this.breedName.HeaderText = "Кличка";
+            this.breedName.Name = "breedName";
+            this.breedName.ReadOnly = true;
+            this.breedName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.breedName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // petSex
+            // 
+            this.petSex.HeaderText = "Пол";
+            this.petSex.Name = "petSex";
+            this.petSex.ReadOnly = true;
+            // 
+            // settlementName
+            // 
+            this.settlementName.HeaderText = "Населённый пункт";
+            this.settlementName.Name = "settlementName";
+            this.settlementName.ReadOnly = true;
+            // 
+            // petName
+            // 
+            this.petName.HeaderText = "Имя животного";
+            this.petName.Name = "petName";
+            this.petName.ReadOnly = true;
+            // 
+            // petBirthDate
+            // 
+            this.petBirthDate.HeaderText = "Дата рождения";
+            this.petBirthDate.Name = "petBirthDate";
+            this.petBirthDate.ReadOnly = true;
+            // 
             // AllAdsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -292,5 +315,7 @@
         private DataGridViewTextBoxColumn breedName;
         private DataGridViewTextBoxColumn petSex;
         private DataGridViewTextBoxColumn settlementName;
+        private DataGridViewTextBoxColumn petName;
+        private DataGridViewTextBoxColumn petBirthDate;
     }
 }

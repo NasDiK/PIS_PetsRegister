@@ -15,6 +15,6 @@ namespace WinFormsApplication.Utils
         }
 
         internal static bool Confirm (string text, string caption) =>
-            MessageBox.Show(text, caption, MessageBoxButtons.YesNo) == DialogResult.OK;
+            MessageBox.Show(text, caption, MessageBoxButtons.YesNo) == DialogResult.Yes;
     }
 }

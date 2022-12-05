@@ -11,8 +11,9 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         Image? curImage;
 
-        List<Image>? images;
-        string[]? filenamesToUpload;
+        List<(Photography?, Image)>? images;
+        List<string>? filenamesToUpload;
+        List<long> photoIdsToDelete;
 
         Advertisment? advertisment;
         internal AddChangeAdForm(DatabaseController databaseController, User? user, Advertisment? advertisment = null, Pet? animal = null)
@@ -57,8 +58,9 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             }
 
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.photoIdsToDelete = new List<long>();
 
-            openFileDialog.Filter = "Bitmap files (*.bmp)|*.bmp|Image files (*.jpg)|*.jpg|Png files (.png)|*.png|JPEG (*.jpeg)|*.jpeg|All files|*.*";
+            openFileDialog.Filter = "All files|*.*|Bitmap files (*.bmp)|*.bmp|Image files (*.jpg)|*.jpg|Png files (.png)|*.png|JPEG (*.jpeg)|*.jpeg";
         }
 
         private void clearFields()
@@ -174,6 +176,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                     if (guidFileNames != null && guidFileNames?.Count() > 0)
                         dbController.UploadPhotographies(this.advertisment.Id, guidFileNames);
 
+                    photoIdsToDelete.ForEach(id=>this.dbController.DeletePhotography(id));
+
                     this.DialogResult = DialogResult.OK;
                 }
             }
@@ -186,11 +190,11 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         private void previousPhotoButton_Click(object sender, EventArgs e)
         {
-            var index = this.images?.FindIndex((img) => Image.Equals(img, curImage));
+            var index = this.images?.FindIndex((img) => Image.Equals(img.Item2, curImage));
             if (index == null || curImage == null || index == -1) return;
 
-            if (index == 0) curImage = this.images?.Last();
-            else curImage = this.images?[(int)index - 1];
+            if (index == 0) curImage = this.images?.Last().Item2;
+            else curImage = this.images?[(int)index - 1].Item2;
             this.pictureBox1.Image = curImage;
         }
 
@@ -202,7 +206,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             if (this.advertisment == null)
             {
                 //todo var useranimals = db.getUserAnimals(this.user?.Id);
-                var userAnimals = new List<Pet>() { new Pet(), new Pet()}; //todo can be null
+                var userAnimals = new List<Pet>() { new Pet(), new Pet() }; //todo can be null
                 if (userAnimals != null && userAnimals.Count != 0 && Utils.Utils.Confirm("Найдены ваши домашние животные. Хотите подставить?", "Подстановка ДЖ"))
                 {
                     //todo Подставить ДЖ
@@ -215,19 +219,19 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
         {
             try
             {
-                var photographies = dbController.getPhotographiesFilenames(this.advertisment?.Id);
+                var photographies = this.advertisment?.Photographies;
                 this.images = photographies.Select((photo) =>
                 {
 #pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
                     var img = Image.FromFile(photo.Filepath);
 #pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
-                    if (photo?.IsGeneral == true) curImage = img;
-                    return img;
+                    if (photo?.IsGeneral == "true") curImage = img;
+                    return (photo,img);
                 }).ToList();
 
                 if (this.images?.Count != 0)
                 {
-                    curImage ??= images?.FirstOrDefault();
+                    curImage ??= images?.FirstOrDefault().Item2;
                     pictureBox1.Image = curImage;
                 }
 
@@ -235,7 +239,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                MessageBox.Show("Ошибка при загрузке фотографии. " + ex.ToString()); //TODO убрать экспепшн
+                //MessageBox.Show("Ошибка при загрузке фотографии. " + ex.ToString()); 
             }
 
         }
@@ -244,11 +248,10 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.filenamesToUpload = openFileDialog.FileNames;
-                var newList = this.images?.ToList() ?? new List<Image>();
-                newList?.AddRange(this.filenamesToUpload.Select((fn) => Image.FromFile(fn)));
-                this.images = newList?.ToList();
-                curImage = images?.LastOrDefault();
+                this.filenamesToUpload = openFileDialog.FileNames.ToList();
+                this.filenamesToUpload.ForEach((fn) => this.images.Add((new Photography() { Id=-1, Filepath = fn}, Image.FromFile(fn))));
+
+                curImage = images?.LastOrDefault().Item2;
                 this.pictureBox1.Image = curImage;
             };
         }
@@ -277,11 +280,33 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
         private void nextPhotoButton_Click(object sender, EventArgs e)
         {
-            var index = this.images?.FindIndex((img) => Image.Equals(img, curImage));
+            var index = this.images?.FindIndex((img) => Image.Equals(img.Item2, curImage));
             if (index == null || curImage == null || index == -1) return;
 
-            if (index == this.images?.Count - 1) curImage = this.images?.First();
-            else curImage = this.images?[(int)index + 1];
+            if (index == this.images?.Count - 1) curImage = this.images?.First().Item2;
+            else curImage = this.images?[(int)index + 1].Item2;
+            this.pictureBox1.Image = curImage;
+        }
+
+        private void delPhotoBtn_Click(object sender, EventArgs e)
+        {
+            if (curImage == null) return;
+            var curImgIndex = this.images.FindIndex((img) => Image.Equals(img.Item2, curImage));
+
+            var toDelPhoto = this.images.Find((img) => Image.Equals(img.Item2, curImage));
+
+            if (toDelPhoto.Item1.Id == -1) //фото локально в форме, а не в базе
+            {
+                this.filenamesToUpload.Remove(toDelPhoto.Item1.Filepath);
+            }
+            else if(this.advertisment!= null) //фото не только в форме, но и в базе. + это форма изменения (подстраховка)
+            {
+                this.photoIdsToDelete.Add(toDelPhoto.Item1.Id);
+            }
+
+            this.images.Remove(toDelPhoto);
+            curImage = this.images.Count == 0 ? null :
+                curImgIndex == 0 ? this.images.Last().Item2 : this.images[curImgIndex - 1].Item2;
             this.pictureBox1.Image = curImage;
         }
     }

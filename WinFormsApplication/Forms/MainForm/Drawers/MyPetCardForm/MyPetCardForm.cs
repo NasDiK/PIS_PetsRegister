@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm
 {
     public partial class MyPetCardForm : Form
     {
-        public MyPetCardForm()
+        private Pet pet;
+        public MyPetCardForm(Pet pet)
         {
+            this.pet = pet;
             InitializeComponent();
         }
     }

@@ -37,7 +37,8 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void buttonOpen_Click(object sender, EventArgs e)
         {
-            MyPetCardForm myPetCardForm = new MyPetCardForm();
+            // TODO: Убрать null
+            MyPetCardForm myPetCardForm = new MyPetCardForm(null);
             myPetCardForm.ShowDialog();
         }
 

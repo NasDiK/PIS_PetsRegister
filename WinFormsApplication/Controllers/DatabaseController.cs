@@ -2,11 +2,11 @@
 
 namespace WinFormsApplication.Controllers
 {
-    public class DatabaseController
+    internal class DatabaseController
     {
         DatabaseContext db;
 
-        public DatabaseController()
+        internal DatabaseController()
         {
             db = new DatabaseContext();
         }

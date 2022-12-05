@@ -15,7 +15,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm
 {
     public partial class AddChangeMyPetForm : Form
     {
-        public AddChangeMyPetForm(DatabaseController db, Pet? pet = null)
+        internal AddChangeMyPetForm(DatabaseController db, Pet? pet = null)
         {
             InitializeComponent();
         }

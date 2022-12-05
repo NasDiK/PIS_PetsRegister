@@ -38,4 +38,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Forms\MainForm\Drawers\AddChangeMyPetForm\" />
+  </ItemGroup>
+
 </Project>

@@ -9,29 +9,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm;
+using WinFormsApplication.Controllers;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
     public partial class MyPets : Form
     {
+        OwnPetsController ownPetsController;
         public MyPets()
         {
             InitializeComponent();
+
             this.Text = "Мои домашние животные - " + Properties.Resources.applicationCaption;
+
+            ownPetsController = new OwnPetsController();
 
             //todo getUserAnimals(this.user.id);
             //todo resubmitAnimal() // подать объявление с этим животным
-            //updatePet
-            //registerPet
-            //deletePet
 
-            //todo utils.Confirm() - для 8 лабы
 
-            //todo удалить животное deleteOwnPet(id);
-            //todo Confirm->utils
-            //todo Notify() -> utils
-
-            //todo OwnPetCardForm->registerPet(в дб контроллер);
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -44,14 +40,14 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         private void addButton_Click(object sender, EventArgs e)
         {
             // TODO: Убрать null
-            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(null, null);
+            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm();
             addChangeMyPetForm.ShowDialog();
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             // TODO: Убрать null
-            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(null, null);
+            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(null);
             addChangeMyPetForm.ShowDialog();
         }
     }

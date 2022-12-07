@@ -15,17 +15,22 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.PetCardForm
     public partial class PetCardForm : Form
     {
         Advertisment? advertisment;
-        DatabaseController db;
         User? user;
         Image[]? photographies;
         Image? curImage;
-        internal PetCardForm(DatabaseController databaseController, Advertisment? advertisment, User? user)
+
+        SettlementsController settlementsController;
+        PetCategoriesController petCategoriesController;
+        internal PetCardForm(Advertisment? advertisment, User? user)
         {
             InitializeComponent();
             this.advertisment = advertisment;
-            this.db = databaseController;
             this.user = user;
             this.Text = "Карточка животного - " + Properties.Resources.applicationCaption;
+
+            settlementsController = new SettlementsController();
+            petCategoriesController = new PetCategoriesController();
+
             this.init();
         }
 
@@ -34,8 +39,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.PetCardForm
             this.createdAtLabel.Text += " " + this.advertisment?.CreationDateTime;
             this.petNameLabel.Text += " " + this.advertisment?.PetName;
             this.petSexLabel.Text += " " + this.advertisment?.PetSex;
-            this.settlementLabel.Text += " " + db.getSettlementById(Convert.ToInt64(this.advertisment?.SettlementId))?.Name;
-            this.categoryLabel.Text += " " + db.getPetCategoryById(Convert.ToInt64(this.advertisment?.PetCategoryId))?.Name;
+            this.settlementLabel.Text += " " + settlementsController.getSettlementById(Convert.ToInt64(this.advertisment?.SettlementId))?.Name;
+            this.categoryLabel.Text += " " + petCategoriesController.getPetCategoryById(Convert.ToInt64(this.advertisment?.PetCategoryId))?.Name;
             this.additionalInformationLabel.Text += " " + this.advertisment?.AdditionalInformation;
             this.breedName.Text += " " + this.advertisment?.BreedName;
             this.passportNumberLabel.Text += " " + this.advertisment?.PetPassportNumber;

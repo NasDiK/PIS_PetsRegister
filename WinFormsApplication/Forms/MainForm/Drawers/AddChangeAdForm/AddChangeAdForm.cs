@@ -6,9 +6,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 {
     public partial class AddChangeAdForm : Form
     {
-        DatabaseController dbController;
         User? user;
-
         Image? curImage;
 
         List<(Photography?, Image)>? images;
@@ -16,24 +14,33 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
         List<long> photoIdsToDelete;
 
         Advertisment? advertisment;
-        internal AddChangeAdForm(DatabaseController databaseController, User? user, Advertisment? advertisment = null, Pet? animal = null)
+
+        PetCategoriesController petCategoriesController;
+        SettlementsController settlementsController;
+        AdvertismentsController advertismentsController;
+        PhotographiesController photographiesController;
+        internal AddChangeAdForm(User? user, Advertisment? advertisment = null, Pet? animal = null)
         {
             InitializeComponent();
             this.advertisment = advertisment;
-            this.dbController = databaseController;
             this.user = user;
+
+            petCategoriesController = new PetCategoriesController();
+            settlementsController = new SettlementsController();
+            advertismentsController = new AdvertismentsController();
+            photographiesController = new PhotographiesController();
 
             this.init();
         }
 
         private void init()
         {
-            var petCategories = dbController.getAllPetCategories();
+            var petCategories = petCategoriesController.getAllPetCategories();
             this.petCategoryComboBox.DisplayMember = "Name";
             this.petCategoryComboBox.ValueMember = "Id";
             this.petCategoryComboBox.DataSource = petCategories;
 
-            var settlements = dbController.getAllSettlements();
+            var settlements = settlementsController.GetSettlementsList();
             this.settlementCombobox.DisplayMember = "Name";
             this.settlementCombobox.ValueMember = "Id";
             this.settlementCombobox.DataSource = settlements;
@@ -116,7 +123,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             {
                 if (this.advertisment == null)
                 {
-                    var createdAdvertisment = this.dbController.createAdvertisment(new Advertisment()
+                    var createdAdvertisment = advertismentsController.createAdvertisment(new Advertisment()
                     {
                         PetCategoryId = (long)this.petCategoryComboBox.SelectedValue,
                         PetName = this.petNameTextBox.Text,
@@ -142,14 +149,14 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
                     if (guidFileNames != null && guidFileNames?.Count() > 0)
 #pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
-                        dbController.UploadPhotographies(createdAdvertisment.Id, guidFileNames);
+                        photographiesController.UploadPhotographies(createdAdvertisment.Id, guidFileNames);
 #pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
 
                     this.DialogResult = DialogResult.OK;
                 }
                 else
                 {
-                    var updateAdvertisment = this.dbController.UpdateAdvertisment(new Advertisment()
+                    var updateAdvertisment = advertismentsController.UpdateAdvertisment(new Advertisment()
                     {
                         Id = this.advertisment.Id,
                         PetCategoryId = (long)this.petCategoryComboBox.SelectedValue,
@@ -174,9 +181,9 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                     });
 
                     if (guidFileNames != null && guidFileNames?.Count() > 0)
-                        dbController.UploadPhotographies(this.advertisment.Id, guidFileNames);
+                        photographiesController.UploadPhotographies(this.advertisment.Id, guidFileNames);
 
-                    photoIdsToDelete.ForEach(id=>this.dbController.DeletePhotography(id));
+                    photoIdsToDelete.ForEach(id=>photographiesController.DeletePhotography(id));
 
                     this.DialogResult = DialogResult.OK;
                 }

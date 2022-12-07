@@ -13,11 +13,14 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm
 {
     public partial class MyPetCardForm : Form
     {
-        private Pet pet;
+        Pet pet;
         public MyPetCardForm(Pet pet)
         {
             this.pet = pet;
+
             InitializeComponent();
+
+            this.Text = "Карточка моего домашнего животного - " + Properties.Resources.applicationCaption;
         }
     }
 }

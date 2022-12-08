@@ -21,7 +21,7 @@ namespace WinFormsApplication.Controllers
 
         internal bool UpdateAdvertisment(Advertisment advertisment)
         {
-            var advert = this.getAdvertismentById(advertisment.Id);
+            var advert = DatabaseService.getAdvertismentById(advertisment.Id);
 
             if (advert == null)
                 throw new Exception("advert is null");
@@ -55,7 +55,7 @@ namespace WinFormsApplication.Controllers
         {
             try
             {
-                var advert = this.getAdvertismentById(advertismentId);
+                var advert = DatabaseService.getAdvertismentById(advertismentId);
 
                 if (advert == null)
                     throw new Exception("advert was null");

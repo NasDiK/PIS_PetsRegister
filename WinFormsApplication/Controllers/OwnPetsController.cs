@@ -30,7 +30,7 @@ namespace WinFormsApplication.Controllers
             //можно присосать валидаторы
             try
             {
-                var pet = this.getPetById(animal.Id);
+                var pet = DatabaseService.getPetById(animal.Id);
 
                 if (pet == null)
                     throw new Exception("pet was null");
@@ -56,7 +56,7 @@ namespace WinFormsApplication.Controllers
         {
             try
             {
-                var pet = this.getPetById(animalId);
+                var pet = DatabaseService.getPetById(animalId);
 
                 if (pet == null)
                     throw new Exception("delete pet was null");

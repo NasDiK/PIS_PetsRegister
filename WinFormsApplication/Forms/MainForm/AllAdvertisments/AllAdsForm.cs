@@ -1,4 +1,5 @@
 ﻿using WinFormsApplication.Controllers;
+using WinFormsApplication.Enums;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
 using WinFormsApplication.Forms.MainForm.Drawers.NewUserForm;
 using WinFormsApplication.Forms.MainForm.Drawers.PetCardForm;
@@ -17,7 +18,6 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         internal Models.Classes.Filter filter;
         private User? user;
 
-        RolesController rolesController;
         SettlementsController settlementsController;
         AdvertismentsController advertismentsController;
         internal PetCategoriesController petCategoriesController;
@@ -29,14 +29,12 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             this.user = user;
             this.authForm = authForm;
 
-            rolesController = new RolesController();
             settlementsController = new SettlementsController();
             advertismentsController = new AdvertismentsController();
             petCategoriesController = new PetCategoriesController();
 
             this.filter = new Models.Classes.Filter();
             this.filterForm = new Filter(this);
-            this.rolesList = rolesController.getAllRoles();
             this.settlementsList = settlementsController.GetSettlementsList();
 
 
@@ -97,7 +95,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             var dialogResult = MessageBox.Show("Вы не авторизованы. Хотите зарегистрироваться?", "Ошибка", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                NewUserForm newUser = new NewUserForm(rolesList.First((role) => role.Name == "owner").Id);
+                NewUserForm newUser = new NewUserForm();
                 var result = newUser.ShowDialog();
                 if (result != DialogResult.Continue) return false;
                 this.user = newUser.user;
@@ -109,8 +107,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void rerenderPermittedButtons(long? roleId)
         {
-            var role = this.rolesList?.Find((role) => role.Id == roleId);
-            switch (role?.Name)
+            switch (roleId)
             {
                 case null:
                     this.displayMyCheckbox.Enabled = false;
@@ -118,10 +115,10 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                     this.chngAdButton.Enabled = false;
                     this.delAddButton.Enabled = false;
                     break;
-                case "owner":
+                case (long)Roles.OWNER:
                     this.myPetsButton.Enabled = true;
                     break;
-                case "admin":
+                case (long)Roles.ADMIN:
                     this.myPetsButton.Enabled = false;
                     break;
             }

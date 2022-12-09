@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinFormsApplication.Controllers;
+using WinFormsApplication.Enums;
 using WinFormsApplication.Models.Entities;
 using WinFormsApplication.Utils;
 using Validator = WinFormsApplication.Utils.Validator;
@@ -19,14 +20,13 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.NewUserForm
     {
         public User? user;
         AuthController authController;
-        long roleId;
-        internal NewUserForm(long roleId)
+
+        internal NewUserForm()
         {
             InitializeComponent();
             this.Text = "Новый пользователь - " + Properties.Resources.applicationCaption;
             this.checkBox1.Checked = true;
             this.authController = new AuthController();
-            this.roleId = roleId;
         }
 
         private bool validateFields()
@@ -63,7 +63,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.NewUserForm
                 this.passwordTextbox.Text,
                 formatedPhone,
                 this.fullnameTextbox.Text,
-                this.roleId
+                Roles.OWNER
             );
 
             if (newUser == null)

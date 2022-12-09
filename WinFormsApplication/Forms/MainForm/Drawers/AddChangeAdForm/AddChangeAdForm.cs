@@ -10,6 +10,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
         Image? curImage;
         Pet? pet;
 
+        int? generalIndex;
+
         List<(Photography?, Image)>? images;
         List<string>? filenamesToUpload;
         List<long> photoIdsToDelete;
@@ -245,12 +247,16 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             try
             {
                 var photographies = this.advertisment?.Photographies;
-                this.images = photographies.Select((photo) =>
+                this.images = photographies?.Select((photo, index) =>
                 {
 #pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
                     var img = Image.FromFile(photo.Filepath);
 #pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
-                    if (photo?.IsGeneral == "true") curImage = img;
+                    if (photo?.IsGeneral == "true")
+                    {
+                        generalIndex = index;
+                        curImage = img;
+                    }
                     return (photo,img);
                 }).ToList();
 
@@ -333,6 +339,11 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             curImage = this.images.Count == 0 ? null :
                 curImgIndex == 0 ? this.images.Last().Item2 : this.images[curImgIndex - 1].Item2;
             this.pictureBox1.Image = curImage;
+        }
+
+        private void isGeneralBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

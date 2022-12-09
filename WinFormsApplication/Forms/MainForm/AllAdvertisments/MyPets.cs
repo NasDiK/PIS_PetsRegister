@@ -18,6 +18,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
     {
         OwnPetsController ownPetsController;
         User? user;
+        List<Pet> pets;
         public MyPets(User user)
         {
             InitializeComponent();
@@ -26,11 +27,30 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
             ownPetsController = new OwnPetsController();
             this.user = user;
-
+            
+            rerenderDataGridViewTable();
             //todo getUserAnimals(this.user.id);
             //todo resubmitAnimal() // подать объявление с этим животным
 
 
+        }
+
+        internal void rerenderDataGridViewTable()
+        {
+            this.pets = ownPetsController.getUserAnimals(user.Id).ToList();
+            this.dataViewTable.Rows.Clear();
+            foreach (var pet in pets)
+            {
+                dataViewTable.Rows.Add(
+                    pet.Id,
+                    pet.PetName,
+                    pet.PetBirthDate,
+                    pet.RegisterDate,
+                    pet.PetPassportNumber,
+                    pet.BreedName,
+                    pet.PetSex
+                    );
+            }
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -52,6 +72,14 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             // TODO: Убрать null
             AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(null);
             addChangeMyPetForm.ShowDialog();
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            var petId = int.Parse(dataViewTable.CurrentRow.Cells[0].Value.ToString());
+            Console.WriteLine(petId);
+            ownPetsController.deletePet(petId);
+            rerenderDataGridViewTable();
         }
     }
 }

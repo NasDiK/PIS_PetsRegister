@@ -110,6 +110,7 @@
             this.deleteButton.TabIndex = 1;
             this.deleteButton.Text = "Удалить";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // addButton
             // 

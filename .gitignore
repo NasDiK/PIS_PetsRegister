@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /WinFormsApplication/Services/Database/database.db
+/WinFormsApplication/Services/Database/database.db-shm
+/WinFormsApplication/Services/Database/database.db-wal

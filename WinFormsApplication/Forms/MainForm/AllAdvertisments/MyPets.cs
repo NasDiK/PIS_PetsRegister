@@ -12,6 +12,7 @@ using WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm;
 using WinFormsApplication.Controllers;
 using WinFormsApplication.Models.Entities;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
+using Xceed.Words.NET;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
@@ -94,6 +95,25 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             Pet currentPet = ownPetsController.getPetById(petId);
             AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user, null, currentPet);
             addChangeAdForm.ShowDialog();
+        }
+
+        private void buttonExportDocx_Click(object sender, EventArgs e)
+        {
+            var petId = int.Parse(dataViewTable.CurrentRow.Cells["id"].Value.ToString());
+            Pet currentPet = ownPetsController.getPetById(petId);
+
+            string filePath = @$"{Directory.GetCurrentDirectory()}\animal_{petId.ToString()}";
+            var doc = DocX.Create(filePath);
+            
+            doc.InsertParagraph($"Карточка животного №{currentPet.Id}");
+            doc.InsertParagraph($"Кличка: {currentPet.PetName}");
+            doc.InsertParagraph($"Дата рождения: {currentPet.PetBirthDate}");
+            doc.InsertParagraph($"Дата регистрации: {currentPet.RegisterDate}");
+            doc.InsertParagraph($"Номер паспорта: {currentPet.PetPassportNumber}");
+            doc.InsertParagraph($"Порода: {currentPet.BreedName}");
+            doc.InsertParagraph($"Пол: {currentPet.PetSex}");
+
+            doc.Save();
         }
     }
 }

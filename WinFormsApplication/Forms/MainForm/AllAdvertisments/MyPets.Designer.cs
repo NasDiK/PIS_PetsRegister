@@ -45,6 +45,7 @@
             this.BreedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PetSex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.buttonExportDocx = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataViewTable)).BeginInit();
@@ -53,6 +54,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonExportDocx);
             this.panel1.Controls.Add(this.buttonSubmitAd);
             this.panel1.Controls.Add(this.buttonOpen);
             this.panel1.Controls.Add(this.buttonEdit);
@@ -62,7 +64,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1031, 90);
+            this.panel1.Size = new System.Drawing.Size(1278, 90);
             this.panel1.TabIndex = 0;
             // 
             // buttonSubmitAd
@@ -133,7 +135,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 90);
             this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1031, 527);
+            this.panel2.Size = new System.Drawing.Size(1278, 527);
             this.panel2.TabIndex = 1;
             // 
             // dataViewTable
@@ -158,7 +160,7 @@
             this.dataViewTable.RowHeadersVisible = false;
             this.dataViewTable.RowHeadersWidth = 51;
             this.dataViewTable.RowTemplate.Height = 25;
-            this.dataViewTable.Size = new System.Drawing.Size(1031, 527);
+            this.dataViewTable.Size = new System.Drawing.Size(1278, 527);
             this.dataViewTable.TabIndex = 2;
             // 
             // id
@@ -221,14 +223,26 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(1031, 527);
+            this.dataGridView1.Size = new System.Drawing.Size(1278, 527);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // buttonExportDocx
+            // 
+            this.buttonExportDocx.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonExportDocx.Location = new System.Drawing.Point(1026, 21);
+            this.buttonExportDocx.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonExportDocx.Name = "buttonExportDocx";
+            this.buttonExportDocx.Size = new System.Drawing.Size(239, 60);
+            this.buttonExportDocx.TabIndex = 5;
+            this.buttonExportDocx.Text = "Экспорт животного";
+            this.buttonExportDocx.UseVisualStyleBackColor = true;
+            this.buttonExportDocx.Click += new System.EventHandler(this.buttonExportDocx_Click);
             // 
             // MyPets
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1031, 617);
+            this.ClientSize = new System.Drawing.Size(1278, 617);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -264,5 +278,6 @@
         private DataGridViewTextBoxColumn PetPassportNumber;
         private DataGridViewTextBoxColumn BreedName;
         private DataGridViewTextBoxColumn PetSex;
+        private Button buttonExportDocx;
     }
 }

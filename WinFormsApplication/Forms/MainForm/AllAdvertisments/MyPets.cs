@@ -67,6 +67,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             // TODO: Убрать null
             AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(user, null);
             addChangeMyPetForm.ShowDialog();
+            rerenderDataGridViewTable();
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)

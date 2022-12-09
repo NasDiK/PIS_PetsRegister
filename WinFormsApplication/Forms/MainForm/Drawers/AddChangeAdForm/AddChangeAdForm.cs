@@ -70,6 +70,8 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             this.photoIdsToDelete = new List<long>();
 
             openFileDialog.Filter = "All files|*.*|Bitmap files (*.bmp)|*.bmp|Image files (*.jpg)|*.jpg|Png files (.png)|*.png|JPEG (*.jpeg)|*.jpeg";
+
+            this.images = new List<(Photography?, Image)>();
         }
 
         private void clearFields()

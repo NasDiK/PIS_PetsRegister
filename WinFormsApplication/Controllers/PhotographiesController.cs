@@ -41,6 +41,8 @@ namespace WinFormsApplication.Controllers
                 if (photo == null)
                     throw new Exception("photo was null");
 
+                DatabaseService.DeletePhotography(photo);
+
                 return true;
             }
             catch (Exception ex)

@@ -56,7 +56,9 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         private void buttonOpen_Click(object sender, EventArgs e)
         {
             // TODO: Убрать null
-            MyPetCardForm myPetCardForm = new MyPetCardForm(null);
+            var petId = int.Parse(dataViewTable.CurrentRow.Cells[0].Value.ToString());
+            Pet myPet = ownPetsController.getPetById(petId);
+            MyPetCardForm myPetCardForm = new MyPetCardForm(myPet);
             myPetCardForm.ShowDialog();
         }
 
@@ -77,7 +79,6 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         private void deleteButton_Click(object sender, EventArgs e)
         {
             var petId = int.Parse(dataViewTable.CurrentRow.Cells[0].Value.ToString());
-            Console.WriteLine(petId);
             ownPetsController.deletePet(petId);
             rerenderDataGridViewTable();
         }

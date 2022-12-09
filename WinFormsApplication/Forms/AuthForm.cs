@@ -6,20 +6,18 @@ namespace WinFormsApplication
 {
     public partial class AuthForm : Form
     {
-        DatabaseController dbController;
         AuthController authController;
         public AuthForm()
         {
             InitializeComponent();
             this.Text += " - "+Properties.Resources.applicationCaption;
             this.passwordMaskCheckbox.Checked = true;
-            dbController = new DatabaseController();
-            this.authController = new AuthController(dbController);
+            this.authController = new AuthController();
         }
 
         private void guestButton_Click(object sender, EventArgs e)
         {
-            AllAdsForm allAdsForm = new AllAdsForm(dbController, this);
+            AllAdsForm allAdsForm = new AllAdsForm(this);
             allAdsForm.Show();
             this.Hide();
         }
@@ -41,7 +39,7 @@ namespace WinFormsApplication
             var user = authController.AuthUser(loginTextBox.Text, passwordTextBox.Text);
             if (user != null)
             {
-                AllAdsForm allAdsForm = new AllAdsForm(dbController, this, user);
+                AllAdsForm allAdsForm = new AllAdsForm(this, user);
                 allAdsForm.Show();
                 this.Hide();
                 return;

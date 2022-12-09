@@ -16,25 +16,35 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         private Filter filterForm;
         internal Models.Classes.Filter filter;
         private User? user;
-        internal DatabaseController dbController;
 
-        internal AllAdsForm(DatabaseController databaseController, AuthForm authForm, User? user = null)
+        RolesController rolesController;
+        SettlementsController settlementsController;
+        AdvertismentsController advertismentsController;
+        internal PetCategoriesController petCategoriesController;
+        internal AllAdsForm(AuthForm authForm, User? user = null)
         {
             InitializeComponent();
             this.Text += " - " + Properties.Resources.applicationCaption;
 
             this.user = user;
             this.authForm = authForm;
-            this.dbController = databaseController;
+
+            rolesController = new RolesController();
+            settlementsController = new SettlementsController();
+            advertismentsController = new AdvertismentsController();
+            petCategoriesController = new PetCategoriesController();
 
             this.filter = new Models.Classes.Filter();
             this.filterForm = new Filter(this);
-            this.rolesList = dbController.getAllRoles();
-            this.settlementsList = dbController.getAllSettlements();
+            this.rolesList = rolesController.getAllRoles();
+            this.settlementsList = settlementsController.GetSettlementsList();
+
 
             this.rerenderPermittedButtons(this.user?.RoleId);
 
-            this.advertisments = dbController.getAllAdvertisments();
+            this.advertisments = advertismentsController.getAllAdvertisments();
+
+            (this.dataViewTable.Columns["petPhoto"] as DataGridViewImageColumn).Width = 120;
             rerenderDataGridViewTable();
         }
 
@@ -66,12 +76,18 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
             toView?.ForEach((advertisment) =>
             {
+                var getPhoto = advertisment.Photographies.FirstOrDefault();
+
+                Image img;  try { img = getPhoto == null ? Image.FromFile("../../../withoutPhoto.jpg") : Image.FromFile(getPhoto.Filepath); } catch { img = null; };
+
                 this.dataViewTable.Rows.Add(
                     advertisment.Id,
                     advertisment.CreationDateTime,
-                    null, advertisment.BreedName,
+                    img, advertisment.BreedName,
                     advertisment.PetSex,
-                    this.settlementsList.Find((settl) => settl.Id == advertisment?.SettlementId)?.Name
+                    this.settlementsList.Find((settl) => settl.Id == advertisment?.SettlementId)?.Name,
+                    advertisment.PetName,
+                    advertisment.PetBirthDate
                 );
             });
         }
@@ -81,7 +97,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             var dialogResult = MessageBox.Show("Вы не авторизованы. Хотите зарегистрироваться?", "Ошибка", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                NewUserForm newUser = new NewUserForm(dbController, rolesList.First((role) => role.Name == "owner").Id);
+                NewUserForm newUser = new NewUserForm(rolesList.First((role) => role.Name == "owner").Id);
                 var result = newUser.ShowDialog();
                 if (result != DialogResult.Continue) return false;
                 this.user = newUser.user;
@@ -121,7 +137,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             var curRowId = this.dataViewTable.CurrentRow?.Cells["id"]?.Value;
             if (curRowId == null) return;
 
-            PetCardForm petCardForm = new PetCardForm(this.dbController, this.advertisments?.First((ad)=>ad.Id == (long)curRowId), this.user); 
+            PetCardForm petCardForm = new PetCardForm(this.advertisments?.First((ad)=>ad.Id == (long)curRowId), this.user); 
             petCardForm.ShowDialog();
         }
 
@@ -136,10 +152,10 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             if (this.user == null && !this.HandleUnauthorisedUsers())
                 return;
 
-            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(dbController, user);
+            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user);
             if (addChangeAdForm.ShowDialog() == DialogResult.OK)
             {
-                this.advertisments = this.dbController.getAllAdvertisments();
+                this.advertisments = advertismentsController.getAllAdvertisments();
                 this.rerenderDataGridViewTable();
             }
         }
@@ -149,10 +165,10 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             var curRowId = this.dataViewTable.CurrentRow?.Cells["id"]?.Value;
             if (curRowId == null) return;
 
-            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(dbController, user, this.advertisments?.Find((ad)=>ad.Id == (long)curRowId));
+            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user, this.advertisments?.Find((ad)=>ad.Id == (long)curRowId));
             if(addChangeAdForm.ShowDialog() == DialogResult.OK)
             {
-                this.advertisments = this.dbController.getAllAdvertisments();
+                this.advertisments = advertismentsController.getAllAdvertisments();
                 this.rerenderDataGridViewTable();
             }
         }
@@ -186,7 +202,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void refreshTableButton_Click(object sender, EventArgs e)
         {
-            this.advertisments = this.dbController.getAllAdvertisments();
+            this.advertisments = advertismentsController.getAllAdvertisments();
             this.rerenderDataGridViewTable();
         }
 
@@ -214,6 +230,15 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                 default:
                     throw new Exception("Undefined operand");
             }
+        }
+
+        private void dataViewTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var curRowId = this.dataViewTable.CurrentRow?.Cells["id"]?.Value;
+            if (curRowId == null) return;
+
+            PetCardForm petCardForm = new PetCardForm(this.advertisments?.First((ad) => ad.Id == (long)curRowId), this.user);
+            petCardForm.ShowDialog();
         }
     }
 }

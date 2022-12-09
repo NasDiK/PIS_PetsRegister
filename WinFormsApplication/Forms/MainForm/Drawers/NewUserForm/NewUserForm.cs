@@ -20,12 +20,12 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.NewUserForm
         public User? user;
         AuthController authController;
         long roleId;
-        internal NewUserForm(DatabaseController databaseController, long roleId)
+        internal NewUserForm(long roleId)
         {
             InitializeComponent();
             this.Text = "Новый пользователь - " + Properties.Resources.applicationCaption;
             this.checkBox1.Checked = true;
-            this.authController = new AuthController(databaseController);
+            this.authController = new AuthController();
             this.roleId = roleId;
         }
 

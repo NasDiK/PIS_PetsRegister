@@ -18,7 +18,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void init()
         {
-            petCategories = this.adsForm.dbController.getAllPetCategories();
+            petCategories = this.adsForm.petCategoriesController.getAllPetCategories();
             this.petCategoryFilterComboBox.DataSource = petCategories;
             this.petCategoryFilterComboBox.ValueMember = "Id";
             this.petCategoryFilterComboBox.DisplayMember = "Name";

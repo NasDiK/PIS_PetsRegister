@@ -54,6 +54,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.additionalInformationTextBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.delPhotoBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -185,7 +186,7 @@
             // 
             // uploadPhotoButton
             // 
-            this.uploadPhotoButton.Location = new System.Drawing.Point(704, 281);
+            this.uploadPhotoButton.Location = new System.Drawing.Point(704, 266);
             this.uploadPhotoButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.uploadPhotoButton.Name = "uploadPhotoButton";
             this.uploadPhotoButton.Size = new System.Drawing.Size(21, 22);
@@ -283,11 +284,23 @@
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;
             // 
+            // delPhotoBtn
+            // 
+            this.delPhotoBtn.Location = new System.Drawing.Point(704, 292);
+            this.delPhotoBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.delPhotoBtn.Name = "delPhotoBtn";
+            this.delPhotoBtn.Size = new System.Drawing.Size(21, 22);
+            this.delPhotoBtn.TabIndex = 29;
+            this.delPhotoBtn.Text = "-";
+            this.delPhotoBtn.UseVisualStyleBackColor = true;
+            this.delPhotoBtn.Click += new System.EventHandler(this.delPhotoBtn_Click);
+            // 
             // AddChangeAdForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 325);
+            this.Controls.Add(this.delPhotoBtn);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.additionalInformationTextBox);
             this.Controls.Add(this.label9);
@@ -352,5 +365,6 @@
         private Label label9;
         private TextBox additionalInformationTextBox;
         private PictureBox pictureBox1;
+        private Button delPhotoBtn;
     }
 }

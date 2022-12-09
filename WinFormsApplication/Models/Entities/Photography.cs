@@ -11,7 +11,7 @@ public partial class Photography
 
     public string Filepath { get; set; } = null!;
 
-    public bool? IsGeneral { get; set; }
+    public string? IsGeneral { get; set; }
 
     public virtual Advertisment Advertisment { get; set; } = null!;
 }

@@ -21,6 +21,13 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm
             InitializeComponent();
 
             this.Text = "Карточка моего домашнего животного - " + Properties.Resources.applicationCaption;
+
+            this.petNameLabel.Text += " " + pet.PetName;
+            this.petBirthDateLabel.Text += " " + pet.PetBirthDate;
+            this.registerDateLabel.Text += " " + pet.RegisterDate;
+            this.petPassportNumberLabel.Text += " " + pet.PetPassportNumber;
+            this.breedNameLabel.Text += " " + pet.BreedName;
+            this.petSexLabel.Text += " " + pet.PetSex;
         }
     }
 }

@@ -115,6 +115,7 @@
             this.confirmButton.TabIndex = 55;
             this.confirmButton.Text = "Сохранить";
             this.confirmButton.UseVisualStyleBackColor = true;
+            this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
             // 
             // petSexLabel
             // 

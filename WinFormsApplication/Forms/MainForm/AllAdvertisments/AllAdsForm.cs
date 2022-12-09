@@ -191,7 +191,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             if (this.user == null && !this.HandleUnauthorisedUsers())
                 return;
 
-            MyPets myPets = new MyPets(); //TODO по юзеру цеплять
+            MyPets myPets = new MyPets(user); //TODO по юзеру цеплять
             myPets.ShowDialog();
         }
 

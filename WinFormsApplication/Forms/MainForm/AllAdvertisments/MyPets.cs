@@ -10,19 +10,22 @@ using System.Windows.Forms;
 using WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm;
 using WinFormsApplication.Controllers;
+using WinFormsApplication.Models.Entities;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
     public partial class MyPets : Form
     {
         OwnPetsController ownPetsController;
-        public MyPets()
+        User? user;
+        public MyPets(User user)
         {
             InitializeComponent();
 
             this.Text = "Мои домашние животные - " + Properties.Resources.applicationCaption;
 
             ownPetsController = new OwnPetsController();
+            this.user = user;
 
             //todo getUserAnimals(this.user.id);
             //todo resubmitAnimal() // подать объявление с этим животным
@@ -40,7 +43,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         private void addButton_Click(object sender, EventArgs e)
         {
             // TODO: Убрать null
-            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm();
+            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(user, null);
             addChangeMyPetForm.ShowDialog();
         }
 

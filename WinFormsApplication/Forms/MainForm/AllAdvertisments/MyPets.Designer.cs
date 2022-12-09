@@ -75,6 +75,7 @@
             this.buttonSubmitAd.TabIndex = 4;
             this.buttonSubmitAd.Text = "Подать объявление";
             this.buttonSubmitAd.UseVisualStyleBackColor = true;
+            this.buttonSubmitAd.Click += new System.EventHandler(this.buttonSubmitAd_Click);
             // 
             // buttonOpen
             // 

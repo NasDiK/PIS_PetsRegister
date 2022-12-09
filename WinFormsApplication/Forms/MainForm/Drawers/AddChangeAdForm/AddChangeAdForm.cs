@@ -8,6 +8,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
     {
         User? user;
         Image? curImage;
+        Pet? pet;
 
         List<(Photography?, Image)>? images;
         List<string>? filenamesToUpload;
@@ -24,6 +25,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
             InitializeComponent();
             this.advertisment = advertisment;
             this.user = user;
+            this.pet = animal;
 
             petCategoriesController = new PetCategoriesController();
             settlementsController = new SettlementsController();
@@ -212,12 +214,26 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
 
             if (this.advertisment == null)
             {
-                //todo var useranimals = db.getUserAnimals(this.user?.Id);
-                var userAnimals = new List<Pet>() { new Pet(), new Pet() }; //todo can be null
-                if (userAnimals != null && userAnimals.Count != 0 && Utils.Utils.Confirm("Найдены ваши домашние животные. Хотите подставить?", "Подстановка ДЖ"))
+                if (this.pet != null)
                 {
-                    //todo Подставить ДЖ
+                    this.petNameTextBox.Text = this.pet.PetName;
+                    this.petBirthDateMaskedTextbox.Text = this.pet.PetBirthDate;
+                    this.breedTextBox.Text = this.pet.BreedName;
+                    this.registrationPetDateMaskedTextBox.Text = this.pet.RegisterDate;
+                    this.passportNumberTextBox.Text = this.pet.PetPassportNumber;
+                    this.petSexCombobox.SelectedItem = this.pet.PetSex;
+                } else {
+                    //todo var useranimals = db.getUserAnimals(this.user?.Id);
+                    var userAnimals = new List<Pet>() { new Pet(), new Pet() }; //todo can be null
+                    if (userAnimals != null && userAnimals.Count != 0 && Utils.Utils.Confirm("Найдены ваши домашние животные. Хотите подставить?", "Подстановка ДЖ"))
+                    {
+                        //todo Подставить ДЖ
+                    }
                 }
+
+                
+
+
             }
 
         }

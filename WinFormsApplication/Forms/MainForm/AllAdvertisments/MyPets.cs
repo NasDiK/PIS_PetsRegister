@@ -11,6 +11,7 @@ using WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm;
 using WinFormsApplication.Controllers;
 using WinFormsApplication.Models.Entities;
+using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
@@ -85,6 +86,14 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             var petId = int.Parse(dataViewTable.CurrentRow.Cells[0].Value.ToString());
             ownPetsController.deletePet(petId);
             rerenderDataGridViewTable();
+        }
+
+        private void buttonSubmitAd_Click(object sender, EventArgs e)
+        {
+            var petId = int.Parse(dataViewTable.CurrentRow.Cells[0].Value.ToString());
+            Pet currentPet = ownPetsController.getPetById(petId);
+            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user, null, currentPet);
+            addChangeAdForm.ShowDialog();
         }
     }
 }

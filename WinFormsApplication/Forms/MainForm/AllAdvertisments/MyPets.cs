@@ -13,6 +13,8 @@ using WinFormsApplication.Controllers;
 using WinFormsApplication.Models.Entities;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
 using Xceed.Words.NET;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
@@ -114,6 +116,32 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             doc.InsertParagraph($"Пол: {currentPet.PetSex}");
 
             doc.Save();
+        }
+
+        private void buttonExportTable_Click(object sender, EventArgs e)
+        {
+            XLWorkbook wb = new XLWorkbook();
+
+            //Creating DataTable.
+            DataTable dt = new DataTable();
+            //Adding the Columns.
+            foreach (DataGridViewColumn column in dataViewTable.Columns)
+            {
+                dt.Columns.Add(column.HeaderText);
+            }
+            //Adding the Rows.
+            foreach (DataGridViewRow row in dataViewTable.Rows)
+            {
+                dt.Rows.Add();
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    dt.Rows[dt.Rows.Count - 1][cell.ColumnIndex] = cell.Value.ToString();
+                }
+            }
+
+            wb.Worksheets.Add(dt, "WorksheetName");
+            wb.SaveAs("animals.xlsx");
+
         }
     }
 }

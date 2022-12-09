@@ -66,7 +66,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         private void addButton_Click(object sender, EventArgs e)
         {
             // TODO: Убрать null
-            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(user, null);
+            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(user);
             addChangeMyPetForm.ShowDialog();
             rerenderDataGridViewTable();
         }
@@ -74,7 +74,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             // TODO: Убрать null
-            var petId = int.Parse(dataViewTable.CurrentRow.Cells[0].Value.ToString());
+            var petId = int.Parse(dataViewTable.CurrentRow.Cells["id"].Value.ToString());
             Pet currentPet = ownPetsController.getPetById(petId);
             AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(user, currentPet);
             addChangeMyPetForm.ShowDialog();
@@ -83,14 +83,14 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            var petId = int.Parse(dataViewTable.CurrentRow.Cells[0].Value.ToString());
+            var petId = int.Parse(dataViewTable.CurrentRow.Cells["id"].Value.ToString());
             ownPetsController.deletePet(petId);
             rerenderDataGridViewTable();
         }
 
         private void buttonSubmitAd_Click(object sender, EventArgs e)
         {
-            var petId = int.Parse(dataViewTable.CurrentRow.Cells[0].Value.ToString());
+            var petId = int.Parse(dataViewTable.CurrentRow.Cells["id"].Value.ToString());
             Pet currentPet = ownPetsController.getPetById(petId);
             AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user, null, currentPet);
             addChangeAdForm.ShowDialog();

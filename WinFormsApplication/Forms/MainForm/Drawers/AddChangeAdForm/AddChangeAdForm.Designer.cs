@@ -55,6 +55,7 @@
             this.additionalInformationTextBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.delPhotoBtn = new System.Windows.Forms.Button();
+            this.isGeneralBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -186,7 +187,7 @@
             // 
             // uploadPhotoButton
             // 
-            this.uploadPhotoButton.Location = new System.Drawing.Point(704, 266);
+            this.uploadPhotoButton.Location = new System.Drawing.Point(704, 269);
             this.uploadPhotoButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.uploadPhotoButton.Name = "uploadPhotoButton";
             this.uploadPhotoButton.Size = new System.Drawing.Size(21, 22);
@@ -286,7 +287,7 @@
             // 
             // delPhotoBtn
             // 
-            this.delPhotoBtn.Location = new System.Drawing.Point(704, 292);
+            this.delPhotoBtn.Location = new System.Drawing.Point(704, 295);
             this.delPhotoBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.delPhotoBtn.Name = "delPhotoBtn";
             this.delPhotoBtn.Size = new System.Drawing.Size(21, 22);
@@ -295,11 +296,24 @@
             this.delPhotoBtn.UseVisualStyleBackColor = true;
             this.delPhotoBtn.Click += new System.EventHandler(this.delPhotoBtn_Click);
             // 
+            // isGeneralBtn
+            // 
+            this.isGeneralBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.isGeneralBtn.ForeColor = System.Drawing.Color.Red;
+            this.isGeneralBtn.Location = new System.Drawing.Point(638, 229);
+            this.isGeneralBtn.Name = "isGeneralBtn";
+            this.isGeneralBtn.Size = new System.Drawing.Size(162, 23);
+            this.isGeneralBtn.TabIndex = 30;
+            this.isGeneralBtn.Text = "Сделать основной";
+            this.isGeneralBtn.UseVisualStyleBackColor = false;
+            this.isGeneralBtn.Click += new System.EventHandler(this.isGeneralBtn_Click);
+            // 
             // AddChangeAdForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 325);
+            this.Controls.Add(this.isGeneralBtn);
             this.Controls.Add(this.delPhotoBtn);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.additionalInformationTextBox);
@@ -366,5 +380,6 @@
         private TextBox additionalInformationTextBox;
         private PictureBox pictureBox1;
         private Button delPhotoBtn;
+        private Button isGeneralBtn;
     }
 }

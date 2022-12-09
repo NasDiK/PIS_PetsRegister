@@ -73,8 +73,11 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             // TODO: Убрать null
-            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(null);
+            var petId = int.Parse(dataViewTable.CurrentRow.Cells[0].Value.ToString());
+            Pet currentPet = ownPetsController.getPetById(petId);
+            AddChangeMyPetForm addChangeMyPetForm = new AddChangeMyPetForm(user, currentPet);
             addChangeMyPetForm.ShowDialog();
+            rerenderDataGridViewTable();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)

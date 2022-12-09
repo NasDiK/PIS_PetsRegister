@@ -39,16 +39,32 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm
         private void confirmButton_Click(object sender, EventArgs e)
         {
             OwnPetsController ownPetsController = new OwnPetsController();
-            Pet newPet = new Pet {
-                PetName = this.petNameTextBox.Text,
-                PetBirthDate = this.petBirthDateMaskedTextbox.Text,
-                RegisterDate = this.registrationPetDateMaskedTextBox.Text,
-                PetPassportNumber = this.passportNumberTextBox.Text,
-                BreedName = this.breedTextBox.Text,
-                PetSex = this.petSexCombobox.SelectedItem.ToString(),
-                OwnerId = this.user.Id,
-            };
-            ownPetsController.registerPet(newPet);
+
+            if (this.pet != null)
+            {
+                this.pet.PetName = this.petNameTextBox.Text;
+                this.pet.PetBirthDate = this.petBirthDateMaskedTextbox.Text;
+                this.pet.RegisterDate = this.registrationPetDateMaskedTextBox.Text;
+                this.pet.PetPassportNumber = this.passportNumberTextBox.Text;
+                this.pet.BreedName = this.breedTextBox.Text;
+                this.pet.PetSex = this.petSexCombobox.SelectedItem.ToString();
+                ownPetsController.updatePet(this.pet);
+            } else
+            {
+                Pet newPet = new Pet
+                {
+                    PetName = this.petNameTextBox.Text,
+                    PetBirthDate = this.petBirthDateMaskedTextbox.Text,
+                    RegisterDate = this.registrationPetDateMaskedTextBox.Text,
+                    PetPassportNumber = this.passportNumberTextBox.Text,
+                    BreedName = this.breedTextBox.Text,
+                    PetSex = this.petSexCombobox.SelectedItem.ToString(),
+                    OwnerId = this.user.Id,
+                };
+                ownPetsController.registerPet(newPet);
+            }
+
+            
             this.DialogResult = DialogResult.OK;
         }
     }

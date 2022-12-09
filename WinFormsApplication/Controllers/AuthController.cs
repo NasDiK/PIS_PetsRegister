@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinFormsApplication.Enums;
 using WinFormsApplication.Models.Entities;
 using WinFormsApplication.Services.Database;
 
@@ -19,7 +20,7 @@ namespace WinFormsApplication.Controllers
                 return null;
         }
 
-        internal User? RegisterUser(string username, string password, string phone, string fullname, long roleId)
+        internal User? RegisterUser(string username, string password, string phone, string fullname, Roles role)
         {
             var userByLogin = DatabaseService.getUserByLogin(username);
             var userByPhone = DatabaseService.getUserByLogin(phone);
@@ -32,7 +33,7 @@ namespace WinFormsApplication.Controllers
                     Password = password,
                     Username = username,
                     PhoneNumber = phone,
-                    RoleId = roleId }
+                    RoleId = (long)role }
                 );
         }
     }

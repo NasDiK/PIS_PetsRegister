@@ -11,4 +11,10 @@ namespace WinFormsApplication.Enums
         WORD,
         EXCEL
     }
+
+    internal enum Roles
+    {
+        ADMIN = 1,
+        OWNER = 2
+    }
 }

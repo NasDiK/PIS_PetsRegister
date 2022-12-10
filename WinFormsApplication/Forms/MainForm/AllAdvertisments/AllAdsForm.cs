@@ -149,12 +149,22 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             if (this.user == null && !this.HandleUnauthorisedUsers())
                 return;
 
-            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user);
-            if (addChangeAdForm.ShowDialog() == DialogResult.OK)
+            if (Utils.Utils.Confirm("Найдены ваши домашние животные. Хотите подставить?", "Подстановка ДЖ"))
             {
-                this.advertisments = advertismentsController.getAllAdvertisments();
-                this.rerenderDataGridViewTable();
+                MyPets myPets = new MyPets(user, true);
+                myPets.ShowDialog();
             }
+            else
+            {
+                AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user);
+                if (addChangeAdForm.ShowDialog() == DialogResult.OK)
+                {
+                    this.advertisments = advertismentsController.getAllAdvertisments();
+                    this.rerenderDataGridViewTable();
+                }
+            }
+
+            
         }
 
         private void chngAdButton_Click(object sender, EventArgs e)

@@ -229,7 +229,7 @@ namespace WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm
                 } else {
                     //todo var useranimals = db.getUserAnimals(this.user?.Id);
                     var userAnimals = new List<Pet>() { new Pet(), new Pet() }; //todo can be null
-                    if (userAnimals != null && userAnimals.Count != 0 && Utils.Utils.Confirm("Найдены ваши домашние животные. Хотите подставить?", "Подстановка ДЖ"))
+                    if (userAnimals != null && userAnimals.Count != 0)
                     {
                         //todo Подставить ДЖ
                     }

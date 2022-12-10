@@ -13,7 +13,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
         OwnPetsController ownPetsController;
         User? user;
         List<Pet> pets;
-        public MyPets(User user)
+        public MyPets(User user, bool? isAddingNewad = false)
         {
             InitializeComponent();
 
@@ -26,6 +26,15 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             //todo getUserAnimals(this.user.id);
             //todo resubmitAnimal() // подать объявление с этим животным
 
+            if (isAddingNewad != null && isAddingNewad == true)
+            {
+                this.addButton.Enabled = false;
+                this.deleteButton.Enabled = false;
+                this.buttonEdit.Enabled = false;
+                this.buttonOpen.Enabled = false;
+                this.buttonExportDocx.Enabled = false;
+                this.buttonExportTable.Enabled = false;
+            }
 
         }
 

@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm;
-using WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm;
+﻿using System.Data;
 using WinFormsApplication.Controllers;
-using WinFormsApplication.Models.Entities;
 using WinFormsApplication.Forms.MainForm.Drawers.AddChangeAdForm;
+using WinFormsApplication.Forms.MainForm.Drawers.AddChangeMyPetForm;
+using WinFormsApplication.Forms.MainForm.Drawers.MyPetCardForm;
+using WinFormsApplication.Models.Entities;
 using Xceed.Words.NET;
-using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 {
@@ -31,7 +21,7 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
             ownPetsController = new OwnPetsController();
             this.user = user;
-            
+
             rerenderDataGridViewTable();
             //todo getUserAnimals(this.user.id);
             //todo resubmitAnimal() // подать объявление с этим животным
@@ -104,44 +94,54 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             var petId = int.Parse(dataViewTable.CurrentRow.Cells["id"].Value.ToString());
             Pet currentPet = ownPetsController.getPetById(petId);
 
-            string filePath = @$"{Directory.GetCurrentDirectory()}\animal_{petId.ToString()}";
-            var doc = DocX.Create(filePath);
-            
-            doc.InsertParagraph($"Карточка животного №{currentPet.Id}");
-            doc.InsertParagraph($"Кличка: {currentPet.PetName}");
-            doc.InsertParagraph($"Дата рождения: {currentPet.PetBirthDate}");
-            doc.InsertParagraph($"Дата регистрации: {currentPet.RegisterDate}");
-            doc.InsertParagraph($"Номер паспорта: {currentPet.PetPassportNumber}");
-            doc.InsertParagraph($"Порода: {currentPet.BreedName}");
-            doc.InsertParagraph($"Пол: {currentPet.PetSex}");
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "docx | *.docx"; saveFileDialog.FileName = "reportAnimal";
+            var filePath = saveFileDialog.ShowDialog() == DialogResult.OK ? saveFileDialog.FileName : null;
 
-            doc.Save();
+            if (filePath != null && currentPet != null)
+            {
+                var doc = DocX.Create(filePath);
+
+                doc.InsertParagraph($"Карточка животного №{currentPet.Id}");
+                doc.InsertParagraph($"Кличка: {currentPet.PetName}");
+                doc.InsertParagraph($"Дата рождения: {currentPet.PetBirthDate}");
+                doc.InsertParagraph($"Дата регистрации: {currentPet.RegisterDate}");
+                doc.InsertParagraph($"Номер паспорта: {currentPet.PetPassportNumber}");
+                doc.InsertParagraph($"Порода: {currentPet.BreedName}");
+                doc.InsertParagraph($"Пол: {currentPet.PetSex}");
+
+                ExportFileController.ExportFile(filePath, Enums.FileType.WORD, doc);
+            }
         }
 
         private void buttonExportTable_Click(object sender, EventArgs e)
         {
-            XLWorkbook wb = new XLWorkbook();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "excel | *.xlsx"; saveFileDialog.FileName = "AnimalsTable";
+            var filePath = saveFileDialog.ShowDialog() == DialogResult.OK ? saveFileDialog.FileName : null;
 
-            //Creating DataTable.
-            DataTable dt = new DataTable();
-            //Adding the Columns.
-            foreach (DataGridViewColumn column in dataViewTable.Columns)
+            if (filePath != null)
             {
-                dt.Columns.Add(column.HeaderText);
-            }
-            //Adding the Rows.
-            foreach (DataGridViewRow row in dataViewTable.Rows)
-            {
-                dt.Rows.Add();
-                foreach (DataGridViewCell cell in row.Cells)
+
+                //Creating DataTable.
+                DataTable dt = new DataTable();
+                //Adding the Columns.
+                foreach (DataGridViewColumn column in dataViewTable.Columns)
                 {
-                    dt.Rows[dt.Rows.Count - 1][cell.ColumnIndex] = cell.Value.ToString();
+                    dt.Columns.Add(column.HeaderText);
                 }
+                //Adding the Rows.
+                foreach (DataGridViewRow row in dataViewTable.Rows)
+                {
+                    dt.Rows.Add();
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        dt.Rows[dt.Rows.Count - 1][cell.ColumnIndex] = cell.Value.ToString();
+                    }
+                }
+
+                ExportFileController.ExportFile(filePath, Enums.FileType.EXCEL, dt);
             }
-
-            wb.Worksheets.Add(dt, "WorksheetName");
-            wb.SaveAs("animals.xlsx");
-
         }
     }
 }

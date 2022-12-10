@@ -149,10 +149,23 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             if (this.user == null && !this.HandleUnauthorisedUsers())
                 return;
 
-            if (Utils.Utils.Confirm("Найдены ваши домашние животные. Хотите подставить?", "Подстановка ДЖ"))
+            OwnPetsController ownPetsController = new OwnPetsController();
+            if ( ownPetsController.getUserAnimals(user.Id).Count() > 0)
             {
-                MyPets myPets = new MyPets(user, true);
-                myPets.ShowDialog();
+                if (Utils.Utils.Confirm("Найдены ваши домашние животные. Хотите подставить?", "Подстановка ДЖ"))
+                {
+                    MyPets myPets = new MyPets(user, true);
+                    myPets.ShowDialog();
+                }
+                else
+                {
+                    AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user);
+                    if (addChangeAdForm.ShowDialog() == DialogResult.OK)
+                    {
+                        this.advertisments = advertismentsController.getAllAdvertisments();
+                        this.rerenderDataGridViewTable();
+                    }
+                }
             }
             else
             {
@@ -163,6 +176,8 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
                     this.rerenderDataGridViewTable();
                 }
             }
+
+            
 
             
         }

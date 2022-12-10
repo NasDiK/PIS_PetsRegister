@@ -92,10 +92,13 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
         private void buttonSubmitAd_Click(object sender, EventArgs e)
         {
-            var petId = int.Parse(dataViewTable.CurrentRow.Cells["id"].Value.ToString());
-            Pet currentPet = ownPetsController.getPetById(petId);
-            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user, null, currentPet);
-            addChangeAdForm.ShowDialog();
+            if (dataViewTable.Rows.Count > 0)
+            {
+                var petId = int.Parse(dataViewTable.CurrentRow.Cells["id"].Value.ToString());
+                Pet currentPet = ownPetsController.getPetById(petId);
+                AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user, null, currentPet);
+                addChangeAdForm.ShowDialog();
+            }
         }
 
         private void buttonExportDocx_Click(object sender, EventArgs e)

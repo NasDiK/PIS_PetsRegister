@@ -21,13 +21,13 @@ namespace WinFormsApplication.Controllers
 
         internal bool UpdateAdvertisment(Advertisment advertisment)
         {
+            try
+            {
             var advert = DatabaseService.getAdvertismentById(advertisment.Id);
 
             if (advert == null)
                 throw new Exception("advert is null");
 
-            try
-            {
                 advert.PetCategoryId = advertisment.PetCategoryId;
                 advert.PetName = advertisment.PetName;
                 advert.PetBirthDate = advertisment.PetBirthDate;

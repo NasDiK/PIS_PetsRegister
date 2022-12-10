@@ -149,12 +149,37 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             if (this.user == null && !this.HandleUnauthorisedUsers())
                 return;
 
-            AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user);
-            if (addChangeAdForm.ShowDialog() == DialogResult.OK)
+            OwnPetsController ownPetsController = new OwnPetsController();
+            if ( ownPetsController.getUserAnimals(user.Id).Count() > 0)
             {
-                this.advertisments = advertismentsController.getAllAdvertisments();
-                this.rerenderDataGridViewTable();
+                if (Utils.Utils.Confirm("Найдены ваши домашние животные. Хотите подставить?", "Подстановка ДЖ"))
+                {
+                    MyPets myPets = new MyPets(user, true);
+                    myPets.ShowDialog();
+                }
+                else
+                {
+                    AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user);
+                    if (addChangeAdForm.ShowDialog() == DialogResult.OK)
+                    {
+                        this.advertisments = advertismentsController.getAllAdvertisments();
+                        this.rerenderDataGridViewTable();
+                    }
+                }
             }
+            else
+            {
+                AddChangeAdForm addChangeAdForm = new AddChangeAdForm(user);
+                if (addChangeAdForm.ShowDialog() == DialogResult.OK)
+                {
+                    this.advertisments = advertismentsController.getAllAdvertisments();
+                    this.rerenderDataGridViewTable();
+                }
+            }
+
+            
+
+            
         }
 
         private void chngAdButton_Click(object sender, EventArgs e)
@@ -236,6 +261,17 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
 
             PetCardForm petCardForm = new PetCardForm(this.advertisments?.First((ad) => ad.Id == (long)curRowId), this.user);
             petCardForm.ShowDialog();
+        }
+
+        private void delAddButton_Click(object sender, EventArgs e)
+        {
+            var curRowId = int.Parse(this.dataViewTable.CurrentRow?.Cells["id"]?.Value.ToString());
+            if (curRowId != null)
+            {
+                advertismentsController.DeleteAdvertisment(curRowId);
+            }
+            this.advertisments = advertismentsController.getAllAdvertisments();
+            this.rerenderDataGridViewTable();
         }
     }
 }

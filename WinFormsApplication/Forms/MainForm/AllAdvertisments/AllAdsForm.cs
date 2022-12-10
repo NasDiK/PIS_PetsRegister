@@ -262,5 +262,16 @@ namespace WinFormsApplication.Forms.MainForm.AllAdvertisments
             PetCardForm petCardForm = new PetCardForm(this.advertisments?.First((ad) => ad.Id == (long)curRowId), this.user);
             petCardForm.ShowDialog();
         }
+
+        private void delAddButton_Click(object sender, EventArgs e)
+        {
+            var curRowId = int.Parse(this.dataViewTable.CurrentRow?.Cells["id"]?.Value.ToString());
+            if (curRowId != null)
+            {
+                advertismentsController.DeleteAdvertisment(curRowId);
+            }
+            this.advertisments = advertismentsController.getAllAdvertisments();
+            this.rerenderDataGridViewTable();
+        }
     }
 }
